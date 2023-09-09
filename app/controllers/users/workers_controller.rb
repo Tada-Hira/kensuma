@@ -218,10 +218,10 @@ module Users
     end
 
     def set_sorted_credentials
-      @sorted_special_educations = SpecialEducation.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
-      @sorted_skill_trainings = SkillTraining.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
-      @sorted_licenses = License.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
-      @sorted_safety_health_educations = SafetyHealthEducation.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
+      @sorted_special_educations = SpecialEducation.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
+      @sorted_skill_trainings = SkillTraining.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
+      @sorted_licenses = License.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
+      @sorted_safety_health_educations = SafetyHealthEducation.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
     end
 
     # 半角カタカナを全角カタカナに変換する
