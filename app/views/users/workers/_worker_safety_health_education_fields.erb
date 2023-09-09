@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <%= f.label :safety_health_education_id %>
-      <%= f.collection_select :safety_health_education_id, SafetyHealthEducation.all, :id, :name, { prompt: '安全衛生教育を選択してください' }, { class: "form-control", id: "safety-health-select" } %><br>
+      <%= f.collection_select :safety_health_education_id, @sorted_safety_health_educations, :id, :name, { prompt: '安全衛生教育を選択してください' }, { class: "form-control" } %><br>
     </div>
     <div class="col-md-4">
       <%= f.label :images %>

@@ -10,6 +10,7 @@ module Users
     end
 
     def new
+      set_sorted_credentials
       if Rails.env.development?
         test_data_new
         worker_add_hyhpen(@worker)
@@ -52,6 +53,7 @@ module Users
       @worker.worker_special_educations.build if @worker.special_educations.blank?
       @worker.worker_safety_health_educations.build if @worker.worker_safety_health_educations.blank?
       worker_add_hyhpen(@worker)
+      set_sorted_credentials
       if @worker.status_of_residence.blank?
         @worker.status_of_residence = :construction_employment
         @worker.confirmed_check = :checked
@@ -216,10 +218,10 @@ module Users
     end
 
     def set_sorted_credentials
-      @sorted_special_educations = SpecialEducation.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
-      @sorted_skill_trainings = SkillTraining.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
-      @sorted_licenses = License.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
-      @sorted_safety_health_educations = SafetyHealthEducation.order(Arel.sql('CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC'))
+      @sorted_special_educations = SpecialEducation.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
+      @sorted_skill_trainings = SkillTraining.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
+      @sorted_licenses = License.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
+      @sorted_safety_health_educations = SafetyHealthEducation.order(Arel.sql("CONVERT(name_kana USING utf8mb4) COLLATE utf8mb4_unicode_ci ASC"))
     end
 
     # 半角カタカナを全角カタカナに変換する
