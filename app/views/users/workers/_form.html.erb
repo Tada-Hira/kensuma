@@ -492,7 +492,7 @@
     <div id="non-resident-foreigner-field">
       <%# 在留期間満期日 %>
       <div><%= f.label :maturity_date %><%= required_label %></div>
-      <%= f.date_field :maturity_date, class: "form-control", placeholder: Worker.human_attribute_name(:maturity_date) %><br>
+      <%= f.date_field :maturity_date, class: "form-control", style: "width: 25%;", placeholder: Worker.human_attribute_name(:maturity_date) %><br>
 
       <%# キャリアアップシステム登録情報が最新であることの確認済 %>
       <div class="mt-3 mb-3">
@@ -508,7 +508,7 @@
       <div id="confirmed_check_date">
         <%= f.label :confirmed_check_date %>
         <span class="p-1 mb-2 rounded bg-danger text-white" id="confirmed_check_date_label">必須</span>
-        <%= f.date_field :confirmed_check_date, class: "form-control", placeholder: Worker.human_attribute_name(:confirmed_check_date) %><br>
+        <%= f.date_field :confirmed_check_date, class: "form-control", style: "width: 25%;", placeholder: Worker.human_attribute_name(:confirmed_check_date) %><br>
       </div>
 
       <%# パスポートの写し %>
