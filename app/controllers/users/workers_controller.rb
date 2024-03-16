@@ -376,9 +376,6 @@ module Users
         # 在留カードの写し追加処理
         converted_params = converted_params.merge('residence_cards' => @worker.residence_cards.push(converted_params[:residence_cards]).flatten) if converted_params[:residence_cards]
 
-        # 在留カードの写し追加処理
-        converted_params = converted_params.merge('residence_cards' => @worker.residence_cards.push(converted_params[:residence_cards]).flatten) if converted_params[:residence_cards]
-
         # 受入企業と外国人建設就労者等との間の雇用条件書の写し追加処理
         converted_params = converted_params.merge('employment_conditions' => @worker.employment_conditions.push(converted_params[:employment_conditions]).flatten) if converted_params[:employment_conditions]
 
