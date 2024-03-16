@@ -198,6 +198,17 @@ module Users
       redirect_to edit_users_worker_url(worker)
     end
 
+    def update_driver_licenses_cards
+      worker = current_business.workers.find_by(uuid: params[:worker_id])
+      remaining_images = worker.driver_licenses_cards
+      deleting_images = remaining_images.delete_at(params[:index].to_i)
+      deleting_images.try(:remove!)
+      worker.assign_attributes(driver_licenses_cards: remaining_images)
+      worker.save(validate: false)
+      flash[:danger] = '証明画像を削除しました'
+      redirect_to edit_users_worker_url(worker)
+    end
+
     private
 
     def set_worker
@@ -367,6 +378,9 @@ module Users
           end
         end
 
+        # 自動車運転免許証の写し追加処理
+        converted_params = converted_params.merge('driver_licenses_cards' => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten) if converted_params[:driver_licenses_cards]
+        
         # 従業員証の写し追加処理
         converted_params = converted_params.merge('employee_cards' => @worker.employee_cards.push(converted_params[:employee_cards]).flatten) if converted_params[:employee_cards]
 
@@ -525,7 +539,7 @@ module Users
     def worker_params
       params.require(:worker).permit(:name, :name_kana,
         :country, :my_address, :my_phone_number, :family_address, :post_code, { career_up_images: [] },
-        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] },
+        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] },{ driver_licenses_cards: [] },
         :rh_blood_type, :job_title, :hiring_on, :experience_term_before_hiring, :driver_licence_number, :business_owner_or_master,
         :blank_term, :career_up_id, :employment_contract, :family_name, :relationship, :email, :sex, :seal,
         :status_of_residence, :maturity_date, :confirmed_check, :confirmed_check_date,

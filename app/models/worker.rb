@@ -90,6 +90,7 @@ class Worker < ApplicationRecord
   mount_uploaders :passports, WorkersUploader
   mount_uploaders :residence_cards, WorkersUploader
   mount_uploaders :employment_conditions, WorkersUploader
+  mount_uploaders :driver_licenses_cards, WorkersUploader
 
   def to_param
     uuid
