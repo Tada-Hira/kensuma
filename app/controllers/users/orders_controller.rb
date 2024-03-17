@@ -49,11 +49,11 @@ module Users
       else
         @order = current_business.orders.new
       end
-        @professional_engineer_qualification_1st = SkillTraining.all.order(:id)
-        @professional_engineer_qualification_2nd = SkillTraining.all.order(:id)
-        @supervising_engineer_qualification = SkillTraining.all.order(:id)
-        @supervising_engineer_assistant_qualification = SkillTraining.all.order(:id)
-      end
+        @professional_engineer_qualification_1st = License.all.order(:id)
+        @professional_engineer_qualification_2nd = License.all.order(:id)
+        @supervising_engineer_qualification = License.all.order(:id)
+        @supervising_engineer_assistant_qualification = License.all.order(:id)
+    end
 
     def create
       @order = current_business.orders.build(order_params_with_converted)
@@ -78,58 +78,58 @@ module Users
     def edit
       # orderの技術者名1から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @order.professional_engineer_name_1st, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能検定マスターの中間テーブル(worker_license)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license_id
       end
       if worker.nil?
-        @professional_engineer_qualification_1st = SkillTraining.all.order(:id)
+        @professional_engineer_qualification_1st = License.all.order(:id)
       else
-        @professional_engineer_qualification_1st = SkillTraining.where("id IN (?)", array)
+        @professional_engineer_qualification_1st = License.where("id IN (?)", array)
       end
 
       # orderの技術者名2から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @order.professional_engineer_name_2nd, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能検定マスターの中間テーブル(worker_license)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license_id
       end
       if worker.nil?
-        @professional_engineer_qualification_2nd = SkillTraining.all.order(:id)
+        @professional_engineer_qualification_2nd = License.all.order(:id)
       else
-        @professional_engineer_qualification_2nd = SkillTraining.where("id IN (?)", array)
+        @professional_engineer_qualification_2nd = License.where("id IN (?)", array)
       end
-      
+
       # orderの監督技術者･主任技術者から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @order.supervising_engineer_name, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能技能検定マスターの中間テーブル(worker_license)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license_id
       end
       if worker.nil?
-        @supervising_engineer_qualification = SkillTraining.all.order(:id)
+        @supervising_engineer_qualification = License.all.order(:id)
       else
-        @supervising_engineer_qualification = SkillTraining.where("id IN (?)", array)
+        @supervising_engineer_qualification = License.where("id IN (?)", array)
       end
-      
+
       # orderの監督技術者補佐から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @order.supervising_engineer_assistant_name, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能検定マスターの中間テーブル(worker_license)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license.id
       end
       if worker.nil?
-        @supervising_engineer_assistant_qualification = SkillTraining.all.order(:id)
+        @supervising_engineer_assistant_qualification = License.all.order(:id)
       else
-        @supervising_engineer_assistant_qualification = SkillTraining.where("id IN (?)", array)
+        @supervising_engineer_assistant_qualification = License.where("id IN (?)", array)
       end
     end
 
@@ -151,34 +151,34 @@ module Users
     def system_chart_status; end
 
     # 専門技術者1
-    def professional_engineer_1st_skill_training_options
+    def professional_engineer_1st_license_options
       professional_engineer_name_1st = params[:professional_engineer_name_1st]
       worker = Worker.find_by(name: professional_engineer_name_1st)
-      options = worker&.skill_trainings
+      options = worker&.licenses
       render json: options
     end
 
     # 専門技術者2
-    def professional_engineer_2nd_skill_training_options
+    def professional_engineer_2nd_license_options
       professional_engineer_name_2nd = params[:professional_engineer_name_2nd]
       worker = Worker.find_by(name: professional_engineer_name_2nd)
-      options = worker&.skill_trainings
+      options = worker&.licenses
       render json: options
     end
 
     # 監督技術者・主任技術者
-    def supervising_engineer_skill_training_options
+    def supervising_engineer_license_options
       supervising_engineer_name = params[:supervising_engineer_name]
       worker = Worker.find_by(name: supervising_engineer_name)
-      options = worker&.skill_trainings
+      options = worker&.licenses
       render json: options
     end
 
     # 監督技術者補佐
-    def supervising_engineer_assistant_skill_training_options
+    def supervising_engineer_assistant_license_options
       supervising_engineer_assistant_name = params[:supervising_engineer_assistant_name]
       worker = Worker.find_by(name: supervising_engineer_assistant_name)
-      options = worker&.skill_trainings
+      options = worker&.licenses
       render json: options
     end
 

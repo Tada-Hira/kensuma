@@ -126,7 +126,7 @@
         </tr>
         <tr>
           <th>&emsp;&emsp;<%= Order.human_attribute_name(:professional_engineer_qualification_1st) %></th> <!-- 専門技術者1(資格内容) -->
-          <td><%= SkillTraining.find(@order.professional_engineer_qualification_1st).name if @order.professional_engineer_qualification_1st.present? %></td>
+          <td><%= License.find(@order.professional_engineer_qualification_1st).name if @order.professional_engineer_qualification_1st.present? %></td>
         </tr>
         <tr>
           <th>&emsp;&emsp;<%= Order.human_attribute_name(:professional_engineer_details_1st) %></th> <!-- 専門技術者1(担当工事内容) -->
@@ -142,7 +142,7 @@
         </tr>
         <tr>
           <th>&emsp;&emsp;<%= Order.human_attribute_name(:professional_engineer_qualification_2nd) %></th> <!-- 専門技術者2(資格内容) -->
-          <td><%= SkillTraining.find(@order.professional_engineer_qualification_2nd).name if @order.professional_engineer_qualification_2nd.present? %></td>
+          <td><%= License.find(@order.professional_engineer_qualification_2nd).name if @order.professional_engineer_qualification_2nd.present? %></td>
         </tr>
         <tr>
           <th>&emsp;&emsp;<%= Order.human_attribute_name(:professional_engineer_details_2nd) %></th> <!-- 専門技術者2(担当工事内容) -->
@@ -162,7 +162,7 @@
         </tr>
         <tr>
           <th>&emsp;&emsp;<%= Order.human_attribute_name(:supervising_engineer_qualification) %></th> <!-- 監督技術者･主任技術者(資格内容) -->
-          <td><%= SkillTraining.find(@order.supervising_engineer_qualification).name if @order.supervising_engineer_qualification.present? %></td>
+          <td><%= License.find(@order.supervising_engineer_qualification).name if @order.supervising_engineer_qualification.present? %></td>
         </tr>
         <tr>
           <th><%= Order.human_attribute_name(:supervising_engineer_assistant) %></th> <!--監督技術者補佐-->
@@ -174,7 +174,7 @@
         </tr>
         <tr>
           <th>&emsp;&emsp;<%= Order.human_attribute_name(:supervising_engineer_assistant_qualification) %></th> <!-- 監督技術者補佐(資格内容) -->
-          <td><%= SkillTraining.find(@order.supervising_engineer_assistant_qualification).name if @order.supervising_engineer_assistant_qualification.present? %></td>
+          <td><%= License.find(@order.supervising_engineer_assistant_qualification).name if @order.supervising_engineer_assistant_qualification.present? %></td>
         </tr>
         <tr>
           <th><%= Order.human_attribute_name(:general_safety_responsible_person_name) %></th> <!--統括安全衛生責任者名-->

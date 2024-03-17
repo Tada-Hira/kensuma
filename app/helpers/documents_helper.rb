@@ -4,7 +4,7 @@ module DocumentsHelper
   def document_date(column)
     l(column, format: :long) unless column.nil?
   end
-  
+
   # document.contentの日付
   def doc_content_date(date)
     if action_name == 'edit'
@@ -34,8 +34,8 @@ module DocumentsHelper
       @subcon
     end
   end
-  
-  
+
+
   # 一次下請の情報 (工事安全衛生計画書用)
   def document_subcon_info_for_10th_11th_19th
     request_order = RequestOrder.find_by(uuid: params[:request_order_uuid])
@@ -131,11 +131,7 @@ module DocumentsHelper
 
   # (5)再下請負通知書（変更届）
   def skill_info(license, model)
-    if license == "registered_core_engineer_qualification"
       License.find_by(id: model&.send(license))&.name
-    else
-      SkillTraining.find_by(id: model&.send(license))&.name
-    end
   end
 
   def child_check(child)
@@ -398,7 +394,7 @@ module DocumentsHelper
     end
   end
 
-  # 作業員の免許情報
+  # 作業員の技能検定情報
   def worker_license(worker)
     licenses = worker&.content&.[]('worker_licenses')
     unless licenses.nil?
