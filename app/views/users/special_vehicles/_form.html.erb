@@ -28,7 +28,7 @@
 <br>
 <%= f.label :year_manufactured %> <!-- 製造年 -->
 <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :year_manufactured, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:year_manufactured) %>
+<%= f.date_field :year_manufactured, style: "width: 25%;", class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:year_manufactured) %>
 <br>
 <%= f.label :control_number %> <!-- 管理番号(整理番号) -->
 <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
@@ -36,22 +36,22 @@
 <br>
 <%= f.label :check_exp_date_year %> <!-- 年次 -->
 <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_year, class: "form-control" %>
+<%= f.date_field :check_exp_date_year, style: "width: 25%;", class: "form-control" %>
 <br>
 <%= f.label :check_exp_date_month %> <!-- 月次 -->
 <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_month, class: "form-control" %>
+<%= f.date_field :check_exp_date_month, style: "width: 25%;", class: "form-control" %>
 <br>
 <%= f.label :check_exp_date_specific %> <!-- 特定 -->
-<%= f.date_field :check_exp_date_specific, class: "form-control" %>
+<%= f.date_field :check_exp_date_specific, style: "width: 25%;", class: "form-control" %>
 <br>
 <%= f.label :check_exp_date_machine %> <!-- 移動式クレーン等の性能検査有効期限 -->
 <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_machine, class: "form-control" %>
+<%= f.date_field :check_exp_date_machine, style: "width: 25%;", class: "form-control" %>
 <br>
 <%= f.label :check_exp_date_car %> <!-- 自動車検査証有効期限 -->
 <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_car, class: "form-control" %>
+<%= f.date_field :check_exp_date_car, style: "width: 25%;", class: "form-control" %>
 <br>
 <%= f.label :in_house_inspections %> <!-- 自社の点検表の写し -->
 <%= f.file_field :in_house_inspections, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control" %>
@@ -144,7 +144,7 @@
 <br>
 
 <%= f.label :exp_date_insurance %> <!-- 有効期限 -->
-<%= f.date_field :exp_date_insurance, class: "form-control" %>
+<%= f.date_field :exp_date_insurance, style: "width: 25%;", class: "form-control" %>
 
 <script>
   $(function(){

@@ -131,18 +131,25 @@
           </div>
         </div>
 
+        <% unless @request_order.parent_id.nil? || @request_order.construction_name.nil? %>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>
+                  <%= link_to "現場情報修正", edit_users_request_order_path, class: "btn btn-sm btn-success", style: "position: relative; top: 10px;" %>
+                </td>
+                <td>
+                  <%= render '/users/documents/shares/show_request_order_link', request_order: @request_order %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+
         <div class="card-body table-responsive p-0" style="display: none;">
           <% unless @request_order.parent_id.nil? || @request_order.construction_name.nil? %>
             <table class="table table-hover text-nowrap">
               <tbody>
-                <tr>
-                  <td>
-                    <%= link_to "現場情報修正", edit_users_request_order_path, class: "btn btn-sm btn-success" %>
-                  </td>
-                  <td>
-                    <%= render '/users/documents/shares/show_request_order_link', request_order: @request_order %>
-                  </td>
-                </tr>
                 <tr>
                   <th><%= RequestOrder.human_attribute_name(:request_order_infomation) %></th> <!--現場情報-->
                   <td></td>

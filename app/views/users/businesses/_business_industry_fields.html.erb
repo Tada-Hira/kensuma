@@ -3,7 +3,7 @@
     <div class="col-md-2">
       <%= f.label :industry_id, "業種" %>
       <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-      <%= f.collection_select :industry_id, Industry.all, :id, :name, { prompt: '業種を選択してください' }, { class: "form-control" } %><br>
+      <%= f.collection_select :industry_id, Industry.where.not(name: 'ガードマン'), :id, :name, { prompt: '業種を選択してください' }, { class: "form-control" } %><br>
     </div>
     <div id="minister-radio" class="col-md-1">
       <%= f.label :construction_license_permission_type_minister_governor, "種類" %>

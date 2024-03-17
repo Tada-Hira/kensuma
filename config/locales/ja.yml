@@ -624,8 +624,8 @@ ja:
         lease: リース
     field_worker:
       sendoff_education: # 送り出し教育受講
-        educated: 受けた
-        not_educated: 受けていない
+        educated: 受講済
+        not_educated: 未受講
     news:
       status:
         draft: 下書き
@@ -686,6 +686,7 @@ ja:
         welfare: 厚生年金
         national: 国民年金
         recipient: 受給者
+        not_applicable: 対象外
       employment_insurance_type:
         insured: 被保険者
         day: 日雇保険

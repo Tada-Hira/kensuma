@@ -11,9 +11,10 @@ class WorkerInsurance < ApplicationRecord
   }, _prefix: true
 
   enum pension_insurance_type: {
-    welfare:   0,
-    national:  1,
-    recipient: 2
+    welfare:        0,
+    national:       1,
+    recipient:      2,
+    not_applicable: 3
   }, _prefix: true
 
   enum employment_insurance_type: {

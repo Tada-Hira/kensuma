@@ -1,13 +1,13 @@
 <% provide(:title, "作業員情報詳細") %>
-<% provide(:worker_info, "【作業員情報】") %>
-<% provide(:worker_emergency_contact_info, "【緊急連絡先】") %>
-<% provide(:worker_health_info, "【健康情報】") %>
+<% provide(:worker_info, "作業員情報") %>
+<% provide(:worker_emergency_contact_info, "緊急連絡先") %>
+<% provide(:worker_health_info, "健康情報") %>
 <% provide(:is_med_exam_info, "健康診断") %>
 <% provide(:worker_health_info_blood_pressure, "血圧") %>
 <% provide(:special_med_exam_info, "特別健康診断") %>
-<% provide(:worker_insurances_info, "【保険情報】") %>
-<% provide(:worker_licenses_info, "【資格情報】") %>
-<% provide(:worker_foreign_construction_workers_info, "【外国人建設就労者情報】") %>
+<% provide(:worker_insurances_info, "保険情報") %>
+<% provide(:worker_licenses_info, "資格情報") %>
+<% provide(:worker_foreign_construction_workers_info, "外国人建設就労者情報") %>
 
 <div class="card">
   <div class="card-body table-responsive p-0">
@@ -577,13 +577,6 @@
           </tr>
         <% end %>
 
-        <%# 認印 %>
-        <tr>
-          <th>&emsp;&emsp;<%= Worker.human_attribute_name(:seal) %></th>
-          <td><%= image_tag(@worker.seal.url) if @worker.seal.present? %></td>
-          <td></td>
-          <td></td>
-        </tr>
         <!-- 資格情報ここまで -->
 
 

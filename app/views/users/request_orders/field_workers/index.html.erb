@@ -26,10 +26,7 @@
             <%= f.collection_select :worker_ids, @worker, :id, :name, { include_hidden: false, include_blank: '選択肢がありません' }, { required: true, multiple: true, class: "multiple-select", style: "width: 100%" } %>
           </div>
           <div>
-            <%= f.submit "作業員追加", class: "btn btn-md btn-primary" %>
-            <% if @field_workers.present? %>
-              <%= link_to "作業員情報編集", edit_workers_users_request_order_field_workers_path(@request_order), class: "btn btn-md btn-success" %>
-            <% end %>
+            <%= f.submit "登録", class: "btn btn-md btn-primary" %>
           </div>
         <% end %>
       </div>
@@ -45,6 +42,7 @@
         <div class="card-body table-responsive p-0">
           <table class="table text-nowrap">
             <% @field_workers.each do |field_worker| %>
+              <%= link_to "作業員情報編集", edit_workers_users_request_order_field_workers_path(@request_order), class: "btn btn-md btn-success btn-space" %>
               <tr align="center">
                 <th><%= FieldWorker.human_attribute_name(:admission_worker_name) %></th>
                 <th><%= FieldWorker.human_attribute_name(:admission_date_start) %></th>

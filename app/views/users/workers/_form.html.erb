@@ -1,13 +1,13 @@
-<% provide(:worker_info, "【作業員情報】") %>
-<% provide(:worker_emergency_contact_info, "【緊急連絡先】") %>
-<% provide(:worker_health_info, "【健康情報】") %>
+<% provide(:worker_info, "作業員情報") %>
+<% provide(:worker_emergency_contact_info, "緊急連絡先") %>
+<% provide(:worker_health_info, "健康情報") %>
 <% provide(:is_med_exam_info, "健康診断") %>
 <% provide(:special_med_exam_info, "特別健康診断") %>
 <% provide(:special_med_exam_id_info, "診断種類") %>
 <% provide(:worker_health_info_blood_pressure, "血圧") %>
-<% provide(:worker_insurances_info, "【保険情報】") %>
-<% provide(:worker_licenses_info, "【資格情報】") %>
-<% provide(:worker_foreign_construction_workers_info, "【外国人建設就労者情報】") %>
+<% provide(:worker_insurances_info, "保険情報") %>
+<% provide(:worker_licenses_info, "資格情報") %>
+<% provide(:worker_foreign_construction_workers_info, "外国人建設就労者情報") %>
 
 <%= render 'shared/error_massages', object: f.object %>
 
@@ -58,7 +58,7 @@
 
     <%# 電話番号 %>
     <%= f.label :my_phone_number %>
-    <%= required_label %>
+    <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
     <%= f.telephone_field :my_phone_number, value: @my_phone_number, class: "form-control", placeholder: annotation_hyphen %><br>
 
     <%# 国籍 %>
@@ -471,14 +471,6 @@
         <% end %>
       </div>
     </div>
-
-    <%# 認印 %>
-    <%= f.label :seal %>
-    <%= f.file_field :seal, accept: 'image/jpg, image/jpeg, image/png', class: "form-control" %>
-    <% if @worker.seal.present? && @worker.id.present? %>
-      <%= image_tag(@worker.seal.url) %>
-      <%= link_to "削除", users_worker_delete_seal_path(@worker), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
-    <% end %>
   </div>
 </div><br>
 

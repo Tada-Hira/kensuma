@@ -26,10 +26,7 @@
             <%= f.collection_select :car_ids, @car, :id, :vehicle_name, { include_hidden: false }, { required: true, multiple: true, class: "multiple-select", style: "width: 100%" } %>
           </div>
           <div>
-            <%= f.submit "現場車両追加", class: "btn btn-md btn-primary" %>
-            <% if @field_cars.present? %>
-              <%= link_to "現場車両情報編集", edit_cars_users_request_order_field_cars_path(@request_order), class: "btn btn-md btn-success" %>
-            <% end %>
+            <%= f.submit "登録", class: "btn btn-md btn-primary" %>
           </div>
         <% end %>
       </div>
@@ -46,6 +43,7 @@
           <table class="table text-nowrap">
             <tbody>
               <% @field_cars.each do |field_car| %>
+                <%= link_to "現場車両情報編集", edit_cars_users_request_order_field_cars_path(@request_order), class: "btn btn-md btn-success btn-space" %>
                 <tr style="border-bottom: 0px #fff;">
                   <td>
                     <%= FieldCar.human_attribute_name(:car_name) %><br>

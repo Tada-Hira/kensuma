@@ -56,7 +56,7 @@ ja:
         career_up_card_copy: 建設キャリアアップシステムカードの写し
         representative_name: 代表者名
         post_code: 郵便番号
-        address: 住所
+        address: 本社住所
         branch_address: 支店 又は 営業所住所
         phone_number: 電話番号
         fax_number: FAX
@@ -255,7 +255,7 @@ ja:
         site_address: 施工場所住所
         # 発注者
         orderer: 発注者
-        order_name: 氏名
+        order_name: 会社名もしくは氏名
         order_post_code: 郵便番号
         hyphen_is_unnecessary: 0123456 -(ハイフン)は不要
         order_address: 住所

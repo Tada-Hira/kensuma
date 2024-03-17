@@ -26,10 +26,7 @@
             <%= f.collection_select :special_vehicle_ids, @special_vehicle, :id, :name, { include_hidden: false }, { required: true, multiple: true, class: "multiple-select", style: "width: 100%" } %>
           </div>
           <div>
-            <%= f.submit "現場特殊車両追加", class: "btn btn-md btn-primary" %>
-            <% if @field_special_vehicles.present? %>
-              <%= link_to "現場特殊車両情報編集", edit_special_vehicles_users_request_order_field_special_vehicles_path(@request_order), class: "btn btn-md btn-success" %>
-            <% end %>
+            <%= f.submit "登録", class: "btn btn-md btn-primary" %>
           </div>
         <% end %>
       </div>
@@ -46,6 +43,7 @@
           <table class="table text-nowrap">
             <tbody>
               <% @field_special_vehicles.each do |field_special_vehicle| %>
+                <%= link_to "現場特殊車両情報編集", edit_special_vehicles_users_request_order_field_special_vehicles_path(@request_order), class: "btn btn-md btn-success btn-space" %>
                 <tr style="border-bottom: 0px #fff;">
                   <td>
                     <%= FieldSpecialVehicle.human_attribute_name(:vehicle_name) %><br>
