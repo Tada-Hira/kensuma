@@ -354,9 +354,9 @@ module Users
       end
 
       if params[:action] == 'update'
-        # 健康保険の写し、キャリアアップシステムの写しの追加/削除
+        # 健康保険の写し、キャリアアップシステム、運転免許証の写しの追加/削除　※運転免許証はworker_insuranceとの関連性特に無いが、同じく関連性無いキャリアアップの写しも下記の過去実装コードに追記されていた為、一時的に同じように追記する形で実装
         insurance_attributes = converted_params[:worker_insurance_attributes]
-        %i[health_insurance_image career_up_images].each do |key|
+        %i[health_insurance_image career_up_images driver_licenses_cards].each do |key|
           case key
           when :health_insurance_image
             # 健康保険の写しの追加/削除
@@ -375,11 +375,18 @@ module Users
             elsif converted_params[:career_up_images]
               converted_params = converted_params.merge(key => @worker.career_up_images.push(converted_params[:career_up_images]).flatten)
             end
+          when :driver_licenses_cards
+            # 運転免許証の写しの追加/削除ーある条件の場合にパラメータを空にする処理
+            if converted_params[:driver_licences].blank?
+              converted_params = converted_params.merge(key => [])
+            elsif converted_params[:driver_licenses_cards]
+              converted_params = converted_params.merge(key => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten)
+            end
           end
         end
 
-        # 自動車運転免許証の写し追加処理
-        converted_params = converted_params.merge('driver_licenses_cards' => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten) if converted_params[:driver_licenses_cards]
+        # # 自動車運転免許証の写し追加処理
+        # converted_params = converted_params.merge('driver_licenses_cards' => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten) if converted_params[:driver_licenses_cards]
         
         # 従業員証の写し追加処理
         converted_params = converted_params.merge('employee_cards' => @worker.employee_cards.push(converted_params[:employee_cards]).flatten) if converted_params[:employee_cards]
