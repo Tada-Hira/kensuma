@@ -167,7 +167,6 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     get '/registered_core_engineer_license_options', to: 'request_orders#registered_core_engineer_license_options'
   end
 
-
   # =================================================================
 
   # manager関連=======================================================
