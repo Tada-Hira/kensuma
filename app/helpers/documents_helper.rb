@@ -1609,13 +1609,13 @@ module DocumentsHelper
     end
   end
 
-  #doc_9
+  #doc_5及びdoc_9
   # 自身の一つ上階層の会社情報&現場情報取得
   def get_myself_and_myparent_site
     request_order = RequestOrder.find_by(uuid: params[:request_order_uuid])
     if request_order.prime_contractor?
-      @parent_request_order = nil
-      @parent_business = nil
+      @parent_request_order = request_order # 元請けの場合は元請け(自分自身)を設定
+      @parent_business = request_order.business # 元請けの場合は元請け(自分自身)のビジネスを設定
     else
       @parent_request_order = request_order.parent
       @parent_business = @parent_request_order.business
