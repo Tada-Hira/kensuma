@@ -42,8 +42,8 @@
         <div class="card-body table-responsive p-0">
           <table class="table text-nowrap">
             <tbody>
+              <%= link_to "現場車両情報編集", edit_cars_users_request_order_field_cars_path(@request_order), class: "btn btn-md btn-success btn-space" %>
               <% @field_cars.each do |field_car| %>
-                <%= link_to "現場車両情報編集", edit_cars_users_request_order_field_cars_path(@request_order), class: "btn btn-md btn-success btn-space" %>
                 <tr style="border-bottom: 0px #fff;">
                   <td>
                     <%= FieldCar.human_attribute_name(:car_name) %><br>
