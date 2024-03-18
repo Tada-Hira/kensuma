@@ -11,6 +11,8 @@ class RequestOrder < ApplicationRecord
   has_many :field_special_vehicles, as: :field_special_vehicleable, dependent: :destroy
   has_many :field_machines, as: :field_machineable, dependent: :destroy
 
+  has_closure_tree
+
   enum status: { requested: 0, submitted: 1, fix_requested: 2, approved: 3 }
   enum professional_construction: { y: 0, n: 1 }
   enum lead_engineer_check: { full_time: 0, non_dedicated: 1 }
@@ -39,8 +41,6 @@ class RequestOrder < ApplicationRecord
   # 　氏名無しで更新させない
   validate :name_is_required_professional_engineer
   validate :name_is_required_registered_core_engineer
-
-  has_closure_tree
 
   before_create -> { self.uuid = SecureRandom.uuid }
 
