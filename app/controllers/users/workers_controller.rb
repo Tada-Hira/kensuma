@@ -384,9 +384,6 @@ module Users
             end
           end
         end
-
-        # # 自動車運転免許証の写し追加処理
-        # converted_params = converted_params.merge('driver_licenses_cards' => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten) if converted_params[:driver_licenses_cards]
         
         # 従業員証の写し追加処理
         converted_params = converted_params.merge('employee_cards' => @worker.employee_cards.push(converted_params[:employee_cards]).flatten) if converted_params[:employee_cards]
