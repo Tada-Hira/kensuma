@@ -78,9 +78,9 @@
         <br>
         <%= f.label :professional_engineer_qualification %> <!-- 資格内容(専門技術者) -->
         <% if @professional_engineer_qualification.blank? %>
-        <%= f.select :professional_engineer_qualification, options_for_select(SkillTraining.all.order(:id).map{ |skill| [skill.name, skill.id] }, selected: @request_order.professional_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id' } %>
+        <%= f.select :professional_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [license.name, license.id] }, selected: @request_order.professional_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id' } %>
         <% else %>
-        <%= f.select :professional_engineer_qualification, options_for_select(@professional_engineer_qualification.map{ |skill| [skill.name, skill.id] }, selected: @request_order.professional_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id' } %>
+        <%= f.select :professional_engineer_qualification, options_for_select(@professional_engineer_qualification.map{ |license| [license.name, license.id] }, selected: @request_order.professional_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id' } %>
         <% end %>
       </div><br>
     </div>
@@ -127,9 +127,9 @@
         <%= f.label :lead_engineer_qualification %> <!-- 資格内容(主任技術者)) -->
         <span class="p-1 mb-2 rounded bg-danger text-white">必須</span><br>
         <% if @lead_engineer_qualification.blank? %>
-        <%= f.select :lead_engineer_qualification, options_for_select(SkillTraining.all.order(:id).map{ |skill| [skill.name, skill.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
+        <%= f.select :lead_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [licence.name, licence.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
         <% else %>
-        <%= f.select :lead_engineer_qualification, options_for_select(@lead_engineer_qualification.map{ |skill| [skill.name, skill.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
+        <%= f.select :lead_engineer_qualification, options_for_select(@lead_engineer_qualification.map{ |licence| [licence.name, licence.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
         <% end %><br>
       </div>
     </div>
@@ -191,9 +191,9 @@
         %><br>
         <%= f.label :registered_core_engineer_qualification %> <!-- 資格内容(登録基幹技能者) -->
         <% if @registered_core_engineer_qualification.blank? %>
-        <%= f.select :registered_core_engineer_qualification, options_for_select(SkillTraining.all.order(:id).map{ |skill| [skill.name, skill.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
+        <%= f.select :registered_core_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [licence.name, licence.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
         <% else %>
-        <%= f.select :registered_core_engineer_qualification, options_for_select(@registered_core_engineer_qualification.map{ |skill| [skill.name, skill.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
+        <%= f.select :registered_core_engineer_qualification, options_for_select(@registered_core_engineer_qualification.map{ |licence| [licence.name, licence.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
         <% end %><br>
       </div>
     </div>
@@ -218,18 +218,18 @@
 <script>
 //資格内容(専門技術者)の取得
   $(function() {
-    // 専門技術者名が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 専門技術者名が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#professional_engineer_name').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
-        url: '/users/professional_engineer_skill_training_options',
+        url: '/users/professional_engineer_license_options',
         data: { professional_engineer_name: assistantName },
         success: function(options) {
           var selectOptionsHtml = '<option value=""></option>';
           for (var i = 0; i < options.length; i++) {
           selectOptionsHtml += '<option value="' + options[i].id + '">' + options[i].name + '</option>';
           }
-          var selectBoxHtml = '<select id="worker_skill_training_id" name="order[worker_skill_training_id]">' + selectOptionsHtml + '</select>';
+          var selectBoxHtml = '<select id="worker_license_id" name="order[worker_license_id]">' + selectOptionsHtml + '</select>';
           $('#professional_engineer_qualification_id').html(selectBoxHtml);
         }
       });
@@ -238,18 +238,18 @@
 
   //資格内容(主任技術者)の取得
   $(function() {
-    // 主任技術者名が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 主任技術者名が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#lead_engineer_name').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
-        url: '/users/lead_engineer_skill_training_options',
+        url: '/users/lead_engineer_license_options',
         data: { lead_engineer_name: assistantName },
         success: function(options) {
           var selectOptionsHtml = '<option value=""></option>';
           for (var i = 0; i < options.length; i++) {
           selectOptionsHtml += '<option value="' + options[i].id + '">' + options[i].name + '</option>';
           }
-          var selectBoxHtml = '<select id="worker_skill_training_id" name="order[worker_skill_training_id]">' + selectOptionsHtml + '</select>';
+          var selectBoxHtml = '<select id="worker_license_id" name="order[worker_license_id]">' + selectOptionsHtml + '</select>';
           $('#lead_engineer_qualification_id').html(selectBoxHtml);
         }
       });
@@ -258,7 +258,7 @@
 
   //資格内容(登録基幹技能者)の取得
   $(function() {
-    // 登録基幹技能者名が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 登録基幹技能者名が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#registered_core_engineer_name').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
