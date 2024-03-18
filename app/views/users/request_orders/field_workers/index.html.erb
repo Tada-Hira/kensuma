@@ -41,8 +41,8 @@
       <div class="card">
         <div class="card-body table-responsive p-0">
           <table class="table text-nowrap">
+            <%= link_to "作業員情報編集", edit_workers_users_request_order_field_workers_path(@request_order), class: "btn btn-md btn-success btn-space" %>
             <% @field_workers.each do |field_worker| %>
-              <%= link_to "作業員情報編集", edit_workers_users_request_order_field_workers_path(@request_order), class: "btn btn-md btn-success btn-space" %>
               <tr align="center">
                 <th><%= FieldWorker.human_attribute_name(:admission_worker_name) %></th>
                 <th><%= FieldWorker.human_attribute_name(:admission_date_start) %></th>
