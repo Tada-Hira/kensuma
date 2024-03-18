@@ -384,7 +384,7 @@ module Users
             end
           end
         end
-        
+
         # 従業員証の写し追加処理
         converted_params = converted_params.merge('employee_cards' => @worker.employee_cards.push(converted_params[:employee_cards]).flatten) if converted_params[:employee_cards]
 
@@ -543,7 +543,7 @@ module Users
     def worker_params
       params.require(:worker).permit(:name, :name_kana,
         :country, :my_address, :my_phone_number, :family_address, :post_code, { career_up_images: [] },
-        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] },{ driver_licenses_cards: [] },
+        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] }, { driver_licenses_cards: [] },
         :rh_blood_type, :job_title, :hiring_on, :experience_term_before_hiring, :driver_licence_number, :business_owner_or_master,
         :blank_term, :career_up_id, :employment_contract, :family_name, :relationship, :email, :sex, :seal,
         :status_of_residence, :maturity_date, :confirmed_check, :confirmed_check_date,

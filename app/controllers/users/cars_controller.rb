@@ -84,15 +84,14 @@ module Users
       @car = current_business.cars.find_by(uuid: params[:uuid])
     end
 
-
     def car_params_with_converted
       converted_params = car_params.dup
       # ハイフンを除外
       converted_params[:vehicle_number] = car_params[:vehicle_number].gsub(/[-ー]/, '')
 
-      if params[:action] == 'update'
+      if params[:action] == 'update' && (converted_params[:images])
         # 任意保険証の写し追加処理
-        converted_params = converted_params.merge('images' => @car.images.push(converted_params[:images]).flatten) if converted_params[:images]
+        converted_params = converted_params.merge('images' => @car.images.push(converted_params[:images]).flatten)
       end
       converted_params
     end
