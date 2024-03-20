@@ -25,6 +25,7 @@ FactoryBot.define do
     sex { 0 }
     driver_licences { %w[大型免許 普通免許] }
     driver_licence_number { '123456789012' }
+    driver_licenses_cards { [Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/test.jpg'))] }
     status_of_residence { '' }
     maturity_date { '' }
     confirmed_check { '' }

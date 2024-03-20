@@ -89,6 +89,10 @@ module Users
       # ハイフンを除外
       converted_params[:vehicle_number] = car_params[:vehicle_number].gsub(/[-ー]/, '')
 
+      if params[:action] == 'update' && (converted_params[:images])
+        # 任意保険証の写し追加処理
+        converted_params = converted_params.merge('images' => @car.images.push(converted_params[:images]).flatten)
+      end
       converted_params
     end
 

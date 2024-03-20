@@ -198,6 +198,17 @@ module Users
       redirect_to edit_users_worker_url(worker)
     end
 
+    def update_driver_licenses_cards
+      worker = current_business.workers.find_by(uuid: params[:worker_id])
+      remaining_images = worker.driver_licenses_cards
+      deleting_images = remaining_images.delete_at(params[:index].to_i)
+      deleting_images.try(:remove!)
+      worker.assign_attributes(driver_licenses_cards: remaining_images)
+      worker.save(validate: false)
+      flash[:danger] = '証明画像を削除しました'
+      redirect_to edit_users_worker_url(worker)
+    end
+
     private
 
     def set_worker
@@ -343,9 +354,9 @@ module Users
       end
 
       if params[:action] == 'update'
-        # 健康保険の写し、キャリアアップシステムの写しの追加/削除
+        # 健康保険の写し、キャリアアップシステム、運転免許証の写しの追加/削除　※運転免許証はworker_insuranceとの関連性特に無いが、同じく関連性無いキャリアアップの写しも下記の過去実装コードに追記されていた為、一時的に同じように追記する形で実装
         insurance_attributes = converted_params[:worker_insurance_attributes]
-        %i[health_insurance_image career_up_images].each do |key|
+        %i[health_insurance_image career_up_images driver_licenses_cards].each do |key|
           case key
           when :health_insurance_image
             # 健康保険の写しの追加/削除
@@ -364,6 +375,13 @@ module Users
             elsif converted_params[:career_up_images]
               converted_params = converted_params.merge(key => @worker.career_up_images.push(converted_params[:career_up_images]).flatten)
             end
+          when :driver_licenses_cards
+            # 運転免許証の写しの追加/削除ーある条件の場合にパラメータを空にする処理
+            if converted_params[:driver_licences].blank?
+              converted_params = converted_params.merge(key => [])
+            elsif converted_params[:driver_licenses_cards]
+              converted_params = converted_params.merge(key => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten)
+            end
           end
         end
 
@@ -372,9 +390,6 @@ module Users
 
         # パスパートの写し追加処理
         converted_params = converted_params.merge('passports' => @worker.passports.push(converted_params[:passports]).flatten) if converted_params[:passports]
-
-        # 在留カードの写し追加処理
-        converted_params = converted_params.merge('residence_cards' => @worker.residence_cards.push(converted_params[:residence_cards]).flatten) if converted_params[:residence_cards]
 
         # 在留カードの写し追加処理
         converted_params = converted_params.merge('residence_cards' => @worker.residence_cards.push(converted_params[:residence_cards]).flatten) if converted_params[:residence_cards]
@@ -528,7 +543,7 @@ module Users
     def worker_params
       params.require(:worker).permit(:name, :name_kana,
         :country, :my_address, :my_phone_number, :family_address, :post_code, { career_up_images: [] },
-        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] },
+        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] }, { driver_licenses_cards: [] },
         :rh_blood_type, :job_title, :hiring_on, :experience_term_before_hiring, :driver_licence_number, :business_owner_or_master,
         :blank_term, :career_up_id, :employment_contract, :family_name, :relationship, :email, :sex, :seal,
         :status_of_residence, :maturity_date, :confirmed_check, :confirmed_check_date,
