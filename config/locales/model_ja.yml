@@ -366,6 +366,7 @@ ja:
         employee_cards: 従業員証の写し
         driver_licences: 自動車運転免許証
         driver_licence_number: 免許証番号
+        driver_licenses_cards: 自動車運転免許証の写し
         seal: 認印
         status_of_residence: 在留資格
         maturity_date: 在留期間満期日

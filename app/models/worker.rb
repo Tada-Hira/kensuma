@@ -66,6 +66,7 @@ class Worker < ApplicationRecord
   end
   validates :driver_licence_number, absence: true, unless: :driver_licence_present?
   validates :driver_licence_number, presence: true, if: :driver_licence_present?
+  validates :driver_licenses_cards, presence: true, if: :driver_licence_present?
   validates :driver_licence_number, format: FORMAT_D_LICENCE, allow_nil: true, if: :driver_licence_present?
   validates :status_of_residence, presence: true, if: :foreigner?
   validates :status_of_residence, absence: true, unless: :foreigner?
@@ -90,6 +91,7 @@ class Worker < ApplicationRecord
   mount_uploaders :passports, WorkersUploader
   mount_uploaders :residence_cards, WorkersUploader
   mount_uploaders :employment_conditions, WorkersUploader
+  mount_uploaders :driver_licenses_cards, WorkersUploader
 
   def to_param
     uuid

@@ -458,6 +458,17 @@
         <%= f.label :driver_licence_number %>
         <span class="p-1 mb-2 rounded bg-danger text-white" id="driver-licence-number-precense">必須</span>
         <%= f.text_field :driver_licence_number, value: @driver_licence_number, class: "form-control", placeholder: annotation_hyphen %>
+      </div><br>
+      <div id= "driver_licenses_cards">
+        <%= f.label :driver_licenses_cards %>
+        <span class="p-1 mb-2 rounded bg-danger text-white" id="driver-licence-number-precense">必須</span>
+        <%= f.file_field :driver_licenses_cards, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control text-muted" %>
+        <% if @worker.driver_licenses_cards.present? && @worker.id.present? %>
+          <% @worker.driver_licenses_cards.each_with_index do |image, index| %>
+            <%= image_tag(image.url) %>
+            <%= link_to "削除", users_worker_update_driver_licenses_cards_path(@worker, index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -484,7 +495,7 @@
     <div id="non-resident-foreigner-field">
       <%# 在留期間満期日 %>
       <div><%= f.label :maturity_date %><%= required_label %></div>
-      <%= f.date_field :maturity_date, class: "form-control", placeholder: Worker.human_attribute_name(:maturity_date) %><br>
+      <%= f.date_field :maturity_date, class: "form-control", style: "width: 25%;", placeholder: Worker.human_attribute_name(:maturity_date) %><br>
 
       <%# キャリアアップシステム登録情報が最新であることの確認済 %>
       <div class="mt-3 mb-3">
@@ -500,7 +511,7 @@
       <div id="confirmed_check_date">
         <%= f.label :confirmed_check_date %>
         <span class="p-1 mb-2 rounded bg-danger text-white" id="confirmed_check_date_label">必須</span>
-        <%= f.date_field :confirmed_check_date, class: "form-control", placeholder: Worker.human_attribute_name(:confirmed_check_date) %><br>
+        <%= f.date_field :confirmed_check_date, class: "form-control", style: "width: 25%;", placeholder: Worker.human_attribute_name(:confirmed_check_date) %><br>
       </div>
 
       <%# パスポートの写し %>
@@ -784,16 +795,21 @@
 
 <script>
   $(document).ready(function() {
-    // 免許証番号フォームの有効・無効
-    // 免許証番号項目フォームの有効・無効を操作するメソッド
+    // 免許証番号フォーム及び免許証の写し項目フォームの有効・無効
+    // 免許証番号項目フォーム及び免許証の写し項目フォームの有効・無効を操作するメソッド
     function driverLicenceNumberShowHide() {
       if ($('input[name="worker[driver_licences][]"]:checked').length > 0) {
         $('#driver_licence_number').show();
       } else {
         $('#driver_licence_number').hide();
       }
+      if ($('input[name="worker[driver_licences][]"]:checked').length > 0) {
+        $('#driver_licenses_cards').show();
+      } else {
+        $('#driver_licenses_cards').hide();
+      }
     };
-    // 免許証チェックボックスが変更されたとき、免許証番号項目フォームの有効・無効を操作するメソッドを実行する
+    // 免許証チェックボックスが変更されたとき、免許証番号項目フォーム及び免許証の写し項目フォームの有効・無効を操作するメソッドを実行する
     $('input[name="worker[driver_licences][]"]').change(driverLicenceNumberShowHide);
 
     driverLicenceNumberShowHide(); //ページの読み込み時に判定
