@@ -150,6 +150,14 @@ ja:
         exp_date_insurance: 有効期限
         periodic_self_inspections: 特定(年次)及び月例の定期自主検査帳票の写し
         in_house_inspections: 自社の点検表の写し
+        mobile_crane_vehicle_based_construction_machinery: 移動式クレーン/車両系建設機械
+        machine: 機械
+        self_inspection: 自主検査
+        self_inspection_expiration_date: 自主検査有効期限
+        fixed_term: 定期
+        voluntary_insurance: 任意保険
+        subscription_Amount: 加入額
+
       field_car:
         car_name: 車両名
         driver_name: 運転者名
