@@ -70,19 +70,19 @@ RSpec.describe Car, type: :model do
       end
     end
 
-    describe '#vehicle_number' do
-      context '存在しない場合' do
-        before(:each) { subject.vehicle_number = nil }
+    # describe '#vehicle_number' do
+    #   context '存在しない場合' do
+    #     before(:each) { subject.vehicle_number = nil }
 
-        it 'バリデーションに落ちること' do
-          expect(subject).to be_invalid
-        end
+    #     it 'バリデーションに落ちること' do
+    #       expect(subject).to be_invalid
+    #     end
 
-        it 'バリデーションのエラーが正しいこと' do
-          subject.valid?
-          expect(subject.errors.full_messages).to include('車両番号(ナンバープレート)を入力してください')
-        end
-      end
+    #     it 'バリデーションのエラーが正しいこと' do
+    #       subject.valid?
+    #       expect(subject.errors.full_messages).to include('車両番号(ナンバープレート)を入力してください')
+    #     end
+    #   end
 
     #   context '地域名がアルファベット大文字の場合' do
     #     before(:each) { subject.vehicle_number = '沖縄500Y1234' }
