@@ -37,6 +37,10 @@
           </div>
         </div>
         <div class="row">
+          <div>
+            <%= f.submit t('.sign_in'), class:"btn btn-primary btn-block" %>
+          </div>
+          <!-- /.col -->
           <div class="col-8">
             <div class="icheck-primary">
               <% if devise_mapping.rememberable? %>
@@ -46,10 +50,6 @@
                 </div>
               <% end %>
             </div>
-          </div>
-          <!-- /.col -->
-          <div>
-            <%= f.submit t('.sign_in'), class:"btn btn-primary btn-block" %>
           </div>
           <!-- /.col -->
         </div>
