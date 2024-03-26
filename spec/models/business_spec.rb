@@ -38,6 +38,16 @@ RSpec.describe Business, type: :model do
           expect(subject.errors.full_messages).to include('会社名(カナ)はカタカナで入力して下さい。')
         end
 
+        it '半角スペースを含むカタカナが許可されること' do
+          subject.name_kana = 'カタカナ テスト'
+          expect(subject).to be_valid
+        end
+    
+        it '全角スペースを含むカタカナが許可されること' do
+          subject.name_kana = 'カタカナ　テスト'
+          expect(subject).to be_valid
+        end
+        
         %i[
           てすときぎょう
           TEST企業
