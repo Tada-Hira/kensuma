@@ -35,7 +35,7 @@ RSpec.describe Business, type: :model do
 
         it 'バリデーションのエラーが正しいこと' do
           subject.valid?
-          expect(subject.errors.full_messages).to include('会社名(カナ)はカタカナで入力して下さい。')
+          expect(subject.errors.full_messages).to include('会社名(カナ)を入力してください')
         end
 
         it '半角スペースを含むカタカナが許可されること' do
@@ -61,7 +61,7 @@ RSpec.describe Business, type: :model do
 
             it 'バリデーションのエラーが正しいこと' do
               subject.valid?
-              expect(subject.errors.full_messages).to include('会社名(カナ)はカタカナで入力して下さい。')
+              expect(subject.errors.full_messages).to include('会社名(カナ)はカタカナで入力してください')
             end
           end
         end
