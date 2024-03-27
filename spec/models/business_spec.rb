@@ -42,12 +42,12 @@ RSpec.describe Business, type: :model do
           subject.name_kana = 'カタカナ テスト'
           expect(subject).to be_valid
         end
-    
+
         it '全角スペースを含むカタカナが許可されること' do
           subject.name_kana = 'カタカナ　テスト'
           expect(subject).to be_valid
         end
-        
+
         %i[
           てすときぎょう
           TEST企業
