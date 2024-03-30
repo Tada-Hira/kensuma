@@ -100,15 +100,18 @@
       <% end %>
     </div><br>
 
-    <%# 従業員証の写し %>
-    <%= f.label :employee_cards %>
-    <%= f.file_field :employee_cards, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control text-muted" %>
-    <% if @worker.employee_cards.present? && @worker.id.present? %>
-      <% @worker.employee_cards.each_with_index do |image, index| %>
-        <%= image_tag(image.url) %>
-        <%= link_to "削除", users_worker_update_employee_cards_path(@worker, index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
+    <%# 雇用契約書が「未」もしくは、「対象外」の場合、「従業員証の写し」を非表示にする要素 %>
+    <div id="employment_contract_employee_cards_hide">
+      <%# 従業員証の写し %>
+      <%= f.label :employee_cards %>
+      <%= f.file_field :employee_cards, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control text-muted" %>
+      <% if @worker.employee_cards.present? && @worker.id.present? %>
+        <% @worker.employee_cards.each_with_index do |image, index| %>
+          <%= image_tag(image.url) %>
+          <%= link_to "削除", users_worker_update_employee_cards_path(@worker, index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div><br>
 <!-- 作業員情報ここまで -->
@@ -749,7 +752,7 @@
         }
       }
 
-      if (checkedValue == 'insured' || checkedValue == 'day'){
+      if (checkedValue == 'insured') {
         document.getElementById('employment_insurance_number').style.display = "block";
       } else {
         document.getElementById('employment_insurance_number').style.display = "none";
@@ -833,6 +836,35 @@
     ($('#business_owner_or_master')).change(has_labor_insuranceShowHide);
 
     has_labor_insuranceShowHide(); //ページの読み込み時に判定
+  })
+</script>
+
+<script>
+  // 作業員情報：雇用契約書の「未」、「対象外」を選択時非表示にする処理
+  $(document).ready(function() {
+    const radioEmploymentContract = document.getElementsByName("worker[employment_contract]")
+    function EmployeeCardShowOrHide(radioEmploymentContract) {
+      let checkedValue;
+      for (const radio of radioEmploymentContract) {
+        if (radio.checked) {
+          checkedValue = radio.value;
+          break;
+        }
+      }
+
+      if (checkedValue == 'not_available' || checkedValue == 'not_applicable') {
+        document.getElementById('employment_contract_employee_cards_hide').style.display = "none";
+      } else {
+        document.getElementById('employment_contract_employee_cards_hide').style.display = "block";
+      }
+    }
+
+    // 雇用契約書の「済」、「未」、「対象外」の変更時、非表示処理を実行する
+    for(let i = 0; i < radioEmploymentContract.length; i++) {
+      radioEmploymentContract[i].addEventListener('change', function() {EmployeeCardShowOrHide(radioEmploymentContract);});
+    }
+
+    EmployeeCardShowOrHide(radioEmploymentContract); //画面が読み込まれたとき非表示処理を実行する
   })
 </script>
 
