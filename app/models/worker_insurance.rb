@@ -41,7 +41,7 @@ class WorkerInsurance < ApplicationRecord
   end
   validates :health_insurance_name, presence: true, if: :insurance_name_valid?
   validates :health_insurance_name, absence: true, unless: :insurance_name_valid?
-  validates :employment_insurance_number, length: { maximum: 5 }, format: { with: /\A[0-9｡-ﾟ\-]+\z/, message: 'は数字と半角カタカナおよびハイフンのみ使用できます' }, if: :employment_insurance_number_valid?
+  validates :employment_insurance_number, length: { maximum: 5 }, format: { with: /\A[0-9｡-ﾟ-]+\z/, message: 'は数字と半角カタカナおよびハイフンのみ使用できます' }, if: :employment_insurance_number_valid?
   validates :employment_insurance_number, absence: true, unless: :employment_insurance_number_valid?
   validates :has_labor_insurance, presence: true, if: :business_owner_or_master
   validates :has_labor_insurance, absence: true, unless: :business_owner_or_master
