@@ -8,6 +8,7 @@
       <table class="table table-hover text-nowrap">
         <thead>
           <tr align="center">
+            <th><%= Worker.human_attribute_name(:number) %></th>
             <th><%= Worker.human_attribute_name(:name) %></th>
             <th><%= Worker.human_attribute_name(:name_kana) %></th>
             <th><%= Worker.human_attribute_name(:my_phone_number) %></th>
@@ -16,8 +17,9 @@
           </tr>
         </thead>
         <tbody>
-          <% @workers.each do |worker| %>
+          <% @workers.each_with_index do |worker, index| %>
           <tr align="center">
+            <td><%= index + 1 %></td>
             <td><%= link_to worker.name, users_worker_path(worker) %></td>
             <td><%= worker.name_kana %></td>
             <td><%= phone_number_add_hyphen(worker.my_phone_number) %></td>
