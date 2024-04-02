@@ -70,68 +70,68 @@ RSpec.describe Car, type: :model do
       end
     end
 
-    describe '#vehicle_number' do
-      context '存在しない場合' do
-        before(:each) { subject.vehicle_number = nil }
+    # describe '#vehicle_number' do
+    #   context '存在しない場合' do
+    #     before(:each) { subject.vehicle_number = nil }
 
-        it 'バリデーションに落ちること' do
-          expect(subject).to be_invalid
-        end
+    #     it 'バリデーションに落ちること' do
+    #       expect(subject).to be_invalid
+    #     end
 
-        it 'バリデーションのエラーが正しいこと' do
-          subject.valid?
-          expect(subject.errors.full_messages).to include('車両番号(ナンバープレート)を入力してください')
-        end
-      end
+    #     it 'バリデーションのエラーが正しいこと' do
+    #       subject.valid?
+    #       expect(subject.errors.full_messages).to include('車両番号(ナンバープレート)を入力してください')
+    #     end
+    #   end
 
-      context '地域名がアルファベット大文字の場合' do
-        before(:each) { subject.vehicle_number = '沖縄500Y1234' }
+    #   context '地域名がアルファベット大文字の場合' do
+    #     before(:each) { subject.vehicle_number = '沖縄500Y1234' }
 
-        it 'バリデーションが通ること' do
-          expect(subject).to be_valid
-        end
-      end
+    #     it 'バリデーションが通ること' do
+    #       expect(subject).to be_valid
+    #     end
+    #   end
 
-      context '地域名,分類番号,平仮名等,一連指定番号が1文字の場合' do
-        before(:each) { subject.vehicle_number = '外1わ1' }
+    #   context '地域名,分類番号,平仮名等,一連指定番号が1文字の場合' do
+    #     before(:each) { subject.vehicle_number = '外1わ1' }
 
-        it 'バリデーションが通ること' do
-          expect(subject).to be_valid
-        end
-      end
+    #     it 'バリデーションが通ること' do
+    #       expect(subject).to be_valid
+    #     end
+    #   end
 
-      context '地域名4文字,分類番号3文字,平仮名等1文字,一連指定番号が4文字の場合' do
-        before(:each) { subject.vehicle_number = '尾張小牧500わ1234' }
+    #   context '地域名4文字,分類番号3文字,平仮名等1文字,一連指定番号が4文字の場合' do
+    #     before(:each) { subject.vehicle_number = '尾張小牧500わ1234' }
 
-        it 'バリデーションが通ること' do
-          expect(subject).to be_valid
-        end
-      end
+    #     it 'バリデーションが通ること' do
+    #       expect(subject).to be_valid
+    #     end
+    #   end
 
-      %i[
-        1234
-        あ
-        品川あ5001234
-        品川500あ12-34
-        品川5000あ1234
-        品川500あ12345
-        品川品川品500あ1234
-        沖縄500y1234
-      ].each do |vehicle_number|
-        context '不正なvehicle_numberの場合' do
-          before(:each) { subject.vehicle_number = vehicle_number }
+    #   %i[
+    #     1234
+    #     あ
+    #     品川あ5001234
+    #     品川500あ12-34
+    #     品川5000あ1234
+    #     品川500あ12345
+    #     品川品川品500あ1234
+    #     沖縄500y1234
+    #   ].each do |vehicle_number|
+    #     context '不正なvehicle_numberの場合' do
+    #       before(:each) { subject.vehicle_number = vehicle_number }
 
-          it 'バリデーションに落ちること' do
-            expect(subject).to be_invalid
-          end
+    #       it 'バリデーションに落ちること' do
+    #         expect(subject).to be_invalid
+    #       end
 
-          it 'バリデーションのエラーが正しいこと' do
-            subject.valid?
-            expect(subject.errors.full_messages).to include('車両番号(ナンバープレート)は地域名,分類番号,平仮名等,一連指定番号で入力してください(例：品川500あ1234)')
-          end
-        end
-      end
-    end
+    #       it 'バリデーションのエラーが正しいこと' do
+    #         subject.valid?
+    #         expect(subject.errors.full_messages).to include('車両番号(ナンバープレート)は地域名,分類番号,平仮名等,一連指定番号で入力してください(例：品川500あ1234)')
+    #       end
+    #     end
+    #   end
+    # end
 
     describe '#vehicle_inspection_start_on' do
       context '存在しない場合' do

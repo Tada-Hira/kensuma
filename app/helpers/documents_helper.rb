@@ -352,7 +352,9 @@ module DocumentsHelper
     'national'                               => '国民年金',
     'recipient'                              => '受給者',
     'insured'                                => '被保険者',
-    'day'                                    => '日雇保険'
+    'day'                                    => '日雇保険',
+    'not_applicable'                         => '対象外',
+    'not_health_insurance'                   => '未加入'
   }.freeze
 
   def worker_insurance(worker, column)

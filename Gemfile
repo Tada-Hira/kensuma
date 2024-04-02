@@ -79,6 +79,8 @@ gem 'cancancan'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+gem 'prawn'
+
 # aws_for_rails
 gem 'aws-sdk-rails'
 

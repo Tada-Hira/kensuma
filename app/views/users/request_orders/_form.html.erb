@@ -127,9 +127,9 @@
         <%= f.label :lead_engineer_qualification %> <!-- 資格内容(主任技術者)) -->
         <!-- span class="p-1 mb-2 rounded bg-danger text-white">必須</span 一時対応でコメントアウト中--><br>
         <% if @lead_engineer_qualification.blank? %>
-        <%= f.select :lead_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [licence.name, licence.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
+        <%= f.select :lead_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [license.name, license.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
         <% else %>
-        <%= f.select :lead_engineer_qualification, options_for_select(@lead_engineer_qualification.map{ |licence| [licence.name, licence.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
+        <%= f.select :lead_engineer_qualification, options_for_select(@lead_engineer_qualification.map{ |license| [license.name, license.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
         <% end %><br>
       </div>
     </div>
@@ -191,9 +191,9 @@
         %><br>
         <%= f.label :registered_core_engineer_qualification %> <!-- 資格内容(登録基幹技能者) -->
         <% if @registered_core_engineer_qualification.blank? %>
-        <%= f.select :registered_core_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [licence.name, licence.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
+        <%= f.select :registered_core_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [license.name, license.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
         <% else %>
-        <%= f.select :registered_core_engineer_qualification, options_for_select(@registered_core_engineer_qualification.map{ |licence| [licence.name, licence.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
+        <%= f.select :registered_core_engineer_qualification, options_for_select(@registered_core_engineer_qualification.map{ |license| [license.name, license.id] }, selected: @request_order.registered_core_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'registered_core_engineer_qualification_id' } %>
         <% end %><br>
       </div>
     </div>

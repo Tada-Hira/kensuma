@@ -383,6 +383,7 @@ ja:
         passports: パスポートの写し
         residence_cards: 在留カードの写し
         employment_conditions: 受入企業と外国人建設就労者等との間の雇用条件書の写し
+        number : 人数
       license:
         name: 名称
         description: 説明
