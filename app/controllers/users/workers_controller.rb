@@ -443,7 +443,7 @@ module Users
           end
           converted_params = converted_params.merge('worker_skill_trainings_attributes' => worker_skill_trainings_attributes)
         end
-        
+
         # 技能検定合格証明書の写し追加処理/修正中
         licenses_attributes = converted_params[:worker_licenses_attributes]
         if @worker.worker_licenses.present?
