@@ -334,8 +334,8 @@
           <%# 被保険者番号 %>
           <div id="employment_insurance_number" class="mb-3">
             <%= worker_insurance.label :employment_insurance_number %>
-            <span class="p-1 mb-2 rounded">※下4桁(1桁～4桁)数字・半角カタカナ使用可能</span>
-            <%= worker_insurance.text_field :employment_insurance_number, maxlength: 4, class: "form-control" %>
+            <span class="p-1 mb-2 rounded">※下4桁(1桁～4桁)数字・半角カタカナ・ハイフン使用可能</span>
+            <%= worker_insurance.text_field :employment_insurance_number, maxlength: 5, class: "form-control" %>
           </div>
         </div>
       </div>

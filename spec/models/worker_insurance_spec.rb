@@ -121,16 +121,16 @@ RSpec.describe WorkerInsurance, type: :model do
             123あ
             ア123
           ]
-          error_message = '被保険者番号は数字と半角カタカナのみ使用できます'
+          error_message = '被保険者番号は数字と半角カタカナおよびハイフンのみ使用できます'
           include_examples '無効な被保険者番号', numbers, error_message
         end
 
         context '無効な長さの場合' do
           numbers = %i[
-            12345
-            1234ｱ
+            123456
+            1234ｱｲ
           ]
-          error_message = '被保険者番号は4文字以内で入力してください'
+          error_message = '被保険者番号は5文字以内で入力してください'
           include_examples '無効な被保険者番号', numbers, error_message
         end
       end
