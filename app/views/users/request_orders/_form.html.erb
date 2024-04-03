@@ -125,7 +125,7 @@
           <% end %>
         </div><br>
         <%= f.label :lead_engineer_qualification %> <!-- 資格内容(主任技術者)) -->
-        <span class="p-1 mb-2 rounded bg-danger text-white">必須</span><br>
+        <!-- span class="p-1 mb-2 rounded bg-danger text-white">必須</span 一時対応でコメントアウト中--><br>
         <% if @lead_engineer_qualification.blank? %>
         <%= f.select :lead_engineer_qualification, options_for_select(License.all.order(:id).map{ |license| [license.name, license.id] }, selected: @request_order.lead_engineer_qualification), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'lead_engineer_qualification_id' } %>
         <% else %>
@@ -328,9 +328,10 @@
         "request_order[lead_engineer_check]": {
           required: true
         },
-        "request_order[lead_engineer_qualification]": {
-          required: true
-        },
+        //一時対応でコメントアウト中
+        // "request_order[lead_engineer_qualification]": {
+        //   required: true
+        // },
         "request_order[work_chief_name]": {
           required: true
         },
@@ -399,9 +400,10 @@
         "request_order[lead_engineer_check]": {
           required: "専任or非専任を選択してください。"
         },
-        "request_order[lead_engineer_qualification]": {
-          required: "資格内容を選択してください。"
-        },
+        //一時対応でコメントアウト中
+        // "request_order[lead_engineer_qualification]": {
+        //   required: "資格内容を選択してください。"
+        // },
         "request_order[work_chief_name]": {
           required: "作業主任者名を入力してください。"
         },
