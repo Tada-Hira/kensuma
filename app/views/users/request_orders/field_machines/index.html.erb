@@ -26,10 +26,7 @@
             <%= f.collection_select :machine_ids, @machine, :id, :name, { include_hidden: false }, { required: true, multiple: true, class: "multiple-select", style: "width: 100%" } %>
           </div>
           <div>
-            <%= f.submit "現場機械追加", class: "btn btn-md btn-primary" %>
-            <% if @field_machines.present? %>
-              <%= link_to "現場機械情報編集", edit_machines_users_request_order_field_machines_path(@request_order), class: "btn btn-md btn-success" %>
-            <% end %>
+            <%= f.submit "登録", class: "btn btn-md btn-primary" %>
           </div>
         <% end %>
       </div>
@@ -44,7 +41,8 @@
       <div class="card">
         <div class="card-body table-responsive p-0">
           <table class="table text-nowrap">
-            <thead>
+            <thead style="border-top: 1px solid #cccccc;">
+              <%= link_to "現場機械情報編集", edit_machines_users_request_order_field_machines_path(@request_order), class: "btn btn-md btn-success btn-space" %>
               <tr align="center">
                 <th><%= FieldMachine.human_attribute_name(:machine_name) %></th>
                 <th><%= FieldMachine.human_attribute_name(:carry_on_date) %></th>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_12_004308) do
+ActiveRecord::Schema.define(version: 2024_03_16_023356) do
 
   create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "namespace"
@@ -811,6 +811,7 @@ ActiveRecord::Schema.define(version: 2023_11_12_004308) do
     t.json "employee_cards"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.json "driver_licenses_cards"
     t.index ["business_id"], name: "index_workers_on_business_id"
   end
 

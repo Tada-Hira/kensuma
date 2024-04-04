@@ -73,7 +73,7 @@ Industry.seed(
   },
   {
     id: 19,
-    name: '内装工事業',
+    name: '内装仕上工事業',
   },
   {
     id: 20,

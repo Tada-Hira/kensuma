@@ -100,15 +100,18 @@
       <% end %>
     </div><br>
 
-    <%# 従業員証の写し %>
-    <%= f.label :employee_cards %>
-    <%= f.file_field :employee_cards, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control text-muted" %>
-    <% if @worker.employee_cards.present? && @worker.id.present? %>
-      <% @worker.employee_cards.each_with_index do |image, index| %>
-        <%= image_tag(image.url) %>
-        <%= link_to "削除", users_worker_update_employee_cards_path(@worker, index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
+    <%# 雇用契約書が「未」もしくは、「対象外」の場合、「従業員証の写し」を非表示にする要素 %>
+    <div id="employment_contract_employee_cards_hide">
+      <%# 従業員証の写し %>
+      <%= f.label :employee_cards %>
+      <%= f.file_field :employee_cards, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control text-muted" %>
+      <% if @worker.employee_cards.present? && @worker.id.present? %>
+        <% @worker.employee_cards.each_with_index do |image, index| %>
+          <%= image_tag(image.url) %>
+          <%= link_to "削除", users_worker_update_employee_cards_path(@worker, index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div><br>
 <!-- 作業員情報ここまで -->
@@ -331,8 +334,8 @@
           <%# 被保険者番号 %>
           <div id="employment_insurance_number" class="mb-3">
             <%= worker_insurance.label :employment_insurance_number %>
-            <span class="p-1 mb-2 rounded">※下4桁(1桁～4桁)数字・半角カタカナ使用可能</span>
-            <%= worker_insurance.text_field :employment_insurance_number, maxlength: 4, class: "form-control" %>
+            <span class="p-1 mb-2 rounded">※下4桁(1桁～4桁)数字・半角カタカナ・ハイフン使用可能</span>
+            <%= worker_insurance.text_field :employment_insurance_number, maxlength: 5, class: "form-control" %>
           </div>
         </div>
       </div>
@@ -458,16 +461,19 @@
         <%= f.label :driver_licence_number %>
         <span class="p-1 mb-2 rounded bg-danger text-white" id="driver-licence-number-precense">必須</span>
         <%= f.text_field :driver_licence_number, value: @driver_licence_number, class: "form-control", placeholder: annotation_hyphen %>
+      </div><br>
+      <div id= "driver_licenses_cards">
+        <%= f.label :driver_licenses_cards %>
+        <span class="p-1 mb-2 rounded bg-danger text-white" id="driver-licence-number-precense">必須</span>
+        <%= f.file_field :driver_licenses_cards, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control text-muted" %>
+        <% if @worker.driver_licenses_cards.present? && @worker.id.present? %>
+          <% @worker.driver_licenses_cards.each_with_index do |image, index| %>
+            <%= image_tag(image.url) %>
+            <%= link_to "削除", users_worker_update_driver_licenses_cards_path(@worker, index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
+          <% end %>
+        <% end %>
       </div>
     </div>
-
-    <%# 認印 %>
-    <%= f.label :seal %>
-    <%= f.file_field :seal, accept: 'image/jpg, image/jpeg, image/png', class: "form-control" %>
-    <% if @worker.seal.present? && @worker.id.present? %>
-      <%= image_tag(@worker.seal.url) %>
-      <%= link_to "削除", users_worker_delete_seal_path(@worker), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
-    <% end %>
   </div>
 </div><br>
 
@@ -492,7 +498,7 @@
     <div id="non-resident-foreigner-field">
       <%# 在留期間満期日 %>
       <div><%= f.label :maturity_date %><%= required_label %></div>
-      <%= f.date_field :maturity_date, class: "form-control", placeholder: Worker.human_attribute_name(:maturity_date) %><br>
+      <%= f.date_field :maturity_date, class: "form-control", style: "width: 25%;", placeholder: Worker.human_attribute_name(:maturity_date) %><br>
 
       <%# キャリアアップシステム登録情報が最新であることの確認済 %>
       <div class="mt-3 mb-3">
@@ -508,7 +514,7 @@
       <div id="confirmed_check_date">
         <%= f.label :confirmed_check_date %>
         <span class="p-1 mb-2 rounded bg-danger text-white" id="confirmed_check_date_label">必須</span>
-        <%= f.date_field :confirmed_check_date, class: "form-control", placeholder: Worker.human_attribute_name(:confirmed_check_date) %><br>
+        <%= f.date_field :confirmed_check_date, class: "form-control", style: "width: 25%;", placeholder: Worker.human_attribute_name(:confirmed_check_date) %><br>
       </div>
 
       <%# パスポートの写し %>
@@ -746,7 +752,7 @@
         }
       }
 
-      if (checkedValue == 'insured' || checkedValue == 'day'){
+      if (checkedValue == 'insured') {
         document.getElementById('employment_insurance_number').style.display = "block";
       } else {
         document.getElementById('employment_insurance_number').style.display = "none";
@@ -792,16 +798,21 @@
 
 <script>
   $(document).ready(function() {
-    // 免許証番号フォームの有効・無効
-    // 免許証番号項目フォームの有効・無効を操作するメソッド
+    // 免許証番号フォーム及び免許証の写し項目フォームの有効・無効
+    // 免許証番号項目フォーム及び免許証の写し項目フォームの有効・無効を操作するメソッド
     function driverLicenceNumberShowHide() {
       if ($('input[name="worker[driver_licences][]"]:checked').length > 0) {
         $('#driver_licence_number').show();
       } else {
         $('#driver_licence_number').hide();
       }
+      if ($('input[name="worker[driver_licences][]"]:checked').length > 0) {
+        $('#driver_licenses_cards').show();
+      } else {
+        $('#driver_licenses_cards').hide();
+      }
     };
-    // 免許証チェックボックスが変更されたとき、免許証番号項目フォームの有効・無効を操作するメソッドを実行する
+    // 免許証チェックボックスが変更されたとき、免許証番号項目フォーム及び免許証の写し項目フォームの有効・無効を操作するメソッドを実行する
     $('input[name="worker[driver_licences][]"]').change(driverLicenceNumberShowHide);
 
     driverLicenceNumberShowHide(); //ページの読み込み時に判定
@@ -825,6 +836,35 @@
     ($('#business_owner_or_master')).change(has_labor_insuranceShowHide);
 
     has_labor_insuranceShowHide(); //ページの読み込み時に判定
+  })
+</script>
+
+<script>
+  // 作業員情報：雇用契約書の「未」、「対象外」を選択時非表示にする処理
+  $(document).ready(function() {
+    const radioEmploymentContract = document.getElementsByName("worker[employment_contract]")
+    function EmployeeCardShowOrHide(radioEmploymentContract) {
+      let checkedValue;
+      for (const radio of radioEmploymentContract) {
+        if (radio.checked) {
+          checkedValue = radio.value;
+          break;
+        }
+      }
+
+      if (checkedValue == 'not_available' || checkedValue == 'not_applicable') {
+        document.getElementById('employment_contract_employee_cards_hide').style.display = "none";
+      } else {
+        document.getElementById('employment_contract_employee_cards_hide').style.display = "block";
+      }
+    }
+
+    // 雇用契約書の「済」、「未」、「対象外」の変更時、非表示処理を実行する
+    for(let i = 0; i < radioEmploymentContract.length; i++) {
+      radioEmploymentContract[i].addEventListener('change', function() {EmployeeCardShowOrHide(radioEmploymentContract);});
+    }
+
+    EmployeeCardShowOrHide(radioEmploymentContract); //画面が読み込まれたとき非表示処理を実行する
   })
 </script>
 

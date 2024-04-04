@@ -63,6 +63,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       patch 'update_residence_cards'
       patch 'update_employment_conditions'
       patch 'update_employee_cards'
+      patch 'update_driver_licenses_cards'
     end
     resources :orders, param: :site_uu_id do
       member do
@@ -153,15 +154,20 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     get 'request_orders/:uuid/edit_approval_status', to: 'request_orders#edit_approval_status', as: :request_order_edit_approval_status
     post 'request_orders/:uuid/update_approval_status', to: 'request_orders#update_approval_status', as: :request_order_update_approval_status
 
-    get '/professional_engineer_1st_skill_training_options', to: 'orders#professional_engineer_1st_skill_training_options'
-    get '/professional_engineer_2nd_skill_training_options', to: 'orders#professional_engineer_2nd_skill_training_options'
-    get '/supervising_engineer_skill_training_options', to: 'orders#supervising_engineer_skill_training_options'
-    get '/supervising_engineer_assistant_skill_training_options', to: 'orders#supervising_engineer_assistant_skill_training_options'
+    get '/professional_engineer_1st_license_options', to: 'orders#professional_engineer_1st_license_options'
+    get '/professional_engineer_2nd_license_options', to: 'orders#professional_engineer_2nd_license_options'
+    get '/supervising_engineer_license_options', to: 'orders#supervising_engineer_license_options'
+    get '/supervising_engineer_assistant_license_options', to: 'orders#supervising_engineer_assistant_license_options'
 
     get '/professional_engineer_skill_training_options', to: 'request_orders#professional_engineer_skill_training_options'
     get '/lead_engineer_skill_training_options', to: 'request_orders#lead_engineer_skill_training_options'
     get '/registered_core_engineer_license_options', to: 'request_orders#registered_core_engineer_license_options'
+
+    get '/professional_engineer_license_options', to: 'request_orders#professional_engineer_license_options'
+    get '/lead_engineer_license_options', to: 'request_orders#lead_engineer_license_options'
+    get '/registered_core_engineer_license_options', to: 'request_orders#registered_core_engineer_license_options'
   end
+
   # =================================================================
 
   # manager関連=======================================================

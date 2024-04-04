@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <%= f.label :skill_training_id %>
-      <%= f.collection_select :skill_training_id, SkillTraining.all, :id, :name, { prompt: '技能講習を選択してください' }, { class: "form-control", id: "skill_training-select" } %><br>
+      <%= f.collection_select :skill_training_id, @sorted_skill_trainings, :id, :name, { prompt: '技能講習を選択してください' }, { class: "form-control" } %><br>
     </div>
     <div class="col-md-4">
       <%= f.label :images %>

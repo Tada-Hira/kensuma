@@ -4,7 +4,7 @@ module DocumentsHelper
   def document_date(column)
     l(column, format: :long) unless column.nil?
   end
-  
+
   # document.contentの日付
   def doc_content_date(date)
     if action_name == 'edit'
@@ -34,8 +34,8 @@ module DocumentsHelper
       @subcon
     end
   end
-  
-  
+
+
   # 一次下請の情報 (工事安全衛生計画書用)
   def document_subcon_info_for_10th_11th_19th
     request_order = RequestOrder.find_by(uuid: params[:request_order_uuid])
@@ -131,11 +131,7 @@ module DocumentsHelper
 
   # (5)再下請負通知書（変更届）
   def skill_info(license, model)
-    if license == "registered_core_engineer_qualification"
       License.find_by(id: model&.send(license))&.name
-    else
-      SkillTraining.find_by(id: model&.send(license))&.name
-    end
   end
 
   def child_check(child)
@@ -356,7 +352,9 @@ module DocumentsHelper
     'national'                               => '国民年金',
     'recipient'                              => '受給者',
     'insured'                                => '被保険者',
-    'day'                                    => '日雇保険'
+    'day'                                    => '日雇保険',
+    'not_applicable'                         => '対象外',
+    'not_health_insurance'                   => '未加入'
   }.freeze
 
   def worker_insurance(worker, column)
@@ -398,7 +396,7 @@ module DocumentsHelper
     end
   end
 
-  # 作業員の免許情報
+  # 作業員の技能検定情報
   def worker_license(worker)
     licenses = worker&.content&.[]('worker_licenses')
     unless licenses.nil?
@@ -1194,7 +1192,8 @@ module DocumentsHelper
            小型車両系建設機械（解体用）（3t未満） 不整地運搬車（1t未満） 高所作業車(10m未満）
            ボーリングマシン フォークリフト（1t未満） ショベルローダー（1t未満） 巻上げ機 建設用リフト
            玉掛け（1t未満） ゴンドラ アーク溶接 研削砥石 低圧電気取扱 低圧電気取扱（開閉器の操作） 高圧電気取扱
-           特別高圧電気取扱 足場の組立て ロープ高所作業 フルハーネス型の墜落制止用器具]
+           特別高圧電気取扱 足場の組立て ロープ高所作業 フルハーネス型の墜落制止用器具 ロングエレベーター
+           石綿取扱い作業従事者特別教育講師]
       educations.delete_if do |e_work|
         no_education.include?(e_work)
       end
@@ -1612,13 +1611,13 @@ module DocumentsHelper
     end
   end
 
-  #doc_9
+  #doc_5及びdoc_9
   # 自身の一つ上階層の会社情報&現場情報取得
   def get_myself_and_myparent_site
     request_order = RequestOrder.find_by(uuid: params[:request_order_uuid])
     if request_order.prime_contractor?
-      @parent_request_order = nil
-      @parent_business = nil
+      @parent_request_order = request_order # 元請けの場合は元請け(自分自身)を設定
+      @parent_business = request_order.business # 元請けの場合は元請け(自分自身)のビジネスを設定
     else
       @parent_request_order = request_order.parent
       @parent_business = @parent_request_order.business

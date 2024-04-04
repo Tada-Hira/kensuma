@@ -126,9 +126,9 @@
       <br>
       <%= f.label :professional_engineer_qualification_1st %> <!-- 専門技術者1(資格内容) -->
       <% if @professional_engineer_qualification_1st.blank? %>
-        <%= f.select :professional_engineer_qualification_1st, options_for_select(SkillTraining.all.order(:id).map{ |skill| [skill.name, skill.id] }, selected: @order.professional_engineer_qualification_1st), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id_1st' } %>
+        <%= f.select :professional_engineer_qualification_1st, options_for_select(license.all.order(:id).map{ |license| [license.name, license.id] }, selected: @order.professional_engineer_qualification_1st), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id_1st' } %>
       <% else %>
-        <%= f.select :professional_engineer_qualification_1st, options_for_select(@professional_engineer_qualification_1st.map{ |skill| [skill.name, skill.id] }, selected: @order.professional_engineer_qualification_1st), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id_1st' } %>
+        <%= f.select :professional_engineer_qualification_1st, options_for_select(@professional_engineer_qualification_1st.map{ |license| [license.name, license.id] }, selected: @order.professional_engineer_qualification_1st), { include_blank: true }, { class: "form-select form-select-sm", style: "width: 100%", id: 'professional_engineer_qualification_id_1st' } %>
       <% end %>
       <br><br>
       <%= f.label :professional_engineer_details_1st %> <!-- 専門技術者1(担当工事内容) -->
@@ -252,18 +252,18 @@
 <script>
 //資格内容(専門技術者1)の取得
   $(function() {
-    // 監理技術者1が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 監理技術者1が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#professional_engineer_name_1st').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
-        url: '/users/professional_engineer_1st_skill_training_options',
+        url: '/users/professional_engineer_1st_license_options',
         data: { professional_engineer_name_1st: assistantName },
         success: function(options) {
           var selectOptionsHtml = '<option value=""></option>';
           for (var i = 0; i < options.length; i++) {
           selectOptionsHtml += '<option value="' + options[i].id + '">' + options[i].name + '</option>';
           }
-          var selectBoxHtml = '<select id="worker_skill_training_id" name="order[worker_skill_training_id]">' + selectOptionsHtml + '</select>';
+          var selectBoxHtml = '<select id="worker_license_id" name="order[worker_license_id]">' + selectOptionsHtml + '</select>';
           $('#professional_engineer_qualification_id_1st').html(selectBoxHtml);
         }
       });
@@ -272,18 +272,18 @@
 
   //資格内容(専門技術者2)の取得
   $(function() {
-    // 専門技術者名2が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 専門技術者名2が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#professional_engineer_name_2nd').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
-        url: '/users/professional_engineer_2nd_skill_training_options',
+        url: '/users/professional_engineer_2nd_license_options',
         data: { professional_engineer_name_2nd: assistantName },
         success: function(options) {
           var selectOptionsHtml = '<option value=""></option>';
           for (var i = 0; i < options.length; i++) {
           selectOptionsHtml += '<option value="' + options[i].id + '">' + options[i].name + '</option>';
           }
-          var selectBoxHtml = '<select id="worker_skill_training_id" name="order[worker_skill_training_id]">' + selectOptionsHtml + '</select>';
+          var selectBoxHtml = '<select id="worker_license_id" name="order[worker_license_id]">' + selectOptionsHtml + '</select>';
           $('#professional_engineer_qualification_id_2nd').html(selectBoxHtml);
         }
       });
@@ -292,18 +292,18 @@
 
   //資格内容(監督技術者・主任技術者)の取得
   $(function() {
-    // 監督技術者・主任技術者名が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 監督技術者・主任技術者名が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#supervising_engineer_name').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
-        url: '/users/supervising_engineer_skill_training_options',
+        url: '/users/supervising_engineer_license_options',
         data: { supervising_engineer_name: assistantName },
         success: function(options) {
           var selectOptionsHtml = '<option value=""></option>';
           for (var i = 0; i < options.length; i++) {
           selectOptionsHtml += '<option value="' + options[i].id + '">' + options[i].name + '</option>';
           }
-          var selectBoxHtml = '<select id="worker_skill_training_id" name="order[worker_skill_training_id]">' + selectOptionsHtml + '</select>';
+          var selectBoxHtml = '<select id="worker_license_id" name="order[worker_license_id]">' + selectOptionsHtml + '</select>';
           $('#supervising_engineer_qualification_id').html(selectBoxHtml);
         }
       });
@@ -312,18 +312,18 @@
 
   //資格内容(監督技術者補佐)の取得
   $(function() {
-    // 監理技術者補佐名が変更されたら、対応するWorkerSkillTrainingのレコードを取得して、セレクトボックスを作成する
+    // 監理技術者補佐名が変更されたら、対応する中間テーブル(WorkerLicense)のレコードを取得して、セレクトボックスを作成する
     $('#supervising_engineer_assistant_name').on('change', function() {
       var assistantName = $(this).val();
       $.ajax({
-        url: '/users/supervising_engineer_assistant_skill_training_options',
+        url: '/users/supervising_engineer_assistant_license_options',
         data: { supervising_engineer_assistant_name: assistantName },
         success: function(options) {
           var selectOptionsHtml = '<option value=""></option>';
           for (var i = 0; i < options.length; i++) {
           selectOptionsHtml += '<option value="' + options[i].id + '">' + options[i].name + '</option>';
           }
-          var selectBoxHtml = '<select id="worker_skill_training_id" name="order[worker_skill_training_id]">' + selectOptionsHtml + '</select>';
+          var selectBoxHtml = '<select id="worker_license_id" name="order[worker_license_id]">' + selectOptionsHtml + '</select>';
           $('#supervising_engineer_assistant_qualification_id').html(selectBoxHtml);
         }
       });
@@ -488,7 +488,7 @@
           maxlength: "チェックボックスは最大2つまでしか選択できません。"
         },
       },
-      
+
       errorPlacement: function(error, element) {
         // radioとcheckboxのみ表示位置を個別調整
         if (element.is(":radio") || element.is(":checkbox")) {
