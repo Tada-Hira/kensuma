@@ -791,7 +791,13 @@
                   <td class="doc_18_s23"></td>
                   <td class="doc_18_s24"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s17" dir="ltr" colspan="9">
+                  <td class="doc_18_s17_1" dir="ltr" colspan="9">
+                    <%= provisional_primary_subcon_info(
+                          instance_variable_get("@primary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
+                        )&.content&.[]('subcon_occupation_1st') %>                    
                     <%= provisional_primary_subcon_info(
                           instance_variable_get("@primary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
@@ -803,12 +809,23 @@
                           instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
+                        )&.content&.[]('subcon_occupation_2nd') %>                        
+                    <%= provisional_primary_subcon_info(
+                          instance_variable_get("@primary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
                         )&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s14"></td>
                   <td class="doc_18_s18"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= provisional_secondary_subcon_info(
+                          instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
+                        )&.content&.[]('subcon_occupation_1st') %>                    
                     <%= provisional_secondary_subcon_info(
                           instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
@@ -818,12 +835,21 @@
                           instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
+                        )&.content&.[]('subcon_occupation_2nd') %>                                                
+                    <%= provisional_secondary_subcon_info(
+                          instance_variable_get("@secondary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
                         )&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s14"></td>
                   <td class="doc_18_s18"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= provisional_tertiary_subcon_info(
+                          instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
+                        )&.content&.[]('subcon_occupation_1st') %>                                        
                     <%= provisional_tertiary_subcon_info(
                           instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
@@ -831,13 +857,19 @@
                     <%= provisional_tertiary_subcon_info(
                           instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
                           instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
+                        )&.content&.[]('subcon_occupation_2nd') %>                                                                
+                    <%= provisional_tertiary_subcon_info(
+                          instance_variable_get("@tertiary_subcon_id_18th_#{1+4*(i)}"),
+                          instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}")
                         )&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s14"></td>
                   <td class="doc_18_s18"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{1+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
@@ -1526,29 +1558,37 @@
                   <td class="doc_18_s2"></td>
                   <td class="doc_18_s0"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{2+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
@@ -2323,29 +2363,37 @@
                   <td class="doc_18_s2"></td>
                   <td class="doc_18_s0"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{3+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
@@ -3147,29 +3195,37 @@
                   <td class="doc_18_s2"></td>
                   <td class="doc_18_s0"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@primary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@secondary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@tertiary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
                   <td class="doc_18_s30"></td>
                   <td class="doc_18_s7" colspan="6">建設業許可番号</td>
-                  <td class="doc_18_s20" colspan="9">
+                  <td class="doc_18_s20_1" colspan="9">
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_1st') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_1st') %><br>
+                    <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_occupation_2nd') %><br>
                     <%= request_order_info(instance_variable_get("@quaternary_subcon_id_18th_#{4+4*(i)}"))&.content&.[]('subcon_construction_license_number_2nd') %>
                   </td>
                   <td class="doc_18_s4"></td>
