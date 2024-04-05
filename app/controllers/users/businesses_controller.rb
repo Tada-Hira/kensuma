@@ -169,7 +169,7 @@ module Users
 
     def set_foreigners_employment_manager_details
       selected_employee_name = params[:business][:foreigners_employment_manager]
-      selected_employee = current_business.workers.find_by(name: selected_employee_name)
+      selected_employee = current_business.workers.where(name: selected_employee_name).first
       if selected_employee
         @business.foreigners_employment_manager_job_title = selected_employee.job_title
         @business.foreigners_employment_manager_my_phone_number = selected_employee.my_phone_number
