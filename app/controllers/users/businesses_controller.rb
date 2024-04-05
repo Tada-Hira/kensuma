@@ -43,6 +43,7 @@ module Users
         flash.now[:danger] = '建設許可証が「有」の場合はフォームを入力してください'
         render :new
       elsif @business.save
+        set_foreigners_employment_manager_details
         redirect_to users_orders_url
       else
         session[:tem_industry_ids] = params[:business][:tem_industry_ids].map(&:to_i).reject(&:zero?)
@@ -67,6 +68,7 @@ module Users
         render 'edit'
       else
         if @business.update(business_params_with_converted)
+          set_foreigners_employment_manager_details
           flash[:success] = '更新しました'
           redirect_to users_business_url
         else
@@ -155,13 +157,27 @@ module Users
         :business_employment_insurance_join_status, :business_employment_insurance_number,
         :business_retirement_benefit_mutual_aid_status,
         :construction_license_status, :foreign_work_status_exist, :specific_skilled_foreigners_exist,
-        :foreign_construction_workers_exist, :foreign_technical_intern_trainees_exist, :foreigners_employment_manager, :branch_address,
+        :foreign_construction_workers_exist, :foreign_technical_intern_trainees_exist,
+        :foreigners_employment_manager, :foreigners_employment_manager_job_title, :foreigners_employment_manager_my_address, :branch_address,
         business_industries_attributes: %i[id industry_id construction_license_permission_type_minister_governor
                                            construction_license_governor_permission_prefecture construction_license_permission_type_identification_general
                                            construction_license_number_double_digit construction_license_number_six_digits
                                            construction_license_number construction_license_updated_at _destroy],
         occupation_ids: [], tem_industry_ids: []
       )
+    end
+
+    def set_foreigners_employment_manager_details
+      selected_employee_name = params[:business][:foreigners_employment_manager]
+      selected_employee = current_business.workers.find_by(name: selected_employee_name)
+      if selected_employee
+        @business.foreigners_employment_manager_job_title = selected_employee.job_title
+        @business.foreigners_employment_manager_my_phone_number = selected_employee.my_phone_number
+      else
+        @business.foreigners_employment_manager_job_title = nil
+        @business.foreigners_employment_manager_my_phone_number = nil
+      end
+      @business.save
     end
   end
 end
