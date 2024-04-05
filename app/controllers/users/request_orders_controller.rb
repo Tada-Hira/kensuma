@@ -506,7 +506,9 @@ module Users
           subcon_lead_engineer_name_id:                                           @business_workers_name_id.find_by(name: params[:request_order][:lead_engineer_name])&.id, # 記号 (主)主任技術者に使用
           subcon_foreman_name_id:                                                 @business_workers_name_id.find_by(name: params[:request_order][:foreman_name])&.id,       # 記号 (職)職長に使用
           subcon_safety_manager_name_id:                                          @business_workers_name_id.find_by(name: params[:request_order][:safety_manager_name])&.id, # 記号 (安)安全衛生責任者に使用
-          subcon_foreigners_employment_manager:                                   current_business.foreigners_employment_manager # 外国人雇用管理責任者名
+          subcon_foreigners_employment_manager:                                   current_business.foreigners_employment_manager, # 外国人雇用管理責任者名
+          subcon_foreigners_employment_manager_job_title:                         current_business.foreigners_employment_manager_job_title, # 外国人雇用管理責任者役職
+          subcon_foreigners_employment_manager_my_phone_number:                   current_business.foreigners_employment_manager_my_phone_number # 外国人雇用管理責任者電話番号
         }
       )
     end

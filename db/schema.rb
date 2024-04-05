@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_16_023356) do
+ActiveRecord::Schema.define(version: 2024_04_05_182537) do
 
   create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "namespace"
@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(version: 2024_03_16_023356) do
     t.string "business_employment_insurance_number"
     t.integer "business_retirement_benefit_mutual_aid_status", null: false
     t.string "branch_address"
+    t.string "foreigners_employment_manager_job_title"
+    t.string "foreigners_employment_manager_my_phone_number"
     t.index ["user_id"], name: "index_businesses_on_user_id"
   end
 
