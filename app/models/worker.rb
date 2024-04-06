@@ -43,7 +43,7 @@ class Worker < ApplicationRecord
   UNDER_THREE_DIGITS_MS = 'は3桁以上は入力できません'.freeze
   validates :career_up_id, format: { with: /\A^$|\A\z|\A\d{14}\z/, message: 'は14桁の数字で入力してください' }, allow_nil: true
   validates :name, presence: true
-  validates :name_kana, presence: true, format: { with: /\A^$|\A[ァ-ヴ][ァ-ヴー\s]*[ァ-ヴー]\z/, message: 'はカタカナで入力してください' }
+  validates :name_kana, presence: true, format: { with: /\A[ァ-ヴ・ー\s]*\z/, message: 'はカタカナで入力してください' }
   validates :my_phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX, message: PHONE_NUMBER_MS }
 
   validates :email, format: { with: VALID_EMAIL_REGEX, message: 'はexample@email.comのような形式で入力してください' }, allow_nil: true
