@@ -8,7 +8,7 @@ module Users
     before_action :check_system_chart_status, only: :system_chart_status
 
     def index
-      @orders = current_business.orders
+      @orders = current_business.orders.order(id: "DESC")
       @received_orders = @current_business.request_orders.reject { |request_order|
         request_order.order.business_id == @current_business.id
       }.sort.reverse
@@ -144,7 +144,7 @@ module Users
 
     def destroy
       @order.destroy!
-      flash[:danger] = "#{@order.site_uu_id}を削除しました"
+      flash[:danger] = "#{@order.site_name}を削除しました"
       redirect_to users_orders_url
     end
 
