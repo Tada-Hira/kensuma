@@ -1387,8 +1387,12 @@
             <td class="s_5c_00"></td>
             <td class="s_5b_304" dir="ltr" colspan="3" rowspan="3"></td>
             <td class="s_5b_305" dir="ltr" colspan="7" rowspan="3">資 格 内 容</td>
-            <td class="s_5b_302" dir="ltr" colspan="17" rowspan="3">
-              <%= skill_info("lead_engineer_qualification", @child) %> <!--  5-126 主任技術者の必要資格 -->
+            <td class="s_5b_302_1" dir="ltr" colspan="17" rowspan="3">
+              <% if @child.lead_engineer_work_experience.present?  %>
+                <%= @child.lead_engineer_work_experience_i18n %> <!--  5-126 主任技術者の必要資格 -->
+              <% else %>
+                <%= skill_info("lead_engineer_qualification", @child) %> <!--  5-126 主任技術者の必要資格 -->
+              <% end %>
             </td>
             <td class="s_5b_000"></td>
             <td class="s_5b_301" dir="ltr" colspan="10" rowspan="3">※専 門 技 術 者 名</td>
@@ -1684,8 +1688,12 @@
           <tr><!-- 51行目 -->
             <td class="s_5a_404" dir="ltr" colspan="3" rowspan="3"></td><!-- 1列目 -->
             <td class="s_5a_403" dir="ltr" colspan="7" rowspan="3">資 格 内 容</td>
-            <td class="s_5a_402" dir="ltr" colspan="17" rowspan="3">
-              <%= skill_info("lead_engineer_qualification", document_info) %> <!-- 5-035 主任技術者の必要資格 -->
+            <td class="s_5a_402_1" dir="ltr" colspan="17" rowspan="3">
+              <% if document_info.lead_engineer_work_experience.present?  %>
+                <%= document_info.lead_engineer_work_experience_i18n %> <!--  5-126 主任技術者の必要資格 -->
+              <% else %>
+                <%= skill_info("lead_engineer_qualification", @child) %> <!--  5-126 主任技術者の必要資格 -->
+              <% end %>
             </td>
             <td class="s_5a_000"></td>
             <td class="s_5a_403" dir="ltr" colspan="7" rowspan="3">担当工事内容</td>
