@@ -777,11 +777,13 @@
                 <td class="s5"></td>
                 <td class="s41" colspan="3" rowspan="3"></td>
                 <td class="s6" colspan="7" rowspan="3">資 格 内 容</td>
-                <td class="s40" colspan="17" rowspan="3">
-                  <% if document_subcon_info.lead_engineer_qualification.present? %>
-                    <%= License.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格 -->
-                  <% end %>
-                </td>
+              <td class="doc_4_s1" colspan="2">
+                <% if document_subcon_info.lead_engineer_work_experience.present? %>
+                  <%= document_subcon_info.lead_engineer_work_experience_i18n %> <!-- 4-126 主任技術者の必要資格又は実務経験 -->
+                <% else %>
+                  <%= License.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格 -->
+                <% end %>
+              </td>
                 <td class="s5"></td>
                 <td class="s39" colspan="10" rowspan="3" style="border: 1px solid;">※専 門 技 術 者 名</td>
                 <td class="s8" colspan="16" rowspan="3">
