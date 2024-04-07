@@ -336,6 +336,7 @@ ja:
         lead_engineer_name: 氏名
         lead_engineer_check: 専任・非専任
         lead_engineer_qualification: 資格内容
+        lead_engineer_work_experience: 実務経験
         work_chief_name: 作業主任者名
         work_conductor_name: 作業指揮者名
         safety_officer_name: 安全衛生担当責任者名

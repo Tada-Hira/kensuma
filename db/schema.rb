@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_05_182537) do
+ActiveRecord::Schema.define(version: 2024_04_07_021344) do
 
   create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "namespace"
@@ -566,6 +566,7 @@ ActiveRecord::Schema.define(version: 2024_04_05_182537) do
     t.string "registered_core_engineer_name"
     t.string "registered_core_engineer_qualification"
     t.json "content"
+    t.integer "lead_engineer_work_experience"
     t.index ["business_id"], name: "index_request_orders_on_business_id"
     t.index ["order_id"], name: "index_request_orders_on_order_id"
   end
