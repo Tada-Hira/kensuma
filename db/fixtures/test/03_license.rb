@@ -232,110 +232,110 @@ License.seed(
   {
     id: 39,
     name: '1級建設機械施工技士',
-    name_kana: 'イッキュウケンセツキカイシコウギシ',
+    name_kana: 'ケンセツキカイシコウギシイッキュウ',
     license_type: 1
   },
   {
     id: 40,
     name: '2級建設機械施工技士（1種～6種）',
-    name_kana: 'ニキュウケンセツキカイシコウギシ（イッシュ～ロクシュ）',
+    name_kana: 'ケンセツキカイシコウギシニキュウ（イッシュ～ロクシュ）',
     license_type: 1
   },
   {
     id: 41,
     name: '1級土木施工管理技士',
-    name_kana: 'イッキュウドボクシコウカンリギシ',
+    name_kana: 'ドボクシコウカンリギシイッキュウ',
     license_type: 1
   },
   {
     id: 42,
     name: '2級土木施工管理技士（土木）',
-    name_kana: 'ニキュウドボクシコウカンリギシ（ドボク）',
+    name_kana: 'ドボクシコウカンリギシニキュウ（ドボク）',
     license_type: 1
   },
   {
     id: 43,
     name: '2級土木施工管理技士（鋼構造物塗装）',
-    name_kana: 'ニキュウドボクシコウカンリギシ（コウコウゾウブツトソウ）',
+    name_kana: 'ドボクシコウカンリギシニキュウ（コウコウゾウブツトソウ）',
     license_type: 1
   },
   {
     id: 44,
     name: '2級土木施工管理技士（薬液注入）',
-    name_kana: 'ニキュウドボクシコウカンリギシ（ヤクエキチュウニュウ）',
+    name_kana: 'ドボクシコウカンリギシニキュウ（ヤクエキチュウニュウ）',
     license_type: 1
   },
   {
     id: 45,
     name: '1級建築施工管理技士',
-    name_kana: 'イッキュウケンチクシコウカンリギシ',
+    name_kana: 'ケンチクシコウカンリギシイッキュウ',
     license_type: 1
   },
   {
     id: 46,
     name: '2級建築施工管理技士（建築）',
-    name_kana: 'ニキュウケンチクシコウカンリギシ（ケンチク）',
+    name_kana: 'ケンチクシコウカンリギシニキュウ（ケンチク）',
     license_type: 1
   },
   {
     id: 47,
     name: '2級建築施工管理技士（躯体）',
-    name_kana: 'ニキュウケンチクシコウカンリギシ（ムクロタイ）',
+    name_kana: 'ケンチクシコウカンリギシニキュウ（ムクロタイ）',
     license_type: 1
   },
   {
     id: 48,
     name: '2級建築施工管理技士（仕上げ）',
-    name_kana: 'ニキュウケンチクシコウカンリギシ（シアゲ）',
+    name_kana: 'ケンチクシコウカンリギシニキュウ（シアゲ）',
     license_type: 1
   },
   {
     id: 49,
     name: '1級電気工事施工管理技士',
-    name_kana: 'イッキュウデンキコウジシコウカンリギシ',
+    name_kana: 'デンキコウジシコウカンリギシイッキュウ',
     license_type: 1
   },
   {
     id: 50,
     name: '2級電気工事施工管理技士',
-    name_kana: 'ニキュウデンキコウジシコウカンリギシ',
+    name_kana: 'デンキコウジシコウカンリギシニキュウ',
     license_type: 1
   },
   {
     id: 51,
     name: '1級管工事施工管理技士',
-    name_kana: 'イッキュウカンコウジシコウカンリギシ',
+    name_kana: 'カンコウジシコウカンリギシイッキュウ',
     license_type: 1
   },
   {
     id: 52,
     name: '2級管工事施工管理技士',
-    name_kana: 'ニキュウカンコウジシコウカンリギシ',
+    name_kana: 'カンコウジシコウカンリギシニキュウ',
     license_type: 1
   },
   {
     id: 53,
     name: '1級造園施工管理技士',
-    name_kana: 'イッキュウゾウエンシコウカンリギシ',
+    name_kana: 'ゾウエンシコウカンリギシイッキュウ',
     license_type: 1
   },
   {
     id: 54,
     name: '2級造園施工管理技士',
-    name_kana: 'ニキュウゾウエンシコウカンリギシ',
+    name_kana: 'ゾウエンシコウカンリギシニキュウ',
     license_type: 1
   },
   # ---------- 種別 建築士法 ----------
   {
     id: 55,
     name: '1級建築士',
-    name_kana: 'イッキュウケンチクシ',
+    name_kana: 'ケンチクシイッキュウ',
     license_type: 2
   },
   {
     id: 56,
     name: '2級建築士',
-    name_kana: 'ニキュウケンチクシ',
+    name_kana: 'ケンチクシニキュウ',
     license_type: 2
   },
   {
@@ -480,19 +480,19 @@ License.seed(
   {
     id: 79,
     name: '1級建築大工技能士',
-    name_kana: 'イッキュウケンチクダイクギノウシ',
+    name_kana: 'ケンチクダイクギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 80,
     name: '2級建築大工技能士',
-    name_kana: 'ニキュウケンチクダイクギノウシ',
+    name_kana: 'ケンチクダイクギノウシニキュウ',
     license_type: 9
   },
   {
     id: 81,
     name: '3級建築大工技能士',
-    name_kana: 'サンキュウケンチクダイクギノウシ',
+    name_kana: 'ケンチクダイクギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -504,19 +504,19 @@ License.seed(
   {
     id: 83,
     name: '1級型枠施工技能士',
-    name_kana: 'イッキュウガタワクシコウギノウシ',
+    name_kana: 'ガタワクシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 84,
     name: '2級型枠施工技能士',
-    name_kana: 'ニキュウガタワクシコウギノウシ',
+    name_kana: 'ガタワクシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 85,
     name: '3級型枠施工技能士',
-    name_kana: 'サンキュウガタワクシコウギノウシ',
+    name_kana: 'ガタワクシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -528,19 +528,19 @@ License.seed(
   {
     id: 87,
     name: '1級左官技能士',
-    name_kana: 'イッキュウサカンギノウシ',
+    name_kana: 'サカンギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 88,
     name: '2級左官技能士',
-    name_kana: 'ニキュウサカンギノウシ',
+    name_kana: 'サカンギノウシニキュウ',
     license_type: 9
   },
   {
     id: 89,
     name: '3級左官技能士',
-    name_kana: 'サンキュウサカンギノウシ',
+    name_kana: 'サカンギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -552,19 +552,19 @@ License.seed(
   {
     id: 91,
     name: '1級とび技能士',
-    name_kana: 'イッキュウトビギノウシ',
+    name_kana: 'トビギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 92,
     name: '2級とび技能士',
-    name_kana: 'ニキュウトビギノウシ',
+    name_kana: 'トビギノウシニキュウ',
     license_type: 9
   },
   {
     id: 93,
     name: '3級とび技能士',
-    name_kana: 'サンキュウトビギノウシ',
+    name_kana: 'トビギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -576,19 +576,19 @@ License.seed(
   {
     id: 95,
     name: '1級コンクリート圧送施工技能',
-    name_kana: 'イッキュウコンクリートアグオクシコウギノウ',
+    name_kana: 'コンクリートアグオクシコウギノウイッキュウ',
     license_type: 9
   },
   {
     id: 96,
     name: '2級コンクリート圧送施工技能',
-    name_kana: 'ニキュウコンクリートアグオクシコウギノウ',
+    name_kana: 'コンクリートアグオクシコウギノウニキュウ',
     license_type: 9
   },
   {
     id: 97,
     name: '3級コンクリート圧送施工技能',
-    name_kana: 'サンキュウコンクリートアグオクシコウギノウ',
+    name_kana: 'コンクリートアグオクシコウギノウサンキュウ',
     license_type: 9
   },
   {
@@ -600,19 +600,19 @@ License.seed(
   {
     id: 99,
     name: '1級ウェルポイント施工技能士',
-    name_kana: 'イッキュウウェルポイントシコウギノウシ',
+    name_kana: 'ウェルポイントシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 100,
     name: '2級ウェルポイント施工技能士',
-    name_kana: 'ニキュウウェルポイントシコウギノウシ',
+    name_kana: 'ウェルポイントシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 101,
     name: '3級ウェルポイント施工技能士',
-    name_kana: 'サンキュウウェルポイントシコウギノウシ',
+    name_kana: 'ウェルポイントシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -624,19 +624,19 @@ License.seed(
   {
     id: 103,
     name: '1級冷凍空気調和機器施工技能士',
-    name_kana: 'イッキュウレイトウクウキチョウワキキシコウギノウシ',
+    name_kana: 'レイトウクウキチョウワキキシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 104,
     name: '2級冷凍空気調和機器施工技能士',
-    name_kana: 'ニキュウレイトウクウキチョウワキキシコウギノウシ',
+    name_kana: 'レイトウクウキチョウワキキシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 105,
     name: '3級冷凍空気調和機器施工技能士',
-    name_kana: 'サンキュウレイトウクウキチョウワキキシコウギノウシ',
+    name_kana: 'レイトウクウキチョウワキキシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -648,19 +648,19 @@ License.seed(
   {
     id: 107,
     name: '1級配管技能士',
-    name_kana: 'イッキュウハイカンギノウシ',
+    name_kana: 'ハイカンギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 108,
     name: '2級配管技能士',
-    name_kana: 'ニキュウハイカンギノウシ',
+    name_kana: 'ハイカンギノウシニキュウ',
     license_type: 9
   },
   {
     id: 109,
     name: '3級配管技能士',
-    name_kana: 'サンキュウハイカンギノウシ',
+    name_kana: 'ハイカンギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -672,19 +672,19 @@ License.seed(
   {
     id: 111,
     name: '1級建築板金技能士',
-    name_kana: 'イッキュウケンチクバンキンギノウシ',
+    name_kana: 'ケンチクバンキンギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 112,
     name: '2級建築板金技能士',
-    name_kana: 'ニキュウケンチクバンキンギノウシ',
+    name_kana: 'ケンチクバンキンギノウシニキュウ',
     license_type: 9
   },
   {
     id: 113,
     name: '3級建築板金技能士',
-    name_kana: 'サンキュウケンチクバンキンギノウシ',
+    name_kana: 'ケンチクバンキンギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -696,19 +696,19 @@ License.seed(
   {
     id: 115,
     name: '1級タイル張り技能士',
-    name_kana: 'イッキュウタイルバリギノウシ',
+    name_kana: 'タイルバリギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 116,
     name: '2級タイル張り技能士',
-    name_kana: 'ニキュウタイルバリギノウシ',
+    name_kana: 'タイルバリギノウシニキュウ',
     license_type: 9
   },
   {
     id: 117,
     name: '3級タイル張り技能士',
-    name_kana: 'サンキュウタイルバリギノウシ',
+    name_kana: 'タイルバリギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -720,19 +720,19 @@ License.seed(
   {
     id: 119,
     name: '1級築炉技能士',
-    name_kana: 'イッキュウチクロギノウシ',
+    name_kana: 'チクロギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 120,
     name: '2級築炉技能士',
-    name_kana: 'ニキュウチクロギノウシ',
+    name_kana: 'チクロギノウシニキュウ',
     license_type: 9
   },
   {
     id: 121,
     name: '3級築炉技能士',
-    name_kana: 'サンキュウチクロギノウシ',
+    name_kana: 'チクロギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -744,37 +744,37 @@ License.seed(
   {
     id: 123,
     name: '1級ブロック建築技能士',
-    name_kana: 'イッキュウブロックケンチクギノウシ',
+    name_kana: 'ブロックケンチクギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 124,
     name: '2級ブロック建築技能士',
-    name_kana: 'ニキュウブロックケンチクギノウシ',
+    name_kana: 'ブロックケンチクギノウシニキュウ',
     license_type: 9
   },
   {
     id: 125,
     name: '3級ブロック建築技能士',
-    name_kana: 'サンキュウブロックケンチクギノウシ',
+    name_kana: 'ブロックケンチクギノウシサンキュウ',
     license_type: 9
   },
   {
     id: 126,
     name: '1級石材施工技能士',
-    name_kana: 'イッキュウセキザイシコウギノウシ',
+    name_kana: 'セキザイシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 127,
     name: '2級石材施工技能士',
-    name_kana: 'ニキュウセキザイシコウギノウシ',
+    name_kana: 'セキザイシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 128,
     name: '3級石材施工技能士',
-    name_kana: 'サンキュウセキザイシコウギノウシ',
+    name_kana: 'セキザイシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -786,19 +786,19 @@ License.seed(
   {
     id: 130,
     name: '1級鉄工技能士',
-    name_kana: 'イッキュウテッコウギノウシ',
+    name_kana: 'テッコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 131,
     name: '2級鉄工技能士',
-    name_kana: 'ニキュウテッコウギノウシ',
+    name_kana: 'テッコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 132,
     name: '3級鉄工技能士',
-    name_kana: 'サンキュウテッコウギノウシ',
+    name_kana: 'テッコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -810,19 +810,19 @@ License.seed(
   {
     id: 134,
     name: '1級鉄筋施工技能士',
-    name_kana: 'イッキュウテッキンシコウギノウシ',
+    name_kana: 'テッキンシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 135,
     name: '2級鉄筋施工技能士',
-    name_kana: 'ニキュウテッキンシコウギノウシ',
+    name_kana: 'テッキンシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 136,
     name: '3級鉄筋施工技能士',
-    name_kana: 'サンキュウテッキンシコウギノウシ',
+    name_kana: 'テッキンシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -840,19 +840,19 @@ License.seed(
   {
     id: 139,
     name: '1級電気機器組立て技能士',
-    name_kana: 'イッキュウデンキキキクミタテギノウシ',
+    name_kana: 'デンキキキクミタテギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 140,
     name: '2級電気機器組立て技能士',
-    name_kana: 'ニキュウデンキキキクミタテギノウシ',
+    name_kana: 'デンキキキクミタテギノウシニキュウ',
     license_type: 9
   },
   {
     id: 141,
     name: '3級電気機器組立て技能士',
-    name_kana: 'サンキュウデンキキキクミタテギノウシ',
+    name_kana: 'デンキキキクミタテギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -864,19 +864,19 @@ License.seed(
   {
     id: 143,
     name: '1級かわらぶき技能士',
-    name_kana: 'イッキュウカワラブキギノウシ',
+    name_kana: 'カワラブキギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 144,
     name: '2級かわらぶき技能士',
-    name_kana: 'ニキュウカワラブキギノウシ',
+    name_kana: 'カワラブキギノウシニキュウ',
     license_type: 9
   },
   {
     id: 145,
     name: '3級かわらぶき技能士',
-    name_kana: 'サンキュウカワラブキギノウシ',
+    name_kana: 'カワラブキギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -888,31 +888,31 @@ License.seed(
   {
     id: 147,
     name: '1級ガラス施工技能士',
-    name_kana: 'イッキュウガラスシコウギノウシ',
+    name_kana: 'ガラスシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 148,
     name: '2級ガラス施工技能士',
-    name_kana: 'ニキュウガラスシコウギノウシ',
+    name_kana: 'ガラスシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 149,
     name: '1級塗装技能士',
-    name_kana: 'イッキュウトソウギノウシ',
+    name_kana: 'トソウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 150,
     name: '2級塗装技能士',
-    name_kana: 'ニキュウトソウギノウシ',
+    name_kana: 'トソウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 151,
     name: '3級塗装技能士',
-    name_kana: 'サンキュウトソウギノウシ',
+    name_kana: 'トソウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -930,31 +930,31 @@ License.seed(
   {
     id: 154,
     name: '1級畳製作技能士',
-    name_kana: 'イッキュウタタミセイサクギノウシ',
+    name_kana: 'タタミセイサクギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 155,
     name: '2級畳製作技能士',
-    name_kana: 'ニキュウタタミセイサクギノウシ',
+    name_kana: 'タタミセイサクギノウシニキュウ',
     license_type: 9
   },
   {
     id: 156,
     name: '1級内装仕上げ施工技能士',
-    name_kana: 'イッキュウナイソウシアゲシコウギノウシ',
+    name_kana: 'ナイソウシアゲシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 157,
     name: '2級内装仕上げ施工技能士',
-    name_kana: 'ニキュウナイソウシアゲシコウギノウシ',
+    name_kana: 'ナイソウシアゲシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 158,
     name: '3級内装仕上げ施工技能士',
-    name_kana: 'サンキュウナイソウシアゲシコウギノウシ',
+    name_kana: 'ナイソウシアゲシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -966,19 +966,19 @@ License.seed(
   {
     id: 160,
     name: '1級熱絶縁施工技能士',
-    name_kana: 'イッキュウネツゼツエンシコウギノウシ',
+    name_kana: 'ネツゼツエンシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 161,
     name: '2級熱絶縁施工技能士',
-    name_kana: 'ニキュウネツゼツエンシコウギノウシ',
+    name_kana: 'ネツゼツエンシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 162,
     name: '3級熱絶縁施工技能士',
-    name_kana: 'サンキュウネツゼツエンシコウギノウシ',
+    name_kana: 'ネツゼツエンシコウギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -990,19 +990,19 @@ License.seed(
   {
     id: 164,
     name: '1級建具製作技能士',
-    name_kana: 'イッキュウタテグセイサクギノウシ',
+    name_kana: 'タテグセイサクギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 165,
     name: '2級建具製作技能士',
-    name_kana: 'ニキュウタテグセイサクギノウシ',
+    name_kana: 'タテグセイサクギノウシニキュウ',
     license_type: 9
   },
   {
     id: 166,
     name: '3級建具製作技能士',
-    name_kana: 'サンキュウタテグセイサクギノウシ',
+    name_kana: 'タテグセイサクギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -1014,55 +1014,55 @@ License.seed(
   {
     id: 168,
     name: '1級造園技能士',
-    name_kana: 'イッキュウゾウエンギノウシ',
+    name_kana: 'ゾウエンギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 169,
     name: '2級造園技能士',
-    name_kana: 'ニキュウゾウエンギノウシ',
+    name_kana: 'ゾウエンギノウシニキュウ',
     license_type: 9
   },
   {
     id: 170,
     name: '3級造園技能士',
-    name_kana: 'サンキュウゾウエンギノウシ',
+    name_kana: 'ゾウエンギノウシサンキュウ',
     license_type: 9
   },
   {
     id: 171,
     name: '1級防水施工技能士',
-    name_kana: 'イッキュウボウスイシコウギノウシ',
+    name_kana: 'ボウスイシコウギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 172,
     name: '2級防水施工技能士',
-    name_kana: 'ニキュウボウスイシコウギノウシ',
+    name_kana: 'ボウスイシコウギノウシニキュウ',
     license_type: 9
   },
   {
     id: 173,
     name: '3級防水施工技能士',
-    name_kana: 'サンキュウボウスイシコウギノウシ',
+    name_kana: 'ボウスイシコウギノウシサンキュウ',
     license_type: 9
   },
   {
     id: 174,
     name: '1級さく井技能士',
-    name_kana: 'イッキュウサクセイギノウシ',
+    name_kana: 'サクセイギノウシイッキュウ',
     license_type: 9
   },
   {
     id: 175,
     name: '2級さく井技能士',
-    name_kana: 'ニキュウサクセイギノウシ',
+    name_kana: 'サクセイギノウシニキュウ',
     license_type: 9
   },
   {
     id: 176,
     name: '3級さく井技能士',
-    name_kana: 'サンキュウサクセイギノウシ',
+    name_kana: 'サクセイギノウシサンキュウ',
     license_type: 9
   },
   {
@@ -1087,7 +1087,7 @@ License.seed(
   {
     id: 180,
     name: '1級計装士',
-    name_kana: 'イッキュウケイソウシ',
+    name_kana: 'ケイソウシイッキュウ',
     license_type: 9
   },
   {
