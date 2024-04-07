@@ -16,7 +16,8 @@ class RequestOrder < ApplicationRecord
   enum status: { requested: 0, submitted: 1, fix_requested: 2, approved: 3 }
   enum professional_construction: { y: 0, n: 1 }
   enum lead_engineer_check: { full_time: 0, non_dedicated: 1 }
-  enum lead_engineer_work_experience: { five_years_or_more_after_high_school: 0, three_years_or_more_after_technical_college: 1, three_years_or_more_after_university: 2, ten_or_more_years: 3 }, _prefix: true
+  enum lead_engineer_work_experience: { five_years_or_more_after_high_school: 0, three_years_or_more_after_technical_college: 1, three_years_or_more_after_university: 2, ten_or_more_years: 3 },
+    _prefix: true
 
   validates :occupation,                         presence: true, on: :update                            # 職種
   validates :construction_name,                  presence: true, length: { maximum: 100 }, on: :update  # 工事名
