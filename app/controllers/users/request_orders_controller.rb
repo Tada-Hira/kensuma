@@ -449,6 +449,7 @@ module Users
         :lead_engineer_name,
         :lead_engineer_check,
         :lead_engineer_qualification,
+        :lead_engineer_work_experience,
         :work_chief_name,
         :work_conductor_name,
         :safety_officer_name,
