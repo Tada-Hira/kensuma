@@ -32,9 +32,8 @@
         <span id="sd_t17_1" class="sd_t sd_s2">です。 </span>
         <span id="sd_t18_1" class="sd_t sd_s1">(全建統一様式第２号) </span>
         <span id="sd_t19_1" class="sd_t sd_s2">
-          <%= f.date_field name = 'content[date_submitted]',
-                                  value:@document.content&.[]('date_submitted'),
-                                  class: 'form-control form-control-sm'
+          <%= f.date_field :content, name: "document[content][date_submitted]",
+                              value: doc_content_date(@document.content&.[]("date_submitted"))
           %> <!-- 3-001 提出日(西暦) -->
         </span>
         <span id="sd_t1a_1" class="sd_t sd_s6">下請負業者の皆さんへ </span>
