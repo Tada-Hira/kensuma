@@ -250,6 +250,10 @@
                   <td><%= License.find(@request_order.lead_engineer_qualification).name if @request_order.lead_engineer_qualification.present? %></td>
                 </tr>
                 <tr>
+                  <th>&emsp;&emsp;<%= RequestOrder.human_attribute_name(:work_experience) %></th> <!-- 主任技術者（実務経験） -->
+                  <td><%= @request_order.lead_engineer_work_experience %></td>
+                </tr>
+                <tr>
                   <th><%= RequestOrder.human_attribute_name(:work_chief_name) %></th> <!-- 作業主任者(氏名) -->
                   <td><%= @request_order.work_chief_name %></td>
                 </tr>
