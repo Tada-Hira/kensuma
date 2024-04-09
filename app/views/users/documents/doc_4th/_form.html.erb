@@ -679,7 +679,7 @@
                 <% if document_subcon_info.lead_engineer_work_experience.present? %>
                   <%= document_subcon_info.lead_engineer_work_experience_i18n %> <!-- 4-126 主任技術者の必要資格又は実務経験 -->
                 <% else %>
-                  <%= License.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格 -->
+                  <%= License.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格又は実務経験 -->
                 <% end %>
               </td>
               <td colspan="2">※専 門 技 術 者 名</td>
