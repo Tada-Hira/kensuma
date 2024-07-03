@@ -247,7 +247,7 @@ module DocumentsHelper
 
   # 作業員の文字情報
   def worker_str(worker, column)
-    worker&.content&.[](column)
+    worker&.content&.[](column) || ""
   end
 
   # 作業員の性別を日本語に変換
@@ -360,7 +360,7 @@ module DocumentsHelper
   def worker_insurance(worker, column)
     insurance = worker&.content&.[]('worker_insurance')&.[](column)
     insurance unless insurance.nil?
-    INSURANCE[insurance]
+    INSURANCE[insurance] || ''
   end
 
   # 作業員の特別健康診断の種類
@@ -381,27 +381,33 @@ module DocumentsHelper
   # 作業員の特別教育情報
   def worker_special_education(worker)
     educations = worker&.content&.[]('worker_special_educations')
-    unless educations.nil?
-      educations = educations.map { |education| SpecialEducation.find(education['special_education_id']).name }
-      educations.to_s.gsub(/,|"|\[|\]/) { '' }
+    if educations.nil? || educations.empty?
+      ''
+    else
+      educations.map { |education| SpecialEducation.find(education['special_education_id']).name }
+                .join(', ')
     end
   end
 
   # 作業員の技能講習情報
   def worker_skill_training(worker)
     trainings = worker&.content&.[]('worker_skill_trainings')
-    unless trainings.nil?
-      trainings = trainings.map { |training| SkillTraining.find(training['skill_training_id']).short_name }
-      trainings.to_s.gsub(/,|"|\[|\]/) { '' }
+    if trainings.nil? || trainings.empty?
+      ''
+    else
+      trainings.map { |training| SkillTraining.find(training['skill_training_id']).short_name }
+               .join(', ')
     end
   end
 
   # 作業員の技能検定情報
   def worker_license(worker)
     licenses = worker&.content&.[]('worker_licenses')
-    unless licenses.nil?
-      licenses = licenses.map { |license| License.find(license['license_id']).name }
-      licenses.to_s.gsub(/,|"|\[|\]/) { '' }
+    if licenses.nil? || licenses.empty?
+      ''
+    else
+      licenses.map { |license| License.find(license['license_id']).name }
+              .join(', ')
     end
   end
 

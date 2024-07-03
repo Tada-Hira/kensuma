@@ -22,16 +22,34 @@ module Users::SubRequestOrders
         end
         format.pdf do
           case @document.document_type
-          when 'cover_document', 'table_of_contents_document',
-                'doc_3rd', 'doc_6th', 'doc_7th', 'doc_9th', 'doc_10th', 'doc_11th', 'doc_12th', 'doc_15th',
-                'doc_16th', 'doc_17th', 'doc_19th', 'doc_20th', 'doc_21st', 'doc_22nd', 'doc_23rd', 'doc_24th'
-            return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A4'
-          when 'doc_4th'
-            return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A3', margin: { bottom: 2 }, orientation: 'Landscape'
-          when 'doc_5th', 'doc_13th', 'doc_14th', 'doc_18th'
-            return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A3', orientation: 'Landscape'
+          # when 'cover_document', 'table_of_contents_document',
+          #       'doc_3rd', 'doc_6th', 'doc_7th', 'doc_9th', 'doc_10th', 'doc_11th', 'doc_12th', 'doc_15th',
+          #       'doc_16th', 'doc_17th', 'doc_19th', 'doc_20th', 'doc_21st', 'doc_22nd', 'doc_23rd', 'doc_24th'
+          #   return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A4'
+          # when 'doc_4th'
+          #   return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A3', margin: { bottom: 2 }, orientation: 'Landscape'
+          # when 'doc_5th', 'doc_13th', 'doc_14th', 'doc_18th'
+          #   return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A3', orientation: 'Landscape'
+          # when 'doc_8th'
+          #   return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A3', margin: { top: 5 }, orientation: 'Landscape'
+          # end
           when 'doc_8th'
-            return render template: 'users/documents/show', pdf: '書類', layout: 'pdf', encording: 'UTF-8', page_size: 'A3', margin: { top: 5 }, orientation: 'Landscape'
+            @document_site_info = document_site_info
+            @document_info = document_info
+            pdf = Doc8thPdf.new(@document_site_info, @document_info)
+
+            # PDFをレンダリングし、ブラウザに表示またはダウンロードさせる
+            send_data pdf.render, filename: "doc_8th.pdf", type: "application/pdf", disposition: "inline"
+            return
+          else
+            render_params = { pdf: '書類', layout: 'pdf', encoding: 'UTF-8', page_size: 'A4' }
+            render_params[:page_size] = 'A3'
+            render_params[:margin] = { bottom: 2 } if @document.document_type == 'doc_4th'
+            render_params[:orientation] = 'Landscape' if ['doc_4th', 'doc_5th', 'doc_13th', 'doc_14th', 'doc_18th', 'doc_8th'].include?(@document.document_type)
+            render_params[:margin] = { top: 5 } if @document.document_type == 'doc_8th'
+            
+            render template: 'users/documents/show', **render_params
+            return
           end
         end
       end
