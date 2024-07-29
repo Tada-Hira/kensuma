@@ -473,6 +473,35 @@ module DocumentsHelper
     end
   end
 
+  # 作業員の記号(prawnのPDF表示用)
+  def field_worker_symbol_pdf(worker)
+    if worker.present?
+      id = worker&.content&.[]('id')
+      birth_day_on = worker&.content&.[]('birth_day_on')
+      safety_health_education = worker&.content&.[]('worker_safety_health_educations').to_json
+      foreigner = worker&.content&.[]('status_of_residence')
+
+      site_agent = "現" if id == @document_info.content&.[]('subcon_site_agent_name_id') # (現)現場代理人
+      work_chief = "作" if id == @document_info.content&.[]('subcon_work_chief_name_id') # (作)作業主任者
+      if birth_day_on .present?
+        under_18 = "未" if ((Date.today - birth_day_on.to_date) / 365.25).to_i < 18 # (未)18歳未満の作業員
+      end
+      sex = "女" if worker&.content&.[]('sex') == "woman" # 女
+      lead_engineer = "主" if id == @document_info.content&.[]('subcon_lead_engineer_name_id') # (主)主任技術者
+      foreman = "職" if id == @document_info.content&.[]('subcon_foreman_name_id') # (主)主任技術者
+      safety_manager = "安" if id == @document_info.content&.[]('subcon_safety_manager_name_id') # (安)安全衛生責任者
+      ability_improving_education = "歳" if safety_health_education.include?("19") # (歳)能力向上教育
+      danger_harmful_business = "再" if safety_health_education.include?("6") # (再)危険有害業務・再発防止教育
+      skill_practice = "習" if foreigner == "skill_practice" # (習)外国人技能実習生
+      construction_employment = "就" if foreigner == "construction_employment" # (就)外国人建設就労者
+      specified_skill = "1特" if foreigner == "specified_skill" # (1特)1号特定技能外国人
+
+      # worker_symbols = [site_agent, work_chief, under_18, sex, lead_engineer, foreman, safety_manager, ability_improving_education, danger_harmful_business, skill_practice, construction_employment, specified_skill].compact
+      worker_symbols = [site_agent, work_chief, under_18, sex, lead_engineer, foreman, safety_manager, ability_improving_education, danger_harmful_business, skill_practice, construction_employment, specified_skill].compact
+      worker_symbols.any? ? worker_symbols.join(' ') : ''
+    end
+  end
+
   # 作業員の職種
   def worker_occupation(worker)
     worker&.occupation_id.nil? ? nil : Occupation.find(worker.occupation_id).short_name

@@ -1,8 +1,9 @@
 class Doc8thPdf < Prawn::Document
   include ActionView::Helpers::TranslationHelper
+  include ApplicationHelper
   include DocumentsHelper
 
-  def initialize(document_site_info, document_info)
+  def initialize(document_site_info, document_info, document)
     super(page_size: 'A3', page_layout: :landscape)
     font 'app/assets/fonts/ipaexg.ttf'
     font_families.update("font" => {
@@ -11,6 +12,7 @@ class Doc8thPdf < Prawn::Document
     })
     @document_site_info = document_site_info
     @document_info = document_info
+    @document = document
     # setup_document
     # 他の初期化処理
     @document_info.field_workers.each_slice(8).each_with_index do |(w1, w2, w3, w4, w5, w6, w7, w8), i|
@@ -22,34 +24,18 @@ class Doc8thPdf < Prawn::Document
     # stroke_axis
   end
 
-  # def setup_document(w1, w2, w3, w4, w5, w6, w7, w8, i)
-  #   font("font")
-  #     bounding_box([23, 643], width: 1072, height: 523) do
-  #     text_box (1 + i * 10).to_s, at: [9, bounds.height - 15], size: 10, style: :normal
-  #     text w1&.content&.[]("id").to_s
-  #     text (2 + i * 10).to_s
-  #     text w2&.content&.[]("id").to_s
-  #     text (3 + i * 10).to_s
-  #     text w3&.content&.[]("id").to_s
-  #     text (4 + i * 10).to_s
-  #     text w4&.content&.[]("id").to_s
-  #     text (5 + i * 10).to_s
-  #     text w5&.content&.[]("id").to_s
-  #     text (6 + i * 10).to_s
-  #     text w6&.content&.[]("id").to_s
-  #     text (7 + i * 10).to_s
-  #     text w7&.content&.[]("id").to_s
-  #     text (8 + i * 10).to_s
-  #     text w8&.content&.[]("id").to_s
-  # end
-
   def setup_document(w1, w2, w3, w4, w5, w6, w7, w8, i)
     font("font")
 
     workers = [w1, w2, w3, w4, w5, w6, w7, w8]
 
     text_box "作　　業　　員　　名　　簿", at: [0, 775], size: 18, style: :bold, align: :center
-    text_box "(　　　　年　　月　　日　作成)", at: [0, 746], size: 10, style: :bold, align: :center
+
+    # 8-004 作成日
+    text_box "(　　　　　　　　　　　　作成)", at: [0, 746], size: 10, style: :bold, align: :center
+    bounding_box([500, 748], width: 100, height: 16) do
+      text_box(wareki(@document.content&.[]('date_created')&.[]("field_worker_#{i}")), at: [2, 13], size: 10, style: :normal, align: :center)
+    end
 
     text_box "事業所の名称", at: [29, 759], size: 9, style: :normal
     stroke_horizontal_line(89, 297, at: 748)
@@ -74,23 +60,39 @@ class Doc8thPdf < Prawn::Document
     text_box "ために元請負業者に提示することについて、記載", at: [312, 685], size: 9.1, style: :normal
     text_box "者本人は同意しています。", at: [312, 670], size: 9.1, style: :normal
 
+    # 8-005 一次会社名
     text_box "一次会社名", at: [550, 685], size: 9.1, style: :normal
     stroke_horizontal_line(611, 794, at: 669)
     bounding_box([610, 685], width: 184, height: 16) do
       text_box(primary_subcon_info(@document_info)&.content&.[]("subcon_name"), at: [2, 13], size: 10, style: :normal)
     end
 
+    # 8-006 一次会社の「事業者ID(キャリアアップID)」
     text_box "事 業 者 ID", at: [551, 666], size: 9.1, style: :normal
     stroke_horizontal_line(611, 794, at: 653)
-
-    text_box "(　　　　)　会社名", at: [828, 685], size: 9.1, style: :normal
-    stroke_horizontal_line(912, 1095, at: 669)
-    text_box "事 業 者 ID", at: [840, 666], size: 9.1, style: :normal
-    stroke_horizontal_line(912, 1095, at: 653)
     bounding_box([610, 669], width: 184, height: 16) do
       text_box(primary_subcon_info(@document_info).content&.[]('subcon_career_up_id'), at: [2, 13], size: 10, style: :normal)
     end
 
+    # 8-007 次, 8-009 自社の「会社名」
+    text_box "(　　　　)　会社名", at: [828, 685], size: 9.1, style: :normal
+    stroke_horizontal_line(912, 1095, at: 669)
+    bounding_box([837, 686], width: 30, height: 16) do
+      text_box(sc_hierarchy(@document_info), at: [2, 13], size: 9, style: :normal)
+    end
+
+    bounding_box([910, 685], width: 184, height: 16) do
+      text_box(Business.find(@document_info.business_id).name, at: [2, 13], size: 10, style: :normal)
+    end
+
+    # 8-010 自社の「事業者ID(キャリアアップID)」
+    text_box "事 業 者 ID", at: [840, 666], size: 9.1, style: :normal
+    stroke_horizontal_line(912, 1095, at: 653)
+    bounding_box([910, 669], width: 184, height: 16) do
+      text_box(Business.find(@document_info.business_id).career_up_id, at: [2, 13], size: 10, style: :normal)
+    end
+
+    # 8-042 元請会社の確認欄
     bounding_box([873, 763], width: 222, height: 31) do
       stroke_rectangle([0, bounds.height], bounds.width, bounds.height)
       stroke_vertical_line(bounds.height, 0, at: 91) # 91ポイントの位置に縦線を引く
@@ -98,9 +100,17 @@ class Doc8thPdf < Prawn::Document
       text_box "確認欄", at: [32, cursor - 17], size: 9.1, style: :normal
     end
 
-    text_box "提出日", at: [955, 715], size: 9.1, style: :normal
-    text_box "　　　　年　　月　　日", at: [993, 715], size: 9.1, style: :normal
+    bounding_box([964, 763], width: 131, height: 31) do
+      stroke_bounds
+      text_box(@document.content&.[]('prime_contractor_confirmation'), at: [0, 20], size: 10, style: :normal, align: :center)
+    end
+
+    # 8-011 提出日
+    text_box "提出日", at: [951, 712], size: 9.1, style: :normal
     stroke_horizontal_line(991, 1095, at: 701)
+    bounding_box([991, 717], width: 104, height: 16) do
+      text_box(wareki(@document.content&.[]('date_submitted')&.[]("field_worker_#{i}")), at: [2, 13], size: 10, style: :normal)
+    end
 
     bounding_box([23, 643], width: 1072, height: 522) do
       stroke_rectangle([0, bounds.height], bounds.width, bounds.height)
@@ -138,38 +148,6 @@ class Doc8thPdf < Prawn::Document
         end
       end
 
-      # bounding_box([- 1, bounds.height - 80], width: 30, height: 30) do
-      #   text_box((1 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 1
-      # end
-
-      # bounding_box([- 1, bounds.height - 140], width: 30, height: 30) do
-      #   text_box((2 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 2
-      # end
-
-      # bounding_box([- 1, bounds.height - 197], width: 30, height: 30) do
-      #   text_box((3 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 3
-      # end
-
-      # bounding_box([- 1, bounds.height - 256], width: 30, height: 30) do
-      #   text_box((4 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 4
-      # end
-
-      # bounding_box([- 1, bounds.height - 315], width: 30, height: 30) do
-      #   text_box((5 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 5
-      # end
-
-      # bounding_box([- 1, bounds.height - 372], width: 30, height: 30) do
-      #   text_box((6 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 6
-      # end
-
-      # bounding_box([- 1, bounds.height - 430], width: 30, height: 30) do
-      #   text_box((7 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 7
-      # end
-
-      # bounding_box([- 1, bounds.height - 488], width: 30, height: 30) do
-      #   text_box((8 + i * 8).to_s, at: [0, 30], size: 10, style: :normal, align: :center) # 8
-      # end
-
       stroke_horizontal_line(26, 209, at: bounds.height - 19) # ふりがな,氏名,技能者IDの見出し
       stroke_horizontal_line(26, 209, at: bounds.height - 38)
 
@@ -191,27 +169,6 @@ class Doc8thPdf < Prawn::Document
           text_box(worker_str(worker, "name_kana"), at: [0, 13], size: 7, style: :normal, align: :center)
         end
       end
-
-      # bounding_box([26, bounds.height - 58], width: 183, height: 19) do
-      #   text_box(worker_str(w1, "name_kana"), at: [0, 13], size: 7, style: :normal, align: :center) # 1
-      # end
-
-      # bounding_box([26, bounds.height - 116], width: 183, height: 19) do
-      #   text_box(worker_str(w2, "name_kana"), at: [0, 13], size: 7, style: :normal, align: :center) # 2
-      # end
-
-      # bounding_box([26, bounds.height - 174], width: 183, height: 19) do
-      #   text_box(worker_str(w3, "name_kana"), at: [0, 13], size: 7, style: :normal, align: :center) # 3
-      # end
-
-      # bounding_box([26, bounds.height - 232], width: 183, height: 19) do
-      #   text_box(worker_str(w4, "name_kana"), at: [0, 13], size: 7, style: :normal, align: :center) # 4
-      # end
-
-      # bounding_box([26, bounds.height - 290], width: 183, height: 19) do
-      #   stroke_bounds
-      #   text_box(worker_str(w5, "name_kana"), at: [0, 13], size: 7, style: :normal, align: :center) # 5
-      # end
 
       text_box "氏名", at: [109, bounds.height - 23], size: 9, style: :normal
 
@@ -251,8 +208,46 @@ class Doc8thPdf < Prawn::Document
         end
       end
 
+      # 8-015 職種
       text_box "職 種", at: [219, bounds.height - 23], size: 9, style: :normal
+
+      field_worker_occupation_positions = [
+        bounds.height - 58,
+        bounds.height - 116,
+        bounds.height - 174,
+        bounds.height - 232,
+        bounds.height - 290,
+        bounds.height - 348,
+        bounds.height - 406,
+        bounds.height - 464
+      ]
+
+      workers.each_with_index do |worker, index|
+        bounding_box([209, field_worker_occupation_positions[index]], width:39, height: 58) do
+          text_box(worker_occupation(worker).to_s, at: [0, 50], size: 7, style: :normal, align: :center)
+        end
+      end
+
+      # 8-016 記号(※)
       text_box "※", at: [257, bounds.height - 23], size: 9, style: :normal
+
+      field_worker_symbol_positions = [
+        bounds.height - 58,
+        bounds.height - 116,
+        bounds.height - 174,
+        bounds.height - 232,
+        bounds.height - 290,
+        bounds.height - 348,
+        bounds.height - 406,
+        bounds.height - 464
+      ]
+
+      workers.each_with_index do |worker, index|
+        bounding_box([248, field_worker_symbol_positions[index]], width: 26, height: 58) do
+          text_box(field_worker_symbol_pdf(worker).to_s, at: [3, 50], size: 8, style: :normal)
+        end
+      end
+
       text_box "生年月日", at: [303, bounds.height - 7], size: 9, style: :normal
 
       birth_day_on_positions = [
@@ -344,7 +339,6 @@ class Doc8thPdf < Prawn::Document
 
       workers.each_with_index do |worker, index|
         bounding_box([366, employment_insurance_type_positions[index]], width: 91, height: 20) do
-          stroke_bounds
           text_box(worker_insurance(worker, "employment_insurance_type"), at: [0, 14], size: 9, style: :normal, align: :center)
         end
       end
@@ -607,18 +601,3 @@ class Doc8thPdf < Prawn::Document
     draw_text "（注）11. 記載事項の一部について、別紙を用いて記載しても差し支えない。", at: [630, - 5], size: 7.5, style: :normal
   end
 end
-
-# format.pdf do
-#   case @document.document_type
-#   when 'doc_8th'
-#     pdf = Doc8thPdf.new
-
-#     # ERBファイルを読み込んでPDFに追加する
-#     pdf_text = render_to_string(template: 'users/documents/doc_8th/pdf.erb', layout: false)
-#     pdf.text pdf_text
-
-#     send_data pdf.render, filename: "doc_8th.pdf", type: "application/pdf", disposition: "inline"
-#     return
-#   # 他の書類の処理も同様に記述する
-#   end
-# end

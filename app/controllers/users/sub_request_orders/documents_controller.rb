@@ -36,7 +36,9 @@ module Users::SubRequestOrders
           when 'doc_8th'
             @document_site_info = document_site_info
             @document_info = document_info
-            pdf = Doc8thPdf.new(@document_site_info, @document_info)
+            document = @documents.find_by!(uuid: params[:uuid])
+            @document = document
+            pdf = Doc8thPdf.new(@document_site_info, @document_info, @document)
 
             # PDFをレンダリングし、ブラウザに表示またはダウンロードさせる
             send_data pdf.render, filename: "doc_8th.pdf", type: "application/pdf", disposition: "inline"
@@ -47,7 +49,7 @@ module Users::SubRequestOrders
             render_params[:margin] = { bottom: 2 } if @document.document_type == 'doc_4th'
             render_params[:orientation] = 'Landscape' if ['doc_4th', 'doc_5th', 'doc_13th', 'doc_14th', 'doc_18th', 'doc_8th'].include?(@document.document_type)
             render_params[:margin] = { top: 5 } if @document.document_type == 'doc_8th'
-            
+
             render template: 'users/documents/show', **render_params
             return
           end
