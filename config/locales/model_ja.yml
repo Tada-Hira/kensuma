@@ -150,6 +150,14 @@ ja:
         exp_date_insurance: 有効期限
         periodic_self_inspections: 特定(年次)及び月例の定期自主検査帳票の写し
         in_house_inspections: 自社の点検表の写し
+        mobile_crane_vehicle_based_construction_machinery: 移動式クレーン/車両系建設機械
+        machine: 機械
+        self_inspection: 自主検査
+        self_inspection_expiration_date: 自主検査有効期限
+        fixed_term: 定期
+        voluntary_insurance: 任意保険
+        subscription_Amount: 加入額
+
       field_car:
         car_name: 車両名
         driver_name: 運転者名
@@ -328,6 +336,7 @@ ja:
         lead_engineer_name: 氏名
         lead_engineer_check: 専任・非専任
         lead_engineer_qualification: 資格内容
+        lead_engineer_work_experience: 実務経験
         work_chief_name: 作業主任者名
         work_conductor_name: 作業指揮者名
         safety_officer_name: 安全衛生担当責任者名
@@ -366,6 +375,7 @@ ja:
         employee_cards: 従業員証の写し
         driver_licences: 自動車運転免許証
         driver_licence_number: 免許証番号
+        driver_licenses_cards: 自動車運転免許証の写し
         seal: 認印
         status_of_residence: 在留資格
         maturity_date: 在留期間満期日
@@ -374,6 +384,7 @@ ja:
         passports: パスポートの写し
         residence_cards: 在留カードの写し
         employment_conditions: 受入企業と外国人建設就労者等との間の雇用条件書の写し
+        number : 人数
       license:
         name: 名称
         description: 説明

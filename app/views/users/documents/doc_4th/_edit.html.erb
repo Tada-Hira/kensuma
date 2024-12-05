@@ -552,7 +552,7 @@
             <tr>
               <td>至</td>
               <td>
-                <%= wareki(document_date(document_subcon_info&.start_date)) %> <!-- 4-110 各下請会社の工期(至) -->
+                <%= wareki(document_date(document_subcon_info&.end_date)) %> <!-- 4-110 各下請会社の工期(至) -->
               </td>
             </tr>
           </tbody>
@@ -689,9 +689,11 @@
             <tr>
               <td width="1%"></td>
               <td width="14%">資 格 内 容</td>
-              <td colspan="2">
-                <% if document_subcon_info&.lead_engineer_qualification.present? %>
-                  <%= SkillTraining.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格 -->
+              <td class="doc_4_s1" colspan="2">
+                <% if document_subcon_info.lead_engineer_work_experience.present? %>
+                  <%= document_subcon_info.lead_engineer_work_experience_i18n %> <!-- 4-126 主任技術者の必要資格又は実務経験 -->
+                <% else %>
+                  <%= License.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格 -->
                 <% end %>
               </td>
               <td colspan="2">※専 門 技 術 者 名</td>

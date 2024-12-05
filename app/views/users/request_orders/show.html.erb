@@ -94,7 +94,7 @@
                           <% if @request_order.order.system_chart_status || @request_order.parent_id.nil? %>
                               <%= link_to '詳細', users_request_order_document_path(@request_order.uuid, current_user_document.uuid) %>
                             <% else %>
-                              <span class="text-danger">元請にて作成中</span> 
+                              <span class="text-danger">元請にて作成中</span>
                             <% end %>
                         </td>
                         <td class="text-right">
@@ -211,7 +211,7 @@
                 </tr>
                 <tr>
                   <th>&emsp;&emsp;<%= RequestOrder.human_attribute_name(:professional_engineer_qualification) %></th> <!-- 専門技術者(資格内容) -->
-                  <td><%= SkillTraining.find(@request_order.professional_engineer_qualification).name if @request_order.professional_engineer_qualification.present? %></td>
+                  <td><%= License.find(@request_order.professional_engineer_qualification).name if @request_order.professional_engineer_qualification.present? %></td>
                 </tr>
                 <tr>
                   <th>&emsp;&emsp;<%= RequestOrder.human_attribute_name(:professional_engineer_details) %></th> <!-- 専門技術者(担当工事内容) -->
@@ -247,7 +247,11 @@
                 </tr>
                 <tr>
                   <th>&emsp;&emsp;<%= RequestOrder.human_attribute_name(:lead_engineer_qualification) %></th> <!-- 主任技術者(資格内容) -->
-                  <td><%= SkillTraining.find(@request_order.lead_engineer_qualification).name if @request_order.lead_engineer_qualification.present? %></td>
+                  <td><%= License.find(@request_order.lead_engineer_qualification).name if @request_order.lead_engineer_qualification.present? %></td>
+                </tr>
+                <tr>
+                  <th>&emsp;&emsp;<%= RequestOrder.human_attribute_name(:work_experience) %></th> <!-- 主任技術者（実務経験） -->
+                  <td><%= @request_order.lead_engineer_work_experience %></td>
                 </tr>
                 <tr>
                   <th><%= RequestOrder.human_attribute_name(:work_chief_name) %></th> <!-- 作業主任者(氏名) -->

@@ -2,7 +2,7 @@
 
 
 <!-- 会社情報 -->
-<div class="list-group-item">
+<div class="list-group-item" style="border: none; box-shadow: none;">
   <div style="font-size: 22px; font-weight: bold;"><%= f.label :business_info %></div>
   <div class="list-group-item">
     <%= f.label :business_type %><!--会社形態-->
@@ -54,28 +54,18 @@
     <%= f.label :fax_number %><!-- FAX -->
     <%= f.telephone_field :fax_number, class: "form-control" %>
     <br>
-    <%= f.label :stamp_images %><br><!-- 社印 -->
-    <% if business.stamp_images.present? %>
-      <% business.stamp_images.each_with_index do |image, index| %>
-        <%= image_tag(image.url) %>
-        <%= link_to "削除", update_stamp_images_users_business_path(index: index), method: :patch, data: { confirm: "本当に削除してもよろしいですか？" } %>
-      <% end %>
-      <br>
-    <% end %>
-    <%= f.file_field :stamp_images, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control stamp-images-input" %>
-    <br>
-    <%= f.label :industry_ids %><!-- 業種 -->
+    <%= f.label :industry_ids, "業種（複数選択可）" %><!-- 業種 -->
     <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
     <%= f.collection_select :tem_industry_ids, Industry.all, :id, :name, { selected: @business&.tem_industry_ids }, { class: 'form-control select2', id: 'parent-select', multiple: true, style: "width: 100%" } %>
     <br>
     <br>
-    <%= f.label :occupation_ids %><!-- 職種 -->
+    <%= f.label :occupation_ids, "職種（複数選択可）" %><!-- 職種 -->
     <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
     <%= f.collection_select :occupation_ids, get_occupations_for_selected_industries, :id, :short_name, { selected: @business&.occupation_ids }, { class: 'form-control select2', id: 'child-select', multiple: true, style: "width: 100%" } %>
     <br>
     <br>
     <div id="hidden-form-business-type">
-    <%= f.label :employment_manager_name %> <!-- 雇用管理責任者 -->
+    <%= f.label :employment_manager_name, "雇用管理責任者名（作業員情報を登録後に選択してください。）" %> <!-- 雇用管理責任者 -->
     <%= f.select :employment_manager_name, (@business_workers_name&.uniq || []),
                   { include_blank: true },
                   { class: "form-select form-select-sm", style: "width: 100%" }
@@ -84,7 +74,7 @@
   </div>
 </div>
 
-<div class="list-group-item">
+<div class="list-group-item" style="border: none; box-shadow: none;">
   <div style="font-size: 22px; font-weight: bold;"><%= f.label :social_insurance_info %></div><!-- 社会保険情報 -->
   <div class="list-group-item">
     <div><%= f.label :business_health_insurance %></div><!-- 健康保険 -->
@@ -173,7 +163,7 @@
   </div>
 
   <div class="list-group-item">
-    <%= f.label :construction_license_status %>
+    <%= f.label :construction_license_status, "建設許可証（複数選択可）" %>
     <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
     <div class="list-group-item">
       <div id="available-form">
@@ -252,7 +242,7 @@
         <% end %>
       </div>
       <br>
-      <%= f.label :foreigners_employment_manager %><!-- 外国人雇用管理責任者名 -->
+      <%= f.label :foreigners_employment_manager, "外国人雇用管理責任者名（作業員情報を登録後に選択してください。）" %><!-- 外国人雇用管理責任者名 -->
       <div class="list-group-item">
         <%= f.select :foreigners_employment_manager, (@business_workers_name&.uniq || []),
                       { include_blank: true },

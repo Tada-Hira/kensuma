@@ -1,150 +1,179 @@
 <%= render 'shared/error_massages', object: f.object %>
 
-<%= f.label :owning_company_name %> <!-- 所有会社名 --> 
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.text_field :owning_company_name, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:owning_company_name) %>
-<br>
-<%= f.label :vehicle_type %> <!-- 登録する車両 -->
-  <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-  <div class="list-group-item">
-    <%= f.collection_radio_buttons(:vehicle_type, SpecialVehicle.vehicle_types_i18n.each, :first, :last, { checked: @special_vehicle&.vehicle_type? ? @special_vehicle&.vehicle_type : false }) do |b| %>
-      <div>
-        <%= b.label { b.radio_button + b.text } %>
+<div class="list-group-item" style="border: none; box-shadow: none;">
+  <div style="font-size: 22px; font-weight: bold;"><%= f.label :mobile_crane_vehicle_based_construction_machinery %></div> <!-- 移動式クレーン／車両系建設機械 -->
+  <div class="indented-margin-left-20px">
+    <%= f.label :owning_company_name %> <!-- 所有会社名 -->
+    <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+    <%= f.text_field :owning_company_name, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:owning_company_name) %>
+    <br>
+    <%= f.label :vehicle_type %> <!-- 登録する車両 -->
+      <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+      <div class="list-group-item">
+        <%= f.collection_radio_buttons(:vehicle_type, SpecialVehicle.vehicle_types_i18n.each, :first, :last, { checked: @special_vehicle&.vehicle_type? ? @special_vehicle&.vehicle_type : false }) do |b| %>
+          <div>
+            <%= b.label { b.radio_button + b.text } %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-<br>
-<%= f.label :name %> <!-- 名称 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.text_field :name, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:name) %>
-<br>
-<%= f.label :maker %> <!-- メーカー -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.text_field :maker, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:maker) %>
-<br>
-<%= f.label :standards_performance %> <!-- 規格・性能 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.text_field :standards_performance, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:standards_performance) %>
-<br>
-<%= f.label :year_manufactured %> <!-- 製造年 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :year_manufactured, style: "width: 25%;", class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:year_manufactured) %>
-<br>
-<%= f.label :control_number %> <!-- 管理番号(整理番号) -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.text_field :control_number, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:control_number) %>
-<br>
-<%= f.label :check_exp_date_year %> <!-- 年次 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_year, style: "width: 25%;", class: "form-control" %>
-<br>
-<%= f.label :check_exp_date_month %> <!-- 月次 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_month, style: "width: 25%;", class: "form-control" %>
-<br>
-<%= f.label :check_exp_date_specific %> <!-- 特定 -->
-<%= f.date_field :check_exp_date_specific, style: "width: 25%;", class: "form-control" %>
-<br>
-<%= f.label :check_exp_date_machine %> <!-- 移動式クレーン等の性能検査有効期限 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_machine, style: "width: 25%;", class: "form-control" %>
-<br>
-<%= f.label :check_exp_date_car %> <!-- 自動車検査証有効期限 -->
-<span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
-<%= f.date_field :check_exp_date_car, style: "width: 25%;", class: "form-control" %>
-<br>
-<%= f.label :in_house_inspections %> <!-- 自社の点検表の写し -->
-<%= f.file_field :in_house_inspections, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control" %>
-  <% if f.object.in_house_inspections.present? %>
-    <% f.object.in_house_inspections.each_with_index do |image, index| %>
-    <%= image_tag(image.url) %>
-    <%= link_to "削除", users_special_vehicle_destroy_image_path(special_vehicle_uuid: f.object.uuid, column: "in_house_inspections", id: f.object.id, index: index), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" } %>
-  <% end %>
-<% end %>
-<br>
-<%= f.label :periodic_self_inspections %> <!-- 特定(年次)及び月例の定期自主検査帳票の写し -->
-<%= f.file_field :periodic_self_inspections, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control" %>
-<% if f.object.periodic_self_inspections.present? %>
-  <% f.object.periodic_self_inspections.each_with_index do |image, index| %>
-    <%= image_tag(image.url) %>
-    <%= link_to "削除", users_special_vehicle_destroy_image_path(special_vehicle_uuid: f.object.uuid, column: "periodic_self_inspections", id: f.object.id, index: index), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" } %>
-  <% end %>
-<% end %>
-
-<!-- 対人 -->
-<%= f.label :personal_insurance %>
-<div class="radio-container">
-  <%= f.collection_radio_buttons(:personal_insurance_unlimited, SpecialVehicle.personal_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.personal_insurance_unlimited? ? @special_vehicle&.personal_insurance_unlimited : "not_joined" }) do |b| %>
-    <div class="radio-item">
-      <%= b.label { b.radio_button + b.text } %>
+      <br>
+      <div><%= f.label :machine %></div> <!-- 機械 --> 
+      <div class="indented-margin-left-20px">
+        <%= f.label :name %> <!-- 名称 -->
+        <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+        <%= f.text_field :name, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:name) %>
+        <br>
+        <%= f.label :maker %> <!-- メーカー -->
+        <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+        <%= f.text_field :maker, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:maker) %>
+        <br>
+        <%= f.label :standards_performance %> <!-- 規格・性能 -->
+        <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+        <%= f.text_field :standards_performance, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:standards_performance) %>
+        <br>
+        <%= f.label :year_manufactured %> <!-- 製造年 -->
+        <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+        <%= f.date_field :year_manufactured, style: "width: 25%;", class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:year_manufactured) %>
+        <br>
+        <%= f.label :control_number %> <!-- 管理番号(整理番号) -->
+        <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+        <%= f.text_field :control_number, class: "form-control", placeholder: SpecialVehicle.human_attribute_name(:control_number) %>
+        <br>
+      </div>
     </div>
-  <% end %>
-</div>
 
-<div class="input-group w-50">
-  <%= f.number_field :personal_insurance, class: "form-control", id: "personal-insurance-input", min: 1 %>
-  <div class="input-group-append">
-    <span class="input-group-text">千円</span>
-  </div>
-</div>
-<br>
-
-<!-- 対物 -->
-<%= f.label :objective_insurance %>
-<div class="radio-container">
-  <%= f.collection_radio_buttons(:objective_insurance_unlimited, SpecialVehicle.objective_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.objective_insurance_unlimited? ? @special_vehicle&.objective_insurance_unlimited : "not_joined" }) do |b| %>
-    <div class="radio-item">
-      <%= b.label { b.radio_button + b.text } %>
+    <div style="font-size: 22px; font-weight: bold;"><%= f.label :self_inspection %></div> <!-- 自主検査 -->
+    <div class="indented-margin-left-20px">
+      <%= f.label :self_inspection_expiration_date %> <!-- 自主検査有効期限 -->
+      <div class="indented-margin-left-20px">
+        <%= f.label :fixed_term %> <!-- 定期 -->
+        <div class="indented-margin-left-20px">
+          <%= f.label :check_exp_date_year %> <!-- 年次 -->
+          <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+          <%= f.date_field :check_exp_date_year, style: "width: 25%;", class: "form-control" %>
+          <br>
+          <%= f.label :check_exp_date_month %> <!-- 月次 -->
+          <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+          <%= f.date_field :check_exp_date_month, style: "width: 25%;", class: "form-control" %>
+          <br>
+        </div>
+        <%= f.label :check_exp_date_specific %> <!-- 特定 -->
+        <%= f.date_field :check_exp_date_specific, style: "width: 25%;", class: "form-control" %>
+        <br>
+      </div>
+      <%= f.label :check_exp_date_machine %> <!-- 移動式クレーン等の性能検査有効期限 -->
+      <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+      <%= f.date_field :check_exp_date_machine, style: "width: 25%;", class: "form-control" %>
+      <br>
+      <%= f.label :check_exp_date_car %> <!-- 自動車検査証有効期限 -->
+      <span class="p-1 mb-2 rounded bg-danger text-white">必須</span>
+      <%= f.date_field :check_exp_date_car, style: "width: 25%;", class: "form-control" %>
+      <br>
+      <%= f.label :in_house_inspections %> <!-- 自社の点検表の写し -->
+      <%= f.file_field :in_house_inspections, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control" %>
+        <% if f.object.in_house_inspections.present? %>
+          <% f.object.in_house_inspections.each_with_index do |image, index| %>
+          <%= image_tag(image.url) %>
+          <%= link_to "削除", users_special_vehicle_destroy_image_path(special_vehicle_uuid: f.object.uuid, column: "in_house_inspections", id: f.object.id, index: index), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" } %>
+          <% end %>
+        <% end %>
+        <br>
+        <%= f.label :periodic_self_inspections %> <!-- 特定(年次)及び月例の定期自主検査帳票の写し -->
+        <%= f.file_field :periodic_self_inspections, accept: 'image/jpg, image/jpeg, image/png', multiple: true, class: "form-control" %>
+        <% if f.object.periodic_self_inspections.present? %>
+          <% f.object.periodic_self_inspections.each_with_index do |image, index| %>
+            <%= image_tag(image.url) %>
+            <%= link_to "削除", users_special_vehicle_destroy_image_path(special_vehicle_uuid: f.object.uuid, column: "periodic_self_inspections", id: f.object.id, index: index), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" } %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-</div>
-
-<div class="input-group w-50">
-  <%= f.number_field :objective_insurance, class: "form-control", id: "objective-insurance-input", min: 1 %>
-  <div class="input-group-append">
-    <span class="input-group-text">千円</span>
   </div>
-</div>
-<br>
+  <div class="list-group-item" style="border: none; box-shadow: none;">
+    <div class="indented-margin-left-20px">
+      <div style="font-size: 22px; font-weight: bold;"><%= f.label :voluntary_insurance %></div> <!-- 任意保険 -->
+      <div class="indented-margin-left-20px">
+      <%= f.label :subscription_Amount %> <!-- 加入額 -->
+        <div style="margin-left: 20px;">
+        <!-- 対人 -->
+        <%= f.label :personal_insurance %>
+          <div class="radio-container">
+          <%= f.collection_radio_buttons(:personal_insurance_unlimited, SpecialVehicle.personal_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.personal_insurance_unlimited? ? @special_vehicle&.personal_insurance_unlimited : "not_joined" }) do |b| %>
+            <div class="radio-item">
+            <%= b.label { b.radio_button + b.text } %>
+            </div>
+          <% end %>
+          </div>
 
-<!-- 搭乗者 -->
-<%= f.label :passenger_insurance %>
-<div class="radio-container">
-  <%= f.collection_radio_buttons(:passenger_insurance_unlimited, SpecialVehicle.passenger_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.passenger_insurance_unlimited? ? @special_vehicle&.passenger_insurance_unlimited : "not_joined" }) do |b| %>
-    <div class="radio-item">
-      <%= b.label { b.radio_button + b.text } %>
+          <div class="input-group w-50">
+            <%= f.number_field :personal_insurance, class: "form-control", id: "personal-insurance-input", min: 1 %>
+            <div class="input-group-append">
+              <span class="input-group-text">千円</span>
+            </div>
+          </div>
+          <br>
+
+          <!-- 対物 -->
+          <%= f.label :objective_insurance %>
+          <div class="radio-container">
+            <%= f.collection_radio_buttons(:objective_insurance_unlimited, SpecialVehicle.objective_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.objective_insurance_unlimited? ? @special_vehicle&.objective_insurance_unlimited : "not_joined" }) do |b| %>
+              <div class="radio-item">
+                <%= b.label { b.radio_button + b.text } %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="input-group w-50">
+            <%= f.number_field :objective_insurance, class: "form-control", id: "objective-insurance-input", min: 1 %>
+            <div class="input-group-append">
+              <span class="input-group-text">千円</span>
+            </div>
+          </div>
+          <br>
+
+          <!-- 搭乗者 -->
+          <%= f.label :passenger_insurance %>
+          <div class="radio-container">
+            <%= f.collection_radio_buttons(:passenger_insurance_unlimited, SpecialVehicle.passenger_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.passenger_insurance_unlimited? ? @special_vehicle&.passenger_insurance_unlimited : "not_joined" }) do |b| %>
+              <div class="radio-item">
+                <%= b.label { b.radio_button + b.text } %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="input-group w-50">
+            <%= f.number_field :passenger_insurance, class: "form-control", id: "passenger_insurance-input", min: 1 %>
+            <div class="input-group-append">
+              <span class="input-group-text">千円</span>
+            </div>
+          </div>
+          <br>
+
+          <!-- その他 -->
+          <%= f.label :other_insurance %>
+          <div class="radio-container">
+            <%= f.collection_radio_buttons(:other_insurance_unlimited, SpecialVehicle.other_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.other_insurance_unlimited? ? @special_vehicle&.other_insurance_unlimited : "not_joined" }) do |b| %>
+              <div class="radio-item">
+                <%= b.label { b.radio_button + b.text } %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="input-group w-50">
+            <%= f.number_field :other_insurance, class: "form-control", id: "other_insurance-input", min: 1 %>
+            <div class="input-group-append">
+              <span class="input-group-text">千円</span>
+            </div>
+          </div>
+          <br>
+
+          <%= f.label :exp_date_insurance %> <!-- 有効期限 -->
+          <%= f.date_field :exp_date_insurance, style: "width: 25%;", class: "form-control" %>
+        </div>
+      </div>
     </div>
-  <% end %>
-</div>
-
-<div class="input-group w-50">
-  <%= f.number_field :passenger_insurance, class: "form-control", id: "passenger_insurance-input", min: 1 %>
-  <div class="input-group-append">
-    <span class="input-group-text">千円</span>
   </div>
 </div>
-<br>
-
-<!-- その他 -->
-<%= f.label :other_insurance %>
-<div class="radio-container">
-  <%= f.collection_radio_buttons(:other_insurance_unlimited, SpecialVehicle.other_insurance_unlimiteds_i18n, :first, :last, { checked: @special_vehicle&.other_insurance_unlimited? ? @special_vehicle&.other_insurance_unlimited : "not_joined" }) do |b| %>
-    <div class="radio-item">
-      <%= b.label { b.radio_button + b.text } %>
-    </div>
-  <% end %>
-</div>
-
-<div class="input-group w-50">
-  <%= f.number_field :other_insurance, class: "form-control", id: "other_insurance-input", min: 1 %>
-  <div class="input-group-append">
-    <span class="input-group-text">千円</span>
-  </div>
-</div>
-<br>
-
-<%= f.label :exp_date_insurance %> <!-- 有効期限 -->
-<%= f.date_field :exp_date_insurance, style: "width: 25%;", class: "form-control" %>
 
 <script>
   $(function(){

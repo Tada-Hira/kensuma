@@ -17,7 +17,7 @@ class Business < ApplicationRecord
 
   before_create -> { self.uuid = SecureRandom.uuid }
 
-  enum business_type: { corporation: 0, freelance: 1, Individual_five_over: 2, Individual_five_less: 3 }
+  enum business_type: { corporation: 0, Individual_five_over: 1, Individual_five_less: 2, freelance: 3 }
   enum business_health_insurance_status: { join: 0, not_join: 1, not_coverd: 2 }, _prefix: true               # 健康保険(加入状況)
   enum business_welfare_pension_insurance_join_status: { join: 0, not_join: 1, not_coverd: 2 }, _prefix: true # 厚生年金保険(加入状況)
   enum business_employment_insurance_join_status: { join: 0, not_join: 1, not_coverd: 2 }, _prefix: true # 雇用保険(加入状況)
@@ -31,7 +31,7 @@ class Business < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true
   validates :branch_address, presence: true, unless: proc { |b| b.branch_name.blank? }
-  validates :name_kana, presence: true, format: { with: /\A[ァ-ヴー・]+\z/u, message: 'はカタカナで入力して下さい。' }
+  validates :name_kana, presence: true, format: { with: /\A[ァ-ヴー\s\u3000]*\z/, message: 'はカタカナで入力して下さい。' }
   validates :career_up_id, length: { maximum: 14, minimum: 14 }, allow_blank: true
   validates :representative_name, presence: true
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }

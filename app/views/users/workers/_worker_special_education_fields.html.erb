@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <%= f.label :special_education_id %>
-      <%= f.collection_select :special_education_id, SpecialEducation.all, :id, :name, { prompt: '特別教育を選択してください' }, { class: "form-control", id: "special_education-select" } %><br>
+      <%= f.collection_select :special_education_id, @sorted_special_educations, :id, :name, { prompt: '特別教育を選択してください' }, { class: "form-control" } %><br>
     </div>
     <div class="col-md-4">
       <%= f.label :images %>

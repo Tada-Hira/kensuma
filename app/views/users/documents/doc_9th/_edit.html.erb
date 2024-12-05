@@ -372,7 +372,7 @@
                 <tr style="height: 29px">
                   <td class="doc_9_s10" dir="ltr" colspan="7">施工場所</td>
                   <td class="doc_9_s11" dir="ltr" colspan="27">
-                    <%= document_site_info.site_name %> <!-- 9-008 施工場所(元請けの現場の住所）-->
+                    <%= document_site_info.site_address %> <!-- 9-008 施工場所(元請けの現場の住所）-->
                   </td>
                 </tr>
                 <tr style="height: 29px">
@@ -677,13 +677,13 @@
                   <td class="doc_9_s10" dir="ltr" colspan="9">責任者（連絡窓口）</td>
                   <td class="doc_9_s5" dir="ltr" colspan="2">役職</td>
                   <td class="doc_9_s32" dir="ltr" colspan="6">
-                    <%= worker_str(w1, "job_title") %> <!-- 9-024 責任者・役職 -->
+                    <%= document_subcon_info&.content&.[]("subcon_foreigners_employment_manager_job_title") %> <!-- 9-024 責任者・役職 -->
                   <td class="doc_9_s5" dir="ltr" colspan="2">氏名</td>
                   <td class="doc_9_s32" dir="ltr" colspan="6">
-                    <%= document_subcon_info&.content&.[]("foreigners_employment_manager") %> <!-- 9-025 責任者・氏名 -->
+                    <%= document_subcon_info&.content&.[]("subcon_foreigners_employment_manager") %> <!-- 9-025 責任者・氏名 -->
                   <td class="doc_9_s5" dir="ltr" colspan="2">連絡先</td>
                   <td class="doc_9_s43" dir="ltr" colspan="7">
-                    <%= phone_number_add_hyphen(worker_str(w1, "my_phone_number")) if w1.present? %> <!-- 9-026 責任者・連絡先(TEL) -->
+                    <%= document_subcon_info&.content&.[]("subcon_foreigners_employment_manager_my_phone_number") %> <!-- 9-026 責任者・連絡先(TEL) -->
                   </td>
                 </tr>
                 <tr style="height: 29px">

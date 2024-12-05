@@ -198,6 +198,17 @@ module Users
       redirect_to edit_users_worker_url(worker)
     end
 
+    def update_driver_licenses_cards
+      worker = current_business.workers.find_by(uuid: params[:worker_id])
+      remaining_images = worker.driver_licenses_cards
+      deleting_images = remaining_images.delete_at(params[:index].to_i)
+      deleting_images.try(:remove!)
+      worker.assign_attributes(driver_licenses_cards: remaining_images)
+      worker.save(validate: false)
+      flash[:danger] = '証明画像を削除しました'
+      redirect_to edit_users_worker_url(worker)
+    end
+
     private
 
     def set_worker
@@ -343,9 +354,10 @@ module Users
       end
 
       if params[:action] == 'update'
-        # 健康保険の写し、キャリアアップシステムの写しの追加/削除
+        # 健康保険の写し、キャリアアップシステム、運転免許証の写しの追加/削除　※運転免許証はworker_insuranceとの関連性特に無いが、同じく関連性無いキャリアアップの写しも下記の過去実装コードに追記されていた為、一時的に同じように追記する形で実装
+        # 下記の一連の画像の追加処理は、①画像の追加登録ができない問題、②ある条件の場合に不要な画像データが残ってしまう問題、を解決する為のコード
         insurance_attributes = converted_params[:worker_insurance_attributes]
-        %i[health_insurance_image career_up_images].each do |key|
+        %i[health_insurance_image career_up_images driver_licenses_cards].each do |key|
           case key
           when :health_insurance_image
             # 健康保険の写しの追加/削除
@@ -364,6 +376,13 @@ module Users
             elsif converted_params[:career_up_images]
               converted_params = converted_params.merge(key => @worker.career_up_images.push(converted_params[:career_up_images]).flatten)
             end
+          when :driver_licenses_cards
+            # 運転免許証の写しの追加/削除ー自動車運転免許証のチェックが無い場合はパラメータを空に、ある場合は値を追加する処理
+            if converted_params[:driver_licences].blank?
+              converted_params = converted_params.merge(key => [])
+            elsif converted_params[:driver_licenses_cards]
+              converted_params = converted_params.merge(key => @worker.driver_licenses_cards.push(converted_params[:driver_licenses_cards]).flatten)
+            end
           end
         end
 
@@ -376,83 +395,96 @@ module Users
         # 在留カードの写し追加処理
         converted_params = converted_params.merge('residence_cards' => @worker.residence_cards.push(converted_params[:residence_cards]).flatten) if converted_params[:residence_cards]
 
-        # 在留カードの写し追加処理
-        converted_params = converted_params.merge('residence_cards' => @worker.residence_cards.push(converted_params[:residence_cards]).flatten) if converted_params[:residence_cards]
-
         # 受入企業と外国人建設就労者等との間の雇用条件書の写し追加処理
         converted_params = converted_params.merge('employment_conditions' => @worker.employment_conditions.push(converted_params[:employment_conditions]).flatten) if converted_params[:employment_conditions]
 
-        # 技能講習修了証明書の写し追加処理
+        # 特別教育修了証明書の写し追加処理/修正中
         special_educations_attributes = converted_params[:worker_special_educations_attributes]
         if @worker.worker_special_educations.present?
           worker_special_educations_attributes = []
           special_educations_attributes.each do |special_educations_attribute|
             worker_special_education = @worker.worker_special_educations.find_by(special_education_id: special_educations_attribute[1]['special_education_id'].to_i)
             if worker_special_education
+              # 既存の画像がある場合はそれに追加して画像を更新
               if special_educations_attribute[1]['images']
-                worker_special_educations_attributes.push(special_educations_attribute[1].merge('images' => worker_special_education.images
-                                                                                                                                    .push(special_educations_attribute[1]['images'])
-                                                                                                                                    .flatten))
+                updated_images = worker_special_education.images + special_educations_attribute[1]['images']
+                worker_special_educations_attributes.push(special_educations_attribute[1].merge('images' => updated_images))
+              else
+                # 既存の画像がない場合は配列を入れ直して更新
+                worker_special_educations_attributes.push(special_educations_attribute[1].merge('images' => worker_special_education.images))
               end
             elsif special_educations_attribute[1]['images']
-              worker_special_educations_attributes.push(special_educations_attribute[1].merge('images' =>special_educations_attribute[1]['images']))
+              # 新しい画像のみを追加
+              worker_special_educations_attributes.push(special_educations_attribute[1])
             end
           end
-          converted_params = converted_params.merge('worker_special_educations_attributes'=> worker_special_educations_attributes)
+          converted_params = converted_params.merge('worker_special_educations_attributes' => worker_special_educations_attributes)
         end
 
-        # 特別教育修了証明書の写しの写し追加処理
+        # 技能講習修了証明書の写しの写し追加処理/修正中
         skill_trainings_attributes = converted_params[:worker_skill_trainings_attributes]
         if @worker.worker_skill_trainings.present?
           worker_skill_trainings_attributes = []
           skill_trainings_attributes.each do |skill_trainings_attribute|
             worker_skill_training = @worker.worker_skill_trainings.find_by(skill_training_id: skill_trainings_attribute[1]['skill_training_id'].to_i)
             if worker_skill_training
+              # 既存の画像がある場合はそれに追加して画像を更新
               if skill_trainings_attribute[1]['images']
-                worker_skill_trainings_attributes.push(skill_trainings_attribute[1].merge('images' => worker_skill_training.images
-                                                                                                                          .push(skill_trainings_attribute[1]['images'])
-                                                                                                                          .flatten))
+                updated_images = worker_skill_training.images + skill_trainings_attribute[1]['images']
+                worker_skill_trainings_attributes.push(skill_trainings_attribute[1].merge('images' => updated_images))
+              else
+                # 既存の画像がない場合は配列を入れ直して更新
+                worker_skill_trainings_attributes.push(skill_trainings_attribute[1].merge('images' => worker_skill_training.images))
               end
             elsif skill_trainings_attribute[1]['images']
-              worker_skill_trainings_attributes.push(skill_trainings_attribute[1].merge('images' => skill_trainings_attribute[1]['images']))
+              # 新しい画像のみを追加
+              worker_skill_trainings_attributes.push(skill_trainings_attribute[1])
             end
           end
           converted_params = converted_params.merge('worker_skill_trainings_attributes' => worker_skill_trainings_attributes)
         end
 
-        # 技能検定合格証明書の写し追加処理
+        # 技能検定合格証明書の写し追加処理/修正中
         licenses_attributes = converted_params[:worker_licenses_attributes]
         if @worker.worker_licenses.present?
           worker_licenses_attributes = []
           licenses_attributes.each do |licenses_attribute|
-            worker_licenses = @worker.worker_licenses.find_by(license_id: licenses_attribute[1]['license_id'].to_i)
-            if worker_licenses
+            worker_license = @worker.worker_licenses.find_by(license_id: licenses_attribute[1]['license_id'].to_i)
+            if worker_license
+              # 既存の画像がある場合はそれに追加して画像を更新
               if licenses_attribute[1]['images']
-                worker_licenses_attributes.push(licenses_attribute[1].merge('images' => worker_licenses.images
-                                                                                                      .push(licenses_attribute[1]['images'])
-                                                                                                      .flatten))
+                updated_images = worker_license.images + licenses_attribute[1]['images']
+                worker_licenses_attributes.push(licenses_attribute[1].merge('images' => updated_images))
+              else
+                # 既存の画像がない場合は配列を入れ直して更新
+                worker_licenses_attributes.push(licenses_attribute[1].merge('images' => worker_license.images))
               end
             elsif licenses_attribute[1]['images']
-              worker_licenses_attributes.push(licenses_attribute[1].merge('images' => licenses_attribute[1]['images']))
+              # 新しい画像のみを追加
+              worker_licenses_attributes.push(licenses_attribute[1])
             end
           end
           converted_params = converted_params.merge('worker_licenses_attributes' => worker_licenses_attributes)
         end
 
-        # 安全衛生教育修了証明書写し追加処理
+        # 安全衛生教育修了証明書写し追加処理/修正中
         safety_health_educations_attributes = converted_params[:worker_safety_health_educations_attributes]
         if @worker.worker_safety_health_educations.present?
           worker_safety_health_educations_attributes = []
           safety_health_educations_attributes.each do |safety_health_educations_attribute|
             worker_safety_health_education = @worker.worker_safety_health_educations.find_by(safety_health_education_id: safety_health_educations_attribute[1]['safety_health_education_id'].to_i)
             if worker_safety_health_education
+              # 既存の画像がある場合はそれに追加して画像を更新
               if safety_health_educations_attribute[1]['images']
-                worker_safety_health_educations_attributes.push(safety_health_educations_attribute[1].merge('images' => worker_safety_health_education.images
-                                                                                                                                                      .push(safety_health_educations_attribute[1]['images'])
-                                                                                                                                                      .flatten))
+                updated_images = worker_safety_health_education.images + safety_health_educations_attribute[1]['images']
+                worker_safety_health_educations_attributes.push(safety_health_educations_attribute[1].merge('images' => updated_images))
+              else
+                # 既存の画像がない場合は配列を入れ直して更新
+                worker_safety_health_educations_attributes.push(safety_health_educations_attribute[1].merge('images' => worker_safety_health_education.images))
               end
             elsif safety_health_educations_attribute[1]['images']
-              worker_safety_health_educations_attributes.push(safety_health_educations_attribute[1].merge('images' => safety_health_educations_attribute[1]['images']))
+              # 新しい画像のみを追加
+              worker_safety_health_educations_attributes.push(safety_health_educations_attribute[1])
             end
           end
           converted_params = converted_params.merge('worker_safety_health_educations_attributes' => worker_safety_health_educations_attributes)
@@ -528,7 +560,7 @@ module Users
     def worker_params
       params.require(:worker).permit(:name, :name_kana,
         :country, :my_address, :my_phone_number, :family_address, :post_code, { career_up_images: [] },
-        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] },
+        :family_phone_number, :birth_day_on, :abo_blood_type, { employee_cards: [] }, { driver_licences: [] }, { driver_licenses_cards: [] },
         :rh_blood_type, :job_title, :hiring_on, :experience_term_before_hiring, :driver_licence_number, :business_owner_or_master,
         :blank_term, :career_up_id, :employment_contract, :family_name, :relationship, :email, :sex, :seal,
         :status_of_residence, :maturity_date, :confirmed_check, :confirmed_check_date,

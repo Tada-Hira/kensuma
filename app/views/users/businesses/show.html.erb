@@ -70,15 +70,6 @@
           <td></td>
         </tr>
         <tr>
-          <th>&emsp;&emsp;<%= Business.human_attribute_name(:stamp_images) %></th>
-          <td class="stamp-images-input">
-            <% @business.stamp_images.each do |image| %>
-              <%= image_tag(image.url) %>
-            <% end %>
-          </td>
-          <td></td>
-        </tr>
-        <tr>
           <th>&emsp;&emsp;<%= Business.human_attribute_name(:industry_ids) %></th>
           <td><%= Industry.where(id: @business.tem_industry_ids).pluck(:name).join(', ') %></td>
           <td></td>

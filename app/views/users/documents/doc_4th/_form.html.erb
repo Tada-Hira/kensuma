@@ -279,7 +279,7 @@
               <td colspan="2" width="8%">資格内容</td>
               <td>
                 <% if document_site_info.supervising_engineer_qualification.present? %>
-                  <%= SkillTraining.find_by(id: document_site_info.supervising_engineer_qualification)&.name %> <!-- 4-038 監理技術者･主任技術者名の必要資格 -->
+                  <%= License.find_by(id: document_site_info.supervising_engineer_qualification)&.name %> <!-- 4-038 監理技術者･主任技術者名の必要資格 -->
                 <% end %>
               </td>
             </tr>
@@ -291,7 +291,7 @@
               <td colspan="2" width="8%">資格内容</td>
               <td>
                 <% if document_site_info.supervising_engineer_assistant_qualification.present? %>
-                  <%= SkillTraining.find_by(id: document_site_info.supervising_engineer_assistant_qualification)&.name %> <!-- 4-040 監督技術者補佐の必要資格 -->
+                  <%= License.find_by(id: document_site_info.supervising_engineer_assistant_qualification)&.name %> <!-- 4-040 監督技術者補佐の必要資格 -->
                 <% end %>
               </td>
             </tr>
@@ -310,14 +310,14 @@
               <td width="8%">資格内容</td>
               <td colspan="2">
                 <% if document_site_info.professional_engineer_qualification_1st.present? %>
-                  <%= SkillTraining.find_by(id: document_site_info.professional_engineer_qualification_1st)&.name %> <!-- 4-042 元請会社の専門技術者の必要資格 -->
+                  <%= License.find_by(id: document_site_info.professional_engineer_qualification_1st)&.name %> <!-- 4-042 元請会社の専門技術者の必要資格 -->
                 <% end %>
               </td>
               <td rowspan="2" width="2%"></td>
               <td>資格内容</td>
               <td>
                 <% if document_site_info.professional_engineer_qualification_2nd.present? %>
-                  <%= SkillTraining.find_by(id: document_site_info.professional_engineer_qualification_2nd)&.name %> <!-- 4-045 元請会社の専門技術者の必要資格 -->
+                  <%= License.find_by(id: document_site_info.professional_engineer_qualification_2nd)&.name %> <!-- 4-045 元請会社の専門技術者の必要資格 -->
                 <% end %>
               </td>
             </tr>
@@ -538,7 +538,7 @@
             <tr>
               <td>至</td>
               <td>
-                <%= wareki(document_date(document_subcon_info.start_date)) %> <!-- 4-110 各下請会社の工期(至) -->
+                <%= wareki(document_date(document_subcon_info.end_date)) %> <!-- 4-110 各下請会社の工期(至) -->
               </td>
             </tr>
           </tbody>
@@ -675,9 +675,11 @@
             <tr>
               <td width="1%"></td>
               <td width="14%">資 格 内 容</td>
-              <td colspan="2">
-                <% if document_subcon_info.lead_engineer_qualification.present? %>
-                  <%= SkillTraining.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格 -->
+              <td class="doc_4_s1" colspan="2">
+                <% if document_subcon_info.lead_engineer_work_experience.present? %>
+                  <%= document_subcon_info.lead_engineer_work_experience_i18n %> <!-- 4-126 主任技術者の必要資格又は実務経験 -->
+                <% else %>
+                  <%= License.find_by(id: document_subcon_info.lead_engineer_qualification)&.name %> <!-- 4-126 主任技術者の必要資格又は実務経験 -->
                 <% end %>
               </td>
               <td colspan="2">※専 門 技 術 者 名</td>
@@ -698,14 +700,14 @@
               <td>資 格 内 容</td>
               <td>
                 <% if document_subcon_info.professional_engineer_qualification.present? %>
-                  <%= SkillTraining.find_by(id: document_subcon_info.professional_engineer_qualification)&.name %> <!-- 4-131 専門技術者の必要資格 -->
+                  <%= License.find_by(id: document_subcon_info.professional_engineer_qualification)&.name %> <!-- 4-131 専門技術者の必要資格 -->
                 <% end %>
               </td>
             </tr>
             <tr>
               <td colspan="2">
                 <% if document_subcon_info.registered_core_engineer_qualification.present? %>
-                  <%= SkillTraining.find_by(id: document_subcon_info.registered_core_engineer_qualification)&.name %> <!-- 4-134 下請会社の登録基幹技能者の必要資格 -->
+                  <%= License.find_by(id: document_subcon_info.registered_core_engineer_qualification)&.name %> <!-- 4-134 下請会社の登録基幹技能者の必要資格 -->
                 <% end %>
               </td>
               <td>担当工事内容</td>

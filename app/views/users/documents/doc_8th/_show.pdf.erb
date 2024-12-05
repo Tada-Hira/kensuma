@@ -691,7 +691,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w1, "hiring_on")) %> <!-- 8-017 雇用年月日(1) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w1, "birth_day_on")) %> <!-- 8-019 生年月日(1) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -809,7 +809,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w2, "hiring_on")) %> <!-- 8-017 雇用年月日(2) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w2, "birth_day_on")) %> <!-- 8-019 生年月日(2) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -926,7 +926,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w3, "hiring_on")) %> <!-- 8-017 雇用年月日(3) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w3, "birth_day_on")) %> <!-- 8-019 生年月日(3) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1043,7 +1043,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w4, "hiring_on")) %> <!-- 8-017 雇用年月日(4) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w4, "birth_day_on")) %> <!-- 8-019 生年月日(4) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1160,7 +1160,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w5, "hiring_on")) %> <!-- 8-017 雇用年月日(5) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w5, "birth_day_on")) %> <!-- 8-019 生年月日(5) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1277,7 +1277,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w6, "hiring_on")) %> <!-- 8-017 雇用年月日(6) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w6, "birth_day_on")) %> <!-- 8-019 生年月日(6) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1394,7 +1394,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w7, "hiring_on")) %> <!-- 8-017 雇用年月日(7) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w7, "birth_day_on")) %> <!-- 8-019 生年月日(7) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1511,7 +1511,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w8, "hiring_on")) %> <!-- 8-017 雇用年月日(8) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w8, "birth_day_on")) %> <!-- 8-019 生年月日(8) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1628,7 +1628,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w9, "hiring_on")) %> <!-- 8-017 雇用年月日(9) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w9, "birth_day_on")) %> <!-- 8-019 生年月日(9) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -1745,7 +1745,7 @@
 					<td class="s58" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w10, "hiring_on")) %> <!-- 8-017 雇用年月日(10) -->
 					</td>
-					<td class="s58" colspan="4" rowspan="3">
+					<td class="s58_2" colspan="4" rowspan="3">
 						<%= wareki(worker_str(w10, "birth_day_on")) %> <!-- 8-019 生年月日(10) -->
 					</td>
 					<td class="s56" colspan="9" rowspan="3">
@@ -3024,6 +3024,20 @@
 		text-align: center;
 		color: #000000;
 		font-size: 8pt;
+		vertical-align: middle;
+		white-space: normal;
+		overflow: hidden;
+		word-wrap: break-word;
+		direction: ltr;
+		padding: 0px 3px 0px 3px;
+	}
+
+	.ritz .waffle .s58_2 {
+		border-bottom: 1px DASHED #000000;
+		border-right: 1px SOLID #000000;
+		text-align: center;
+		color: #000000;
+		font-size: 10pt;
 		vertical-align: middle;
 		white-space: normal;
 		overflow: hidden;

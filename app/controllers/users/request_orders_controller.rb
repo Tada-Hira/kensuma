@@ -21,9 +21,9 @@ module Users
     end
 
     def new
-      @professional_engineer_qualification = SkillTraining.all.order(:id)
-      @lead_engineer_qualification = SkillTraining.all.order(:id)
-      @registered_core_engineer_qualification = SkillTraining.all.order(:id)
+      @professional_engineer_qualification = License.all.order(:id)
+      @lead_engineer_qualification = License.all.order(:id)
+      @registered_core_engineer_qualification = License.all.order(:id)
     end
 
     def edit
@@ -56,49 +56,49 @@ module Users
         end
       end
       # =============================================
-    
-      # request_orderの技術者名から作業員テーブルのレコードを特定する
+
+      # request_orderの専門技術者から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @request_order.professional_engineer_name, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能検定マスターの中間テーブル(workerlicense)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license_id
       end
       if worker.nil?
-        @professional_engineer_qualification = SkillTraining.all.order(:id)
+        @professional_engineer_qualification = License.all.order(:id)
       else
-        @professional_engineer_qualification = SkillTraining.where("id IN (?)", array)
+        @professional_engineer_qualification = License.where("id IN (?)", array)
       end
-    
-      # request_orderの主任技術者名から作業員テーブルのレコードを特定する
+
+      # request_orderの主任技術者から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @request_order.lead_engineer_name, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能検定マスターの中間テーブル(workerlicense)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license_id
       end
       if worker.nil?
-        @lead_engineer_qualification = SkillTraining.all.order(:id)
+        @lead_engineer_qualification = License.all.order(:id)
       else
-        @lead_engineer_qualification = SkillTraining.where("id IN (?)", array)
+        @lead_engineer_qualification = License.where("id IN (?)", array)
       end
-    
-      # requestorderの登録基幹技能者名から作業員テーブルのレコードを特定する
+
+      # request_orderの登録基幹技能者から作業員テーブルのレコードを特定する
       worker = Worker.find_by(name: @request_order.registered_core_engineer_name, business_id: current_business.id)
-      # 作業員のidで作業員と技能講習マスターの中間テーブルを特定する
-      worker_skill_training = WorkerSkillTraining.where(worker_id: worker&.id)
+      # 作業員のidで作業員と技能検定マスターの中間テーブル(workerlicense)を特定する
+      worker_license = WorkerLicense.where(worker_id: worker&.id)
       array = []
-      worker_skill_training.each do |record|
-        array << record.skill_training_id
+      worker_license.each do |record|
+        array << record.license_id
       end
       if worker.nil?
-        @registered_core_engineer_qualification = SkillTraining.all.order(:id)
+        @registered_core_engineer_qualification = License.all.order(:id)
       else
-        @registered_core_engineer_qualification = SkillTraining.where("id IN (?)", array)
+        @registered_core_engineer_qualification = License.where("id IN (?)", array)
       end
-    
+
     end
 
     def update
@@ -161,10 +161,10 @@ module Users
     end
 
     # 専門技術者
-    def professional_engineer_skill_training_options
+    def professional_engineer_license_options
       professional_engineer_name = params[:professional_engineer_name]
       worker = Worker.find_by(name: professional_engineer_name)
-      options = worker&.skill_trainings
+      options = worker&.licenses
       render json: options
     end
 
@@ -177,10 +177,10 @@ module Users
     end
 
     # 主任技術者
-    def lead_engineer_skill_training_options
+    def lead_engineer_license_options
       lead_engineer_name = params[:lead_engineer_name]
       worker = Worker.find_by(name: lead_engineer_name)
-      options = worker&.skill_trainings
+      options = worker&.licenses
       render json: options
     end
 
@@ -449,6 +449,7 @@ module Users
         :lead_engineer_name,
         :lead_engineer_check,
         :lead_engineer_qualification,
+        :lead_engineer_work_experience,
         :work_chief_name,
         :work_conductor_name,
         :safety_officer_name,
@@ -506,7 +507,9 @@ module Users
           subcon_lead_engineer_name_id:                                           @business_workers_name_id.find_by(name: params[:request_order][:lead_engineer_name])&.id, # 記号 (主)主任技術者に使用
           subcon_foreman_name_id:                                                 @business_workers_name_id.find_by(name: params[:request_order][:foreman_name])&.id,       # 記号 (職)職長に使用
           subcon_safety_manager_name_id:                                          @business_workers_name_id.find_by(name: params[:request_order][:safety_manager_name])&.id, # 記号 (安)安全衛生責任者に使用
-          subcon_foreigners_employment_manager:                                   current_business.foreigners_employment_manager # 外国人雇用管理責任者名
+          subcon_foreigners_employment_manager:                                   current_business.foreigners_employment_manager, # 外国人雇用管理責任者名
+          subcon_foreigners_employment_manager_job_title:                         current_business.foreigners_employment_manager_job_title, # 外国人雇用管理責任者役職
+          subcon_foreigners_employment_manager_my_phone_number:                   current_business.foreigners_employment_manager_my_phone_number # 外国人雇用管理責任者電話番号
         }
       )
     end

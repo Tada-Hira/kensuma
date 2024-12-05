@@ -95,7 +95,7 @@ module Users
       json =
         JSON.parse(
           worker.to_json(
-            except:  %i[uuid images created_at updated_at], # 作業員情報
+            except:  %i[uuid created_at updated_at], # 作業員情報
             include: {
               worker_medical:                  {
                 except: %i[id worker_id created_at updated_at] # 作業員の健康情報
@@ -104,16 +104,16 @@ module Users
                 except: %i[id worker_id created_at updated_at] # 保険情報
               },
               worker_skill_trainings:          {
-                only: [:skill_training_id] # 中間テーブル(技能講習マスタ)
+                only: %i[skill_training_id images] # 中間テーブル(技能講習マスタ)
               },
               worker_special_educations:       {
-                only: [:special_education_id] # 中間テーブル(特別教育マスタ)
+                only: %i[special_education_id images] # 中間テーブル(特別教育マスタ)
               },
               worker_safety_health_educations: {
-                only: [:safety_health_education_id] # 中間テーブル(安全教育マスタ)
+                only: %i[safety_health_education_id images] # 中間テーブル(安全教育マスタ)
               },
               worker_licenses:                 {
-                only: [:license_id] # 中間テーブル(免許マスタ)
+                only: %i[license_id images] # 中間テーブル(免許マスタ)
               }
             }
           )

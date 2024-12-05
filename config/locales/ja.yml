@@ -624,8 +624,8 @@ ja:
         lease: リース
     field_worker:
       sendoff_education: # 送り出し教育受講
-        educated: 受けた
-        not_educated: 受けていない
+        educated: 受講済
+        not_educated: 未受講
     news:
       status:
         draft: 下書き
@@ -649,6 +649,11 @@ ja:
       lead_engineer_check:
         full_time: 専任
         non_dedicated: 非専任
+      lead_engineer_work_experience:
+        five_years_or_more_after_high_school: 高等学校の指定学科（※）卒業後５年以上の実務経験
+        three_years_or_more_after_technical_college: 高等専門学校の指定学科卒業後３年以上の実務経験
+        three_years_or_more_after_university: 大学の指定学科卒業後３年以上の実務経験
+        ten_or_more_years: １０年以上の実務経験
     worker:
       abo_blood_type:
         a: A型
@@ -686,6 +691,7 @@ ja:
         welfare: 厚生年金
         national: 国民年金
         recipient: 受給者
+        not_applicable: 対象外
       employment_insurance_type:
         insured: 被保険者
         day: 日雇保険

@@ -561,14 +561,22 @@
             <td></td>
           </tr>
         <% end %>
+        <%# 自動車運転免許証の写し %>
+        <% if @worker.driver_licences.present? %>
+          <tr>
+            <th>&emsp;&emsp;<%= Worker.human_attribute_name(:driver_licenses_cards) %></th>
+            <td>
+              <% if @worker.driver_licenses_cards.present? %>
+                <% @worker.driver_licenses_cards.each do |image| %>
+                  <%= image_tag(image.url) %>
+                <% end %>
+              <% end %>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
 
-        <%# 認印 %>
-        <tr>
-          <th>&emsp;&emsp;<%= Worker.human_attribute_name(:seal) %></th>
-          <td><%= image_tag(@worker.seal.url) if @worker.seal.present? %></td>
-          <td></td>
-          <td></td>
-        </tr>
         <!-- 資格情報ここまで -->
 
 

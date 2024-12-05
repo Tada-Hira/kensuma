@@ -4,7 +4,7 @@ module DocumentsHelper
   def document_date(column)
     l(column, format: :long) unless column.nil?
   end
-  
+
   # document.contentの日付
   def doc_content_date(date)
     if action_name == 'edit'
@@ -34,8 +34,8 @@ module DocumentsHelper
       @subcon
     end
   end
-  
-  
+
+
   # 一次下請の情報 (工事安全衛生計画書用)
   def document_subcon_info_for_10th_11th_19th
     request_order = RequestOrder.find_by(uuid: params[:request_order_uuid])
@@ -131,11 +131,7 @@ module DocumentsHelper
 
   # (5)再下請負通知書（変更届）
   def skill_info(license, model)
-    if license == "registered_core_engineer_qualification"
       License.find_by(id: model&.send(license))&.name
-    else
-      SkillTraining.find_by(id: model&.send(license))&.name
-    end
   end
 
   def child_check(child)
@@ -251,7 +247,7 @@ module DocumentsHelper
 
   # 作業員の文字情報
   def worker_str(worker, column)
-    worker&.content&.[](column)
+    worker&.content&.[](column) || ""
   end
 
   # 作業員の性別を日本語に変換
@@ -356,13 +352,15 @@ module DocumentsHelper
     'national'                               => '国民年金',
     'recipient'                              => '受給者',
     'insured'                                => '被保険者',
-    'day'                                    => '日雇保険'
+    'day'                                    => '日雇保険',
+    'not_applicable'                         => '対象外',
+    'not_health_insurance'                   => '未加入'
   }.freeze
 
   def worker_insurance(worker, column)
     insurance = worker&.content&.[]('worker_insurance')&.[](column)
     insurance unless insurance.nil?
-    INSURANCE[insurance]
+    INSURANCE[insurance] || ''
   end
 
   # 作業員の特別健康診断の種類
@@ -383,27 +381,33 @@ module DocumentsHelper
   # 作業員の特別教育情報
   def worker_special_education(worker)
     educations = worker&.content&.[]('worker_special_educations')
-    unless educations.nil?
-      educations = educations.map { |education| SpecialEducation.find(education['special_education_id']).name }
-      educations.to_s.gsub(/,|"|\[|\]/) { '' }
+    if educations.nil? || educations.empty?
+      ''
+    else
+      educations.map { |education| SpecialEducation.find(education['special_education_id']).name }
+                .join(', ')
     end
   end
 
   # 作業員の技能講習情報
   def worker_skill_training(worker)
     trainings = worker&.content&.[]('worker_skill_trainings')
-    unless trainings.nil?
-      trainings = trainings.map { |training| SkillTraining.find(training['skill_training_id']).short_name }
-      trainings.to_s.gsub(/,|"|\[|\]/) { '' }
+    if trainings.nil? || trainings.empty?
+      ''
+    else
+      trainings.map { |training| SkillTraining.find(training['skill_training_id']).short_name }
+               .join(', ')
     end
   end
 
-  # 作業員の免許情報
+  # 作業員の技能検定情報
   def worker_license(worker)
     licenses = worker&.content&.[]('worker_licenses')
-    unless licenses.nil?
-      licenses = licenses.map { |license| License.find(license['license_id']).name }
-      licenses.to_s.gsub(/,|"|\[|\]/) { '' }
+    if licenses.nil? || licenses.empty?
+      ''
+    else
+      licenses.map { |license| License.find(license['license_id']).name }
+              .join(', ')
     end
   end
 
@@ -466,6 +470,35 @@ module DocumentsHelper
 
       worker_symbols = site_agent, work_chief, under_18, sex, lead_engineer, foreman, safety_manager, ability_improving_education, danger_harmful_business, skill_practice, construction_employment, specified_skill
       worker_symbols.size > 1 ? worker_symbols.join(' ') : worker_symbols
+    end
+  end
+
+  # 作業員の記号(prawnのPDF表示用)
+  def field_worker_symbol_pdf(worker)
+    if worker.present?
+      id = worker&.content&.[]('id')
+      birth_day_on = worker&.content&.[]('birth_day_on')
+      safety_health_education = worker&.content&.[]('worker_safety_health_educations').to_json
+      foreigner = worker&.content&.[]('status_of_residence')
+
+      site_agent = "現" if id == @document_info.content&.[]('subcon_site_agent_name_id') # (現)現場代理人
+      work_chief = "作" if id == @document_info.content&.[]('subcon_work_chief_name_id') # (作)作業主任者
+      if birth_day_on .present?
+        under_18 = "未" if ((Date.today - birth_day_on.to_date) / 365.25).to_i < 18 # (未)18歳未満の作業員
+      end
+      sex = "女" if worker&.content&.[]('sex') == "woman" # 女
+      lead_engineer = "主" if id == @document_info.content&.[]('subcon_lead_engineer_name_id') # (主)主任技術者
+      foreman = "職" if id == @document_info.content&.[]('subcon_foreman_name_id') # (主)主任技術者
+      safety_manager = "安" if id == @document_info.content&.[]('subcon_safety_manager_name_id') # (安)安全衛生責任者
+      ability_improving_education = "歳" if safety_health_education.include?("19") # (歳)能力向上教育
+      danger_harmful_business = "再" if safety_health_education.include?("6") # (再)危険有害業務・再発防止教育
+      skill_practice = "習" if foreigner == "skill_practice" # (習)外国人技能実習生
+      construction_employment = "就" if foreigner == "construction_employment" # (就)外国人建設就労者
+      specified_skill = "1特" if foreigner == "specified_skill" # (1特)1号特定技能外国人
+
+      # worker_symbols = [site_agent, work_chief, under_18, sex, lead_engineer, foreman, safety_manager, ability_improving_education, danger_harmful_business, skill_practice, construction_employment, specified_skill].compact
+      worker_symbols = [site_agent, work_chief, under_18, sex, lead_engineer, foreman, safety_manager, ability_improving_education, danger_harmful_business, skill_practice, construction_employment, specified_skill].compact
+      worker_symbols.any? ? worker_symbols.join(' ') : ''
     end
   end
 
@@ -1194,7 +1227,8 @@ module DocumentsHelper
            小型車両系建設機械（解体用）（3t未満） 不整地運搬車（1t未満） 高所作業車(10m未満）
            ボーリングマシン フォークリフト（1t未満） ショベルローダー（1t未満） 巻上げ機 建設用リフト
            玉掛け（1t未満） ゴンドラ アーク溶接 研削砥石 低圧電気取扱 低圧電気取扱（開閉器の操作） 高圧電気取扱
-           特別高圧電気取扱 足場の組立て ロープ高所作業 フルハーネス型の墜落制止用器具]
+           特別高圧電気取扱 足場の組立て ロープ高所作業 フルハーネス型の墜落制止用器具 ロングエレベーター
+           石綿取扱い作業従事者特別教育講師]
       educations.delete_if do |e_work|
         no_education.include?(e_work)
       end
@@ -1612,13 +1646,13 @@ module DocumentsHelper
     end
   end
 
-  #doc_9
+  #doc_5及びdoc_9
   # 自身の一つ上階層の会社情報&現場情報取得
   def get_myself_and_myparent_site
     request_order = RequestOrder.find_by(uuid: params[:request_order_uuid])
     if request_order.prime_contractor?
-      @parent_request_order = nil
-      @parent_business = nil
+      @parent_request_order = request_order # 元請けの場合は元請け(自分自身)を設定
+      @parent_business = request_order.business # 元請けの場合は元請け(自分自身)のビジネスを設定
     else
       @parent_request_order = request_order.parent
       @parent_business = @parent_request_order.business
